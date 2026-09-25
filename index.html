@@ -33,23 +33,23 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spac
 <h1>CREATE<br>YOUR BLEND</h1><div class="jp">あなたを少しずつ、コーヒーにする。</div><div class="rule"></div>
 <div class="lede">味だけじゃなく、好きな色、フルーツ、時間、誰と飲みたいか。<br>いくつかの小さな選択から、世界にひとつのブレンドをつくります。</div>
 <div class="hero"><div class="hero-art"><div class="bag"><div class="sticker"><div class="mini">MYOKO COFFEE</div><b>ONE OF ONE</b><div class="mountain"></div><div class="mini">YOUR TASTE · YOUR STORY<br><br>CREATED IN MYOKO</div></div></div></div></div>
-<button class="primary" onclick="startQuestions()">START →</button><div class="subnote">9 QUESTIONS · 約1分</div>
+<button class="primary" onclick="startQuestions()">START →</button><div class="subnote">12 QUESTIONS · 約1〜2分</div>
 </section>
 
 <section class="screen" id="s1">
-<div class="progressWrap"><div class="progressMeta"><span id="qStep">QUESTION 01</span><span id="qCount">1 / 9</span></div><div class="progressLine"><div class="progressFill" id="qProgress"></div></div></div>
+<div class="progressWrap"><div class="progressMeta"><span id="qStep">QUESTION 01</span><span id="qCount">1 / 12</span></div><div class="progressLine"><div class="progressFill" id="qProgress"></div></div></div>
 <div class="questionCard"><div class="qnum" id="qKicker">FIRST FEELING</div><div class="qtitle" id="qTitle"></div><div class="qsub" id="qSub"></div><div class="options" id="qOptions"></div></div>
 <div class="qnav"><button class="secondary" onclick="questionBack()">← BACK</button><button class="primary" id="qNext" onclick="questionNext()">NEXT →</button></div>
 </section>
 
 <section class="screen" id="s2">
-<h2>YOUR PROFILE</h2><div class="jp">あなたのコーヒー像が見えてきました</div>
+<h2>YOUR PROFILE</h2><div class="jp">12の選択から、あなたのコーヒー像が見えてきました</div>
 <div class="reveal"><div class="profileCard"><div class="kicker">COFFEE PERSONALITY</div><div class="profileTitle" id="profileTitle"></div><div class="profileText" id="profileText"></div><div class="profileTags" id="profileTags"></div><div class="answerRibbon" id="answerRibbon"></div></div></div>
 <button class="primary" onclick="buildBlend()">BLEND MY COFFEE →</button>
 </section>
 
 <section class="screen" id="s3">
-<h2>YOUR BLEND</h2><div class="jp">この配合からはじめましょう</div><div class="lede">9つの選択から、豆のキャラクターを重ねました。配合は±5%で調整できます。</div>
+<h2>YOUR BLEND</h2><div class="jp">ここで初めて、豆を選びます</div><div class="lede">12の回答をすべて反映して、1〜4種類の豆を提案します。シンプルさを選んだ人には少ない豆、複雑さを選んだ人には多層的なブレンドを。</div>
 <div class="card"><div class="cardtop"><div><h3>MY BLEND</h3><div class="cardno" id="blendNo">#018</div></div><div class="why" id="why"></div></div><div class="profileTags" id="blendTags"></div><div id="blendRows"></div><div class="barista" id="barista"></div></div>
 <button class="primary" onclick="buildLabelStep()">MAKE MY LABEL →</button>
 </section>
@@ -80,23 +80,31 @@ var beans=[
 ];
 
 var questions=[
-{id:'taste',k:'FIRST FEELING',title:'まず、どんな味に惹かれる？',sub:'考えすぎず、最初の直感で。',options:[
-{v:'fruity',l:'FRUITY',s:'華やか・果実感',i:'✦',fx:{fruity:5,clean:1}},
-{v:'sweet',l:'SWEET',s:'やさしい甘さ',i:'◆',fx:{sweet:5,balanced:1}},
-{v:'nutty',l:'NUTTY',s:'香ばしい・ナッツ',i:'◉',fx:{nutty:5,deep:1}},
-{v:'deep',l:'DEEP',s:'どっしり・深い',i:'●',fx:{deep:5,nutty:1}},
-{v:'clean',l:'CLEAN',s:'すっきり・透明感',i:'△',fx:{clean:5,fruity:1}},
-{v:'balanced',l:'BALANCED',s:'丸くて整った',i:'◎',fx:{balanced:5,sweet:1}}
+{id:'acidity',k:'ACIDITY',title:'酸味は好き？',sub:'ここはかなり大事。コーヒーの明るさを決めます。',options:[
+{v:'love',l:'LOVE IT',s:'果実のような酸味が好き',i:'✦',fx:{fruity:6,clean:4,deep:-2}},
+{v:'little',l:'A LITTLE',s:'少しなら好き',i:'◒',fx:{fruity:3,clean:2,balanced:2}},
+{v:'neutral',l:'NEUTRAL',s:'どちらでもない',i:'○',fx:{balanced:4}},
+{v:'dislike',l:'NO ACIDITY',s:'酸味はできるだけ少なく',i:'—',fx:{deep:5,nutty:4,sweet:3,fruity:-4,clean:-2}}
 ]},
-{id:'fruit',k:'TASTE MEMORY',title:'好きなフルーツは？',sub:'味の記憶から、香りの方向を探します。',options:[
-{v:'berry',l:'BERRY',s:'いちご・ベリー',i:'●',fx:{fruity:4,sweet:2}},
-{v:'citrus',l:'CITRUS',s:'レモン・柑橘',i:'◒',fx:{clean:4,fruity:3}},
-{v:'apple',l:'APPLE',s:'りんご・洋梨',i:'○',fx:{clean:3,balanced:3,fruity:2}},
-{v:'tropical',l:'TROPICAL',s:'マンゴー・南国系',i:'✹',fx:{fruity:4,sweet:3}},
-{v:'grape',l:'GRAPE',s:'ぶどう・赤い果実',i:'••',fx:{fruity:3,sweet:2,deep:1}},
-{v:'none',l:'NOT REALLY',s:'フルーツは特に',i:'—',fx:{balanced:3,nutty:1}}
+{id:'bitterness',k:'BITTERNESS',title:'苦味はどのくらい好き？',sub:'深煎りの力強さをどこまで入れるか。',options:[
+{v:'low',l:'LOW',s:'苦味は少なめ',i:'△',fx:{clean:4,fruity:2,deep:-2}},
+{v:'medium',l:'MEDIUM',s:'ほどよく欲しい',i:'◎',fx:{balanced:4,deep:2}},
+{v:'high',l:'HIGH',s:'しっかり苦い方が好き',i:'●',fx:{deep:6,nutty:3}},
+{v:'roasty',l:'ROASTY',s:'香ばしさまで欲しい',i:'◉',fx:{deep:5,nutty:5}}
 ]},
-{id:'color',k:'COLOR',title:'好きな色は？',sub:'ラベルは白黒。でも色の印象は味に残します。',options:[
+{id:'sweetness',k:'SWEETNESS',title:'甘さは欲しい？',sub:'砂糖ではなく、豆が持つ自然な甘さのこと。',options:[
+{v:'dry',l:'DRY',s:'甘さよりキレ',i:'△',fx:{clean:4,fruity:2,sweet:-2}},
+{v:'soft',l:'SOFT SWEET',s:'ほんのり甘い',i:'◇',fx:{sweet:3,balanced:3}},
+{v:'sweet',l:'SWEET',s:'甘い余韻が好き',i:'◆',fx:{sweet:6,balanced:2}},
+{v:'choco',l:'CHOCOLATE',s:'チョコのような甘さ',i:'■',fx:{sweet:5,deep:3,nutty:2}}
+]},
+{id:'body',k:'BODY',title:'口あたりは？',sub:'軽く抜けるか、しっかり残るか。',options:[
+{v:'light',l:'LIGHT',s:'軽やか・さらっと',i:'△',fx:{clean:5,fruity:3,deep:-2}},
+{v:'medium',l:'MEDIUM',s:'ちょうど真ん中',i:'◎',fx:{balanced:5}},
+{v:'rich',l:'RICH',s:'コクが欲しい',i:'●',fx:{deep:5,sweet:2}},
+{v:'creamy',l:'CREAMY',s:'なめらか・丸い',i:'◍',fx:{sweet:4,nutty:3,balanced:2}}
+]},
+{id:'color',k:'COLOR',title:'好きな色は？',sub:'味とは直接関係なさそうで、意外とその人らしさが出ます。',options:[
 {v:'white',l:'WHITE',s:'軽やか・余白',c:'#f7f5ef',fx:{clean:3,balanced:2}},
 {v:'green',l:'GREEN',s:'自然・落ち着き',c:'#70826b',fx:{balanced:3,clean:2,nutty:1}},
 {v:'blue',l:'BLUE',s:'静けさ・透明感',c:'#60798a',fx:{clean:4,balanced:1}},
@@ -104,15 +112,29 @@ var questions=[
 {v:'yellow',l:'YELLOW',s:'明るい・陽気',c:'#b6974c',fx:{fruity:2,sweet:3,clean:1}},
 {v:'black',l:'BLACK',s:'深い・シャープ',c:'#242424',fx:{deep:4,nutty:2}}
 ]},
-{id:'moment',k:'WHEN',title:'いつ飲みたいコーヒー？',sub:'時間が変わると、欲しい味も変わります。',options:[
+{id:'fruit',k:'FRUIT MEMORY',title:'好きなフルーツは？',sub:'香りの記憶を、コーヒーの方向性に重ねます。',options:[
+{v:'berry',l:'BERRY',s:'いちご・ベリー',i:'●',fx:{fruity:5,sweet:2}},
+{v:'citrus',l:'CITRUS',s:'レモン・柑橘',i:'◒',fx:{clean:5,fruity:4}},
+{v:'apple',l:'APPLE',s:'りんご・洋梨',i:'○',fx:{clean:3,balanced:3,fruity:2}},
+{v:'tropical',l:'TROPICAL',s:'マンゴー・南国系',i:'✹',fx:{fruity:5,sweet:3}},
+{v:'grape',l:'GRAPE',s:'ぶどう・赤い果実',i:'••',fx:{fruity:3,sweet:2,deep:1}},
+{v:'none',l:'NOT REALLY',s:'フルーツは特に',i:'—',fx:{balanced:3,nutty:2}}
+]},
+{id:'complexity',k:'COMPLEXITY',title:'シンプル？ 複雑？',sub:'この回答で、使う豆の種類そのものが変わります。',options:[
+{v:'pure',l:'PURE',s:'1種類。ひとつの豆をそのまま',i:'1',fx:{clean:2,balanced:1}},
+{v:'simple',l:'SIMPLE',s:'2種類。わかりやすく',i:'2',fx:{balanced:2}},
+{v:'layered',l:'LAYERED',s:'3種類。バランスよく',i:'3',fx:{balanced:3}},
+{v:'complex',l:'COMPLEX',s:'4種類。複雑で奥行きが欲しい',i:'4',fx:{fruity:1,sweet:1,nutty:1,deep:1,clean:1}}
+]},
+{id:'moment',k:'WHEN',title:'どんな時に飲みたい？',sub:'その一杯の役割を決めます。',options:[
 {v:'morning',l:'MORNING',s:'一日のはじまり',i:'☼',fx:{clean:3,fruity:2}},
-{v:'work',l:'WORK',s:'集中したい時',i:'▤',fx:{balanced:4,deep:1}},
+{v:'work',l:'FOCUS',s:'集中したい時',i:'▤',fx:{balanced:4,deep:1}},
 {v:'aftermeal',l:'AFTER MEAL',s:'食後にゆっくり',i:'◐',fx:{deep:4,sweet:2}},
 {v:'night',l:'QUIET NIGHT',s:'夜に静かに',i:'☾',fx:{deep:3,balanced:2,clean:1}},
 {v:'outdoor',l:'OUTDOORS',s:'外・旅先で',i:'⌃',fx:{fruity:3,clean:3}},
 {v:'snow',l:'SNOW DAY',s:'雪の日に',i:'❄',fx:{deep:2,sweet:3,balanced:1}}
 ]},
-{id:'with',k:'WITH WHO',title:'誰と飲みたい？',sub:'その一杯の空気感を選んでください。',options:[
+{id:'with',k:'WITH WHO',title:'誰と飲みたい？',sub:'ひとりの一杯と、誰かと飲む一杯は少し違う。',options:[
 {v:'alone',l:'ALONE',s:'ひとりの時間',i:'○',fx:{clean:2,balanced:3}},
 {v:'partner',l:'PARTNER',s:'大切な人と',i:'∞',fx:{sweet:4,balanced:2}},
 {v:'friends',l:'FRIENDS',s:'友達とワイワイ',i:'•••',fx:{fruity:3,balanced:3}},
@@ -120,7 +142,15 @@ var questions=[
 {v:'guest',l:'GUEST',s:'誰かをもてなす',i:'◇',fx:{balanced:4,clean:2}},
 {v:'someone',l:'SOMEONE NEW',s:'まだ知らない誰かと',i:'?',fx:{fruity:2,clean:2,balanced:2}}
 ]},
-{id:'food',k:'PAIRING',title:'合わせるなら何？',sub:'食べ物から、コクや甘さを調整します。',options:[
+{id:'brew',k:'HOW',title:'どうやって飲みたい？',sub:'抽出方法から、豆の強さを調整します。',options:[
+{v:'hot',l:'HOT BLACK',s:'ブラック・ホット',i:'♨',fx:{balanced:3,deep:1}},
+{v:'ice',l:'ICED',s:'アイスですっきり',i:'◇',fx:{clean:4,fruity:2}},
+{v:'milk',l:'MILK',s:'ラテ・ミルク入り',i:'◍',fx:{sweet:3,deep:2,nutty:3}},
+{v:'espresso',l:'ESPRESSO',s:'短く濃く',i:'●',fx:{deep:6,nutty:2}},
+{v:'filter',l:'FILTER',s:'ハンドドリップ',i:'▽',fx:{clean:2,fruity:2,balanced:3}},
+{v:'any',l:'ANY',s:'その日の気分で',i:'∞',fx:{balanced:4}}
+]},
+{id:'food',k:'PAIRING',title:'合わせるなら何？',sub:'食べ物との相性から、最後の微調整。',options:[
 {v:'chocolate',l:'CHOCOLATE',s:'チョコレート',i:'■',fx:{sweet:4,deep:3}},
 {v:'sweets',l:'SWEETS',s:'焼き菓子・ケーキ',i:'◇',fx:{sweet:4,fruity:1,balanced:1}},
 {v:'nuts',l:'NUTS',s:'ナッツ・香ばしいもの',i:'◉',fx:{nutty:5,deep:1}},
@@ -128,32 +158,15 @@ var questions=[
 {v:'savory',l:'SAVORY',s:'チーズ・塩気',i:'▱',fx:{deep:3,nutty:3}},
 {v:'nothing',l:'COFFEE ONLY',s:'コーヒーだけ',i:'—',fx:{clean:3,balanced:3}}
 ]},
-{id:'mood',k:'PERSONALITY',title:'今のあなたに近いのは？',sub:'味の「性格」を決める質問です。',options:[
-{v:'calm',l:'CALM',s:'静か・落ち着き',i:'≈',fx:{clean:3,balanced:3}},
-{v:'adventure',l:'ADVENTURE',s:'新しいものが好き',i:'↗',fx:{fruity:4,clean:1}},
-{v:'creative',l:'CREATIVE',s:'ちょっと個性的',i:'✣',fx:{fruity:3,sweet:2}},
-{v:'simple',l:'SIMPLE',s:'シンプルが好き',i:'□',fx:{clean:4,balanced:2}},
-{v:'nostalgic',l:'NOSTALGIC',s:'懐かしい感じ',i:'◌',fx:{deep:3,sweet:3}},
-{v:'bright',l:'BRIGHT',s:'明るく軽やか',i:'✺',fx:{fruity:3,clean:3}}
-]},
-{id:'scene',k:'SCENE',title:'一番惹かれる風景は？',sub:'ここはラベルアートにも反映します。',options:[
+{id:'scene',k:'SCENE',title:'最後に、惹かれる風景は？',sub:'これは味と、最後のラベルアートの両方に使います。',options:[
 {v:'mountain',l:'MOUNTAIN',s:'山・稜線',i:'⌃',fx:{clean:2,deep:1,balanced:1}},
 {v:'forest',l:'FOREST',s:'森・木々',i:'♠',fx:{balanced:2,nutty:2,clean:1}},
 {v:'lake',l:'LAKE',s:'湖・水辺',i:'≈',fx:{clean:4,balanced:1}},
 {v:'city',l:'CITY',s:'街・夜景',i:'▥',fx:{deep:3,balanced:2}},
 {v:'home',l:'HOME',s:'家・灯り',i:'⌂',fx:{sweet:3,balanced:3}},
 {v:'road',l:'ROAD',s:'道・旅',i:'↗',fx:{fruity:2,clean:2,balanced:1}}
-]},
-{id:'brew',k:'HOW',title:'どんな飲み方が好き？',sub:'最後に、口あたりを整えます。',options:[
-{v:'hot',l:'HOT',s:'ブラック・ホット',i:'♨',fx:{balanced:3,deep:1}},
-{v:'ice',l:'ICED',s:'アイスで爽やか',i:'◇',fx:{clean:4,fruity:2}},
-{v:'milk',l:'MILK',s:'ラテ・ミルク入り',i:'◍',fx:{sweet:3,deep:2,nutty:3}},
-{v:'espresso',l:'ESPRESSO',s:'短く濃く',i:'●',fx:{deep:5,nutty:2}},
-{v:'filter',l:'FILTER',s:'ハンドドリップ',i:'▽',fx:{clean:2,fruity:2,balanced:3}},
-{v:'any',l:'ANY',s:'その日の気分',i:'∞',fx:{balanced:4}}
 ]}
-];
-
+]
 var st={screen:0,qi:0,answers:{},scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},blend:[],no:18,title:'ONE OF ONE'};
 function show(n){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById('s'+n).classList.add('active');st.screen=n;window.scrollTo({top:0,behavior:'smooth'})}
 function startQuestions(){st.qi=0;renderQuestion();show(1)}
@@ -162,18 +175,43 @@ function resetAll(){st={screen:0,qi:0,answers:{},scores:{fruity:0,sweet:0,nutty:
 function currentQuestion(){return questions[st.qi]}
 function answerObj(q){var v=st.answers[q.id];return q.options.find(function(o){return o.v===v})}
 function renderQuestion(){var q=currentQuestion();document.getElementById('qStep').textContent='QUESTION '+String(st.qi+1).padStart(2,'0');document.getElementById('qCount').textContent=(st.qi+1)+' / '+questions.length;document.getElementById('qProgress').style.width=((st.qi+1)/questions.length*100)+'%';document.getElementById('qKicker').textContent=q.k;document.getElementById('qTitle').textContent=q.title;document.getElementById('qSub').textContent=q.sub;var selected=st.answers[q.id];document.getElementById('qOptions').innerHTML=q.options.map(function(o){var visual=o.c?'<div class="colorDot" style="background:'+o.c+'"></div>':'<div class="oi">'+(o.i||'○')+'</div>';return '<button class="option '+(selected===o.v?'sel':'')+'" onclick="pickAnswer(\''+o.v+'\')">'+visual+'<b>'+o.l+'</b><small>'+o.s+'</small></button>'}).join('');document.getElementById('qNext').textContent=st.qi===questions.length-1?'SEE MY PROFILE →':'NEXT →'}
-function pickAnswer(v){st.answers[currentQuestion().id]=v;renderQuestion();setTimeout(function(){if(st.qi<questions.length-1){st.qi++;renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}},250)}
+function pickAnswer(v){st.answers[currentQuestion().id]=v;renderQuestion()}
 function questionBack(){if(st.qi>0){st.qi--;renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}else show(0)}
 function questionNext(){if(!st.answers[currentQuestion().id]){toast('ひとつ選んでください');return}if(st.qi<questions.length-1){st.qi++;renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}else makeProfile()}
 function recomputeScores(){st.scores={fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0};questions.forEach(function(q){var o=answerObj(q);if(!o)return;Object.keys(o.fx||{}).forEach(function(k){st.scores[k]=(st.scores[k]||0)+o.fx[k]})})}
 function topDims(){recomputeScores();return Object.keys(st.scores).sort(function(a,b){return st.scores[b]-st.scores[a]})}
-function makeProfile(){var t=topDims();var pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};document.getElementById('profileTitle').textContent=pretty[t[0]]+' × '+pretty[t[1]];var moment=answerObj(questions[3]),withp=answerObj(questions[4]),scene=answerObj(questions[7]);document.getElementById('profileText').textContent=(moment?moment.s:'')+'に、'+(withp?withp.s:'')+'楽しみたい。味は'+pretty[t[0]]+'を軸に、'+pretty[t[1]]+'のニュアンス。'+(scene?scene.l+'のような空気感を持つ一杯です。':'');document.getElementById('profileTags').innerHTML=t.slice(0,4).map(function(x){return '<span class="pill">'+pretty[x]+' '+st.scores[x]+'</span>'}).join('');document.getElementById('answerRibbon').innerHTML=questions.map(function(q){var o=answerObj(q);return '<div class="answerMini"><small>'+q.k+'</small><b>'+(o?o.l:'—')+'</b></div>'}).join('');show(2)}
-function beanBonus(b){var x=0;var a=st.answers;if(a.fruit==='berry'&&b.id==='aricha')x+=6;if(a.fruit==='apple'&&b.id==='narinoL')x+=6;if(a.fruit==='tropical'&&b.id==='rubi')x+=5;if(a.color==='black'&&(b.id==='tree'||b.id==='bella'))x+=4;if(a.color==='blue'&&b.id==='narinoL')x+=4;if(a.food==='nuts'&&b.id==='bella')x+=5;if(a.food==='chocolate'&&(b.id==='bella'||b.id==='tree'))x+=5;if(a.brew==='milk'&&(b.id==='bella'||b.id==='tree'))x+=5;if(a.brew==='ice'&&(b.id==='narinoL'||b.id==='aricha'))x+=4;if(a.moment==='night'&&b.id==='decaf')x+=3;if(a.scene==='forest'&&b.id==='peace')x+=2;if(a.with==='family'&&b.id==='peace')x+=3;return x}
-function buildBlend(){var dims=topDims();var scored=beans.map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});var top=scored.slice(0,3);var gap=top[0].s-top[2].s;var pct=gap<20?[40,35,25]:[50,30,20];st.blend=top.map(function(x,i){return {bean:x.b,pct:pct[i],score:x.s}});st.no=18+Math.floor(Date.now()/1000)%80;renderBlend();show(3)}
-function renderBlend(){var pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};var t=topDims();document.getElementById('blendNo').textContent='#'+String(st.no).padStart(3,'0');document.getElementById('blendTags').innerHTML=t.slice(0,3).map(function(x){return '<span class="pill">'+pretty[x]+'</span>'}).join('');var cues=[answerObj(questions[1]),answerObj(questions[2]),answerObj(questions[3])].filter(Boolean).map(function(x){return x.l}).join(' / ');document.getElementById('why').innerHTML='BASED ON<br>'+cues;document.getElementById('blendRows').innerHTML=st.blend.map(function(x,i){return '<div class="row"><div class="bean">◉</div><div class="meta"><b>'+x.bean.name+'</b><small>'+x.bean.short+'<br>'+x.bean.note+'</small></div><div class="pct"><button class="round" onclick="adj('+i+',-5)">−</button><strong>'+x.pct+'%</strong><button class="round" onclick="adj('+i+',5)">＋</button></div></div>'}).join('');var q1=answerObj(questions[0]),q4=answerObj(questions[3]),q8=answerObj(questions[7]);document.getElementById('barista').innerHTML='<b style="color:#20221f">なぜこの配合？</b><br>'+(q1?q1.l:'')+'を軸に、'+(q4?q4.l:'')+'で飲みたい時のバランスへ。'+(q8?q8.l:'')+'のような余韻を狙いました。'}
-function adj(i,d){var j=(i+1)%st.blend.length;if(st.blend[i].pct+d<10||st.blend[j].pct-d<10)return;st.blend[i].pct+=d;st.blend[j].pct-=d;renderBlend()}
-function labelWords(){var ids=['color','fruit','moment','with','mood','scene'];return ids.map(function(id){var q=questions.find(function(x){return x.id===id});var o=answerObj(q);return o?o.l:null}).filter(Boolean)}
-function chooseTitle(){var a=st.answers;if(a.scene==='lake'&&a.moment==='morning')return 'MORNING MIST';if(a.fruit==='berry')return 'WILD BERRY';if(a.scene==='city'&&a.moment==='night')return 'CITY AFTER DARK';if(a.scene==='forest'&&a.mood==='calm')return 'QUIET FOREST';if(a.scene==='mountain'&&a.moment==='snow')return 'SNOW LINE';if(a.scene==='road')return 'OPEN ROAD';if(a.color==='black'&&a.taste==='deep')return 'DEEP NIGHT';if(a.color==='blue')return 'BLUE HOUR';if(a.moment==='night')return 'QUIET NIGHT';if(a.moment==='morning')return 'FIRST LIGHT';return 'ONE OF ONE'}
+function qById(id){return questions.find(function(q){return q.id===id})}
+function ans(id){var q=qById(id);return q?answerObj(q):null}
+function makeProfile(){var t=topDims();var pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};var moment=ans('moment'),withp=ans('with'),scene=ans('scene'),acid=ans('acidity'),complexity=ans('complexity');document.getElementById('profileTitle').textContent=pretty[t[0]]+' × '+pretty[t[1]];document.getElementById('profileText').textContent=(acid?acid.s+'。':'')+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+(complexity?'構成は「'+complexity.l+'」。':'')+(scene?scene.l+'のような空気感を持つ一杯です。':'');document.getElementById('profileTags').innerHTML=t.slice(0,4).map(function(x){return '<span class="pill">'+pretty[x]+' '+st.scores[x]+'</span>'}).join('');document.getElementById('answerRibbon').innerHTML=questions.map(function(q){var o=answerObj(q);return '<div class="answerMini"><small>'+q.k+'</small><b>'+(o?o.l:'—')+'</b></div>'}).join('');show(2)}
+function beanBonus(b){var x=0,a=st.answers;
+if(a.acidity==='love'&&(b.id==='aricha'||b.id==='narinoL'||b.id==='rubi'))x+=8;
+if(a.acidity==='dislike'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'||b.id==='peace'))x+=7;
+if(a.acidity==='dislike'&&(b.id==='aricha'||b.id==='narinoL'))x-=8;
+if(a.fruit==='berry'&&b.id==='aricha')x+=7;
+if(a.fruit==='apple'&&b.id==='narinoL')x+=7;
+if(a.fruit==='tropical'&&b.id==='rubi')x+=6;
+if(a.color==='black'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'))x+=5;
+if(a.color==='blue'&&(b.id==='narinoL'||b.id==='decaf'))x+=4;
+if(a.bitterness==='high'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'))x+=6;
+if(a.bitterness==='low'&&(b.id==='aricha'||b.id==='narinoL'||b.id==='rubi'))x+=5;
+if(a.sweetness==='choco'&&(b.id==='bella'||b.id==='tree'))x+=6;
+if(a.sweetness==='sweet'&&(b.id==='peace'||b.id==='rubi'||b.id==='bella'))x+=4;
+if(a.body==='light'&&(b.id==='aricha'||b.id==='narinoL'))x+=5;
+if(a.body==='rich'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'))x+=5;
+if(a.brew==='milk'&&(b.id==='bella'||b.id==='tree'))x+=6;
+if(a.brew==='espresso'&&(b.id==='tree'||b.id==='bella'))x+=6;
+if(a.brew==='ice'&&(b.id==='narinoL'||b.id==='aricha'||b.id==='rubi'))x+=5;
+if(a.moment==='night'&&b.id==='decaf')x+=4;
+if(a.food==='nuts'&&b.id==='bella')x+=5;
+if(a.food==='chocolate'&&(b.id==='bella'||b.id==='tree'))x+=5;
+if(a.with==='family'&&b.id==='peace')x+=3;
+return x}
+function blendPlan(){var c=st.answers.complexity||'layered';if(c==='pure')return {count:1,pct:[100],label:'1 BEAN / PURE'};if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
+function buildBlend(){var dims=topDims();var scored=beans.map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});var plan=blendPlan();var top=scored.slice(0,plan.count);st.blend=top.map(function(x,i){return {bean:x.b,pct:plan.pct[i],score:x.s}});st.no=18+Math.floor(Date.now()/1000)%80;renderBlend();show(3)}
+function renderBlend(){var pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};var t=topDims(),plan=blendPlan();document.getElementById('blendNo').textContent='#'+String(st.no).padStart(3,'0');document.getElementById('blendTags').innerHTML=('<span class="pill">'+plan.label+'</span>')+t.slice(0,3).map(function(x){return '<span class="pill">'+pretty[x]+'</span>'}).join('');var acid=ans('acidity'),color=ans('color'),complex=ans('complexity');document.getElementById('why').innerHTML='BASED ON<br>'+(acid?acid.l:'')+' / '+(color?color.l:'')+'<br>'+(complex?complex.l:'');document.getElementById('blendRows').innerHTML=st.blend.map(function(x,i){var controls=st.blend.length>1?'<div class="pct"><button class="round" onclick="adj('+i+',-5)">−</button><strong>'+x.pct+'%</strong><button class="round" onclick="adj('+i+',5)">＋</button></div>':'<div class="pct"><strong>100%</strong></div>';return '<div class="row"><div class="bean">◉</div><div class="meta"><b>'+x.bean.name+'</b><small>'+x.bean.short+'<br>'+x.bean.note+'</small></div>'+controls+'</div>'}).join('');var fruit=ans('fruit'),body=ans('body'),moment=ans('moment');document.getElementById('barista').innerHTML='<b style="color:#20221f">なぜこの構成？</b><br>'+(acid?acid.s:'')+'、'+(body?body.s:'')+'という好みに、'+(fruit?fruit.l:'')+'の香りの記憶を重ねました。'+(complex?complex.l+'を選んだので、豆は'+st.blend.length+'種類です。':'')+(moment?' '+moment.l+'で飲むことも想定しています。':'')}}
+function adj(i,d){if(st.blend.length<2)return;var j=(i+1)%st.blend.length;if(st.blend[i].pct+d<10||st.blend[j].pct-d<10)return;st.blend[i].pct+=d;st.blend[j].pct-=d;renderBlend()}
+function labelWords(){var ids=['color','fruit','moment','with','complexity','scene'];return ids.map(function(id){var q=questions.find(function(x){return x.id===id});var o=answerObj(q);return o?o.l:null}).filter(Boolean)}
+function chooseTitle(){var a=st.answers;if(a.scene==='lake'&&a.moment==='morning')return 'MORNING MIST';if(a.fruit==='berry')return 'WILD BERRY';if(a.scene==='city'&&a.moment==='night')return 'CITY AFTER DARK';if(a.scene==='forest'&&a.color==='green')return 'QUIET FOREST';if(a.scene==='mountain'&&a.moment==='snow')return 'SNOW LINE';if(a.scene==='road')return 'OPEN ROAD';if(a.color==='black'&&a.bitterness==='high')return 'DEEP NIGHT';if(a.color==='blue')return 'BLUE HOUR';if(a.moment==='night')return 'QUIET NIGHT';if(a.moment==='morning')return 'FIRST LIGHT';return 'ONE OF ONE'}
 function buildLabelStep(){st.title=chooseTitle();document.getElementById('autoWords').innerHTML=labelWords().map(function(x){return '<span class="word">'+x+'</span>'}).join('');document.getElementById('labelPreview').innerHTML=artSvg(true);show(4)}
 function tree(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M0 -46L-17 -18L-8 -20L-27 4L-12 1L-32 29L-7 22L-7 46L7 46L7 22L32 29L12 1L27 4L8 -20L17 -18Z" fill="#111"/></g>'}
 function mountains(){return '<path d="M28 166L90 84L128 119L181 52L232 111L278 79L334 166Z" fill="none" stroke="#111" stroke-width="8" stroke-linejoin="round"/><path d="M90 84L80 118L94 104L108 125L128 119M181 52L165 101L182 83L200 108L232 111M278 79L266 114L280 100L295 119" fill="none" stroke="#111" stroke-width="5"/>'}
