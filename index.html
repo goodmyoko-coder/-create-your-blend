@@ -274,6 +274,13 @@ footer{font-size:7px;letter-spacing:.30em;color:var(--muted);margin-top:42px}
 .preview{min-height:470px}.preview svg{max-height:470px}.paletteGrid{grid-template-columns:repeat(4,1fr)}
 }
 
+
+/* targeted Step 01 width fix */
+#qOptions{width:100%}
+#qOptions>.gaugePanel{width:100%!important;max-width:none!important;display:block!important;margin-left:0!important;margin-right:0!important}
+#qOptions>.gaugePanel>.gaugeRow{width:100%!important;max-width:none!important;display:block!important}
+#qOptions>.gaugePanel>.gaugeRow input[type=range]{display:block!important;width:100%!important;max-width:none!important;box-sizing:border-box!important}
+
 </style>
 </head>
 <body>
@@ -383,11 +390,11 @@ function fruitHas(v){return Array.isArray(st.answers.fruit)&&st.answers.fruit.in
 function gaugeLabel(v,left,mid,right){if(v<34)return left;if(v<67)return mid;return right}
 function renderGauge(){
 var g=st.gauges;
-return '<div class="gaugePanel">'+
-'<div class="gaugeRow"><div class="gaugeHead"><b>酸味 / ACIDITY</b><span id="acidGaugeLabel">'+gaugeLabel(g.acidity,'ひかえめ','ほどよく','しっかり')+'</span></div><input type="range" min="0" max="100" value="'+g.acidity+'" oninput="setGauge(\'acidity\',this.value)"><div class="gaugeEnds"><span>LOW</span><span>HIGH</span></div></div>'+
-'<div class="gaugeRow"><div class="gaugeHead"><b>苦味 / BITTERNESS</b><span id="bitterGaugeLabel">'+gaugeLabel(g.bitterness,'ひかえめ','ほどよく','しっかり')+'</span></div><input type="range" min="0" max="100" value="'+g.bitterness+'" oninput="setGauge(\'bitterness\',this.value)"><div class="gaugeEnds"><span>LOW</span><span>HIGH</span></div></div>'+
-'<div class="gaugeRow"><div class="gaugeHead"><b>甘さ / SWEETNESS</b><span id="sweetGaugeLabel">'+gaugeLabel(g.sweetness,'ドライ','やわらかい','甘い余韻')+'</span></div><input type="range" min="0" max="100" value="'+g.sweetness+'" oninput="setGauge(\'sweetness\',this.value)"><div class="gaugeEnds"><span>DRY</span><span>SWEET</span></div></div>'+
-'<div class="gaugeRow"><div class="gaugeHead"><b>ボディ / BODY</b><span id="bodyGaugeLabel">'+gaugeLabel(g.body,'軽やか','ミディアム','リッチ')+'</span></div><input type="range" min="0" max="100" value="'+g.body+'" oninput="setGauge(\'body\',this.value)"><div class="gaugeEnds"><span>LIGHT</span><span>RICH</span></div></div>'+
+return '<div class="gaugePanel" style="width:100%;max-width:none;display:block">'+
+'<div class="gaugeRow" style="width:100%;max-width:none"><div class="gaugeHead"><b>酸味 / ACIDITY</b><span id="acidGaugeLabel">'+gaugeLabel(g.acidity,'ひかえめ','ほどよく','しっかり')+'</span></div><input type="range" min="0" max="100" value="'+g.acidity+'" oninput="setGauge(\'acidity\',this.value)"><div class="gaugeEnds"><span>LOW</span><span>HIGH</span></div></div>'+
+'<div class="gaugeRow" style="width:100%;max-width:none"><div class="gaugeHead"><b>苦味 / BITTERNESS</b><span id="bitterGaugeLabel">'+gaugeLabel(g.bitterness,'ひかえめ','ほどよく','しっかり')+'</span></div><input type="range" min="0" max="100" value="'+g.bitterness+'" oninput="setGauge(\'bitterness\',this.value)"><div class="gaugeEnds"><span>LOW</span><span>HIGH</span></div></div>'+
+'<div class="gaugeRow" style="width:100%;max-width:none"><div class="gaugeHead"><b>甘さ / SWEETNESS</b><span id="sweetGaugeLabel">'+gaugeLabel(g.sweetness,'ドライ','やわらかい','甘い余韻')+'</span></div><input type="range" min="0" max="100" value="'+g.sweetness+'" oninput="setGauge(\'sweetness\',this.value)"><div class="gaugeEnds"><span>DRY</span><span>SWEET</span></div></div>'+
+'<div class="gaugeRow" style="width:100%;max-width:none"><div class="gaugeHead"><b>ボディ / BODY</b><span id="bodyGaugeLabel">'+gaugeLabel(g.body,'軽やか','ミディアム','リッチ')+'</span></div><input type="range" min="0" max="100" value="'+g.body+'" oninput="setGauge(\'body\',this.value)"><div class="gaugeEnds"><span>LIGHT</span><span>RICH</span></div></div>'+
 '</div>'
 }
 function setGauge(k,v){
