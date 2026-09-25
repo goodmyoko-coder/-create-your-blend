@@ -127,6 +127,34 @@ footer{text-align:center;font-size:8px;letter-spacing:.22em;color:var(--accent);
 .paletteLabels{display:flex;justify-content:space-between;gap:4px;margin-top:10px;font-size:8px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
 .paletteSwatch{height:56px;border-radius:16px;margin-top:14px;border:1px solid rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:16px;letter-spacing:.12em;transition:.2s}
 
+
+.blendHero{position:relative;height:300px;border-radius:21px;background:
+radial-gradient(circle at 50% 78%,rgba(23,54,47,.08),transparent 34%),
+linear-gradient(160deg,#eee6d9,#fbf8f1 56%,#e8dfd1);overflow:hidden}
+.blendMotion{width:100%;height:100%;display:block}
+.blendMotion .bean{filter:drop-shadow(0 3px 4px rgba(23,54,47,.14));transform-box:fill-box;transform-origin:center}
+.blendMotion .bean1{animation:beanOne 6.8s ease-in-out infinite}
+.blendMotion .bean2{animation:beanTwo 6.8s ease-in-out infinite}
+.blendMotion .bean3{animation:beanThree 6.8s ease-in-out infinite}
+.blendMotion .bean4{animation:beanFour 6.8s ease-in-out infinite}
+.blendMotion .bean5{animation:beanFive 6.8s ease-in-out infinite}
+.blendMotion .cupGroup{animation:cupPulse 6.8s ease-in-out infinite;transform-origin:280px 230px}
+.blendMotion .magic{opacity:0;animation:magicRise 6.8s ease-in-out infinite}
+.blendMotion .mountainMagic{opacity:0;animation:landRise 6.8s ease-in-out infinite}
+.blendMotion .spark{opacity:0;transform-box:fill-box;transform-origin:center;animation:sparkle 6.8s ease-in-out infinite}
+.blendMotion .spark.s2{animation-delay:.12s}.blendMotion .spark.s3{animation-delay:.24s}.blendMotion .spark.s4{animation-delay:.36s}
+.blendMotion .steam{fill:none;stroke-linecap:round;stroke-width:5;opacity:0;animation:steamUp 6.8s ease-in-out infinite}
+.blendStory{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:Georgia,serif;font-size:10px;letter-spacing:.19em;color:var(--accent);text-transform:uppercase}
+@keyframes beanOne{0%,7%{transform:translate(-105px,-54px) rotate(-34deg);opacity:0}12%{opacity:1}38%{transform:translate(34px,70px) rotate(160deg);opacity:1}45%,100%{transform:translate(42px,84px) rotate(190deg);opacity:0}}
+@keyframes beanTwo{0%,5%{transform:translate(112px,-50px) rotate(28deg);opacity:0}12%{opacity:1}39%{transform:translate(-28px,72px) rotate(-145deg);opacity:1}46%,100%{transform:translate(-34px,86px) rotate(-180deg);opacity:0}}
+@keyframes beanThree{0%,8%{transform:translate(-128px,4px) rotate(-18deg);opacity:0}15%{opacity:1}40%{transform:translate(34px,55px) rotate(160deg);opacity:1}47%,100%{transform:translate(40px,70px) rotate(190deg);opacity:0}}
+@keyframes beanFour{0%,9%{transform:translate(126px,6px) rotate(18deg);opacity:0}16%{opacity:1}41%{transform:translate(-34px,56px) rotate(-165deg);opacity:1}48%,100%{transform:translate(-42px,72px) rotate(-195deg);opacity:0}}
+@keyframes beanFive{0%,10%{transform:translate(0,-98px) rotate(8deg);opacity:0}17%{opacity:1}42%{transform:translate(0,56px) rotate(178deg);opacity:1}49%,100%{transform:translate(0,72px) rotate(205deg);opacity:0}}
+@keyframes cupPulse{0%,34%{transform:scale(.96);opacity:.84}44%{transform:scale(1.02);opacity:1}58%,100%{transform:scale(1);opacity:1}}
+@keyframes magicRise{0%,42%{opacity:0;transform:translateY(26px) scale(.78)}53%{opacity:.95;transform:translateY(0) scale(1.02)}72%{opacity:.82;transform:translateY(-6px) scale(1)}92%,100%{opacity:0;transform:translateY(-20px) scale(1.04)}}
+@keyframes landRise{0%,45%{opacity:0;transform:translateY(25px)}58%{opacity:1;transform:translateY(0)}80%{opacity:.9;transform:translateY(-5px)}96%,100%{opacity:0;transform:translateY(-14px)}}
+@keyframes sparkle{0%,48%{opacity:0;transform:scale(.2) translateY(10px)}58%{opacity:1;transform:scale(1.15) translateY(0)}73%{opacity:.75;transform:scale(.8) translateY(-5px)}92%,100%{opacity:0;transform:scale(.4) translateY(-14px)}}
+@keyframes steamUp{0%,45%{opacity:0;stroke-dasharray:0 120;stroke-dashoffset:120}57%{opacity:.7;stroke-dasharray:55 120;stroke-dashoffset:38}78%{opacity:.55;stroke-dasharray:70 120;stroke-dashoffset:0}94%,100%{opacity:0;stroke-dasharray:35 120;stroke-dashoffset:-35}}
 @media(max-width:620px){.hero-art{height:220px}.options{grid-template-columns:1fr}.answerRibbon{grid-template-columns:repeat(2,1fr)}.final{grid-template-columns:1fr}.stage{min-height:500px}.panel{text-align:center}.actions{max-width:420px;margin:18px auto 0}.card{padding:17px}.row{grid-template-columns:34px 1fr auto}.qtitle{font-size:35px}.brand{font-size:25px}}
 </style>
 </head>
@@ -137,7 +165,51 @@ footer{text-align:center;font-size:8px;letter-spacing:.22em;color:var(--accent);
 <section class="screen active" id="s0">
 <h1>CREATE<br>YOUR BLEND</h1><div class="jp">あなたの景色を、一杯のコーヒーに。</div><div class="rule"></div>
 <div class="lede">雪の朝、深い森、焚き火の夜。<br>味だけでなく、好きな景色や時間まで重ねて、Myoko Coffeeらしい一杯をつくります。</div>
-<div class="hero"><div class="hero-art"><div class="bag"><div class="sticker"><div class="mini">MYOKO COFFEE</div><b>ONE OF ONE</b><div class="mountain"></div><div class="mini">YOUR TASTE · YOUR STORY<br><br>CREATED IN MYOKO</div></div></div></div></div>
+<div class="hero"><div class="blendHero">
+<svg class="blendMotion" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" aria-label="Coffee beans blending into a cup and becoming a colorful Myoko landscape">
+<defs>
+<radialGradient id="auraGold"><stop offset="0" stop-color="#c4a76c" stop-opacity=".68"/><stop offset="1" stop-color="#c4a76c" stop-opacity="0"/></radialGradient>
+<radialGradient id="auraBlue"><stop offset="0" stop-color="#587084" stop-opacity=".58"/><stop offset="1" stop-color="#587084" stop-opacity="0"/></radialGradient>
+<radialGradient id="auraBerry"><stop offset="0" stop-color="#8b5d66" stop-opacity=".52"/><stop offset="1" stop-color="#8b5d66" stop-opacity="0"/></radialGradient>
+<linearGradient id="cupCoffee" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4b2e24"/><stop offset="1" stop-color="#2e1f19"/></linearGradient>
+</defs>
+<g class="magic">
+<circle cx="280" cy="146" r="88" fill="url(#auraGold)"/>
+<circle cx="228" cy="143" r="72" fill="url(#auraBlue)"/>
+<circle cx="334" cy="142" r="68" fill="url(#auraBerry)"/>
+</g>
+<g class="mountainMagic">
+<path d="M156 178L213 117L247 150L286 92L327 139L361 112L405 178Z" fill="#315446" opacity=".94"/>
+<path d="M205 177L259 127L288 155L326 119L382 177Z" fill="#587084" opacity=".82"/>
+<path d="M286 92L274 126L289 115L307 141L327 139" fill="none" stroke="#f5f1e8" stroke-width="4" stroke-linecap="round"/>
+<g fill="#17362f">
+<path d="M186 176l-13-23h7l-10-16h7l-12-20 0 59z"/><path d="M390 176l-13-23h7l-10-16h7l-12-20 0 59z"/>
+</g>
+<circle cx="210" cy="126" r="8" fill="#a86d58"/><circle cx="228" cy="117" r="7" fill="#8b5d66"/><circle cx="245" cy="128" r="8" fill="#a86d58"/>
+</g>
+<path class="steam" d="M246 201C228 176 250 163 239 143C229 124 237 111 248 99" stroke="#587084"/>
+<path class="steam" d="M280 200C263 174 287 157 277 138C268 120 279 107 288 94" stroke="#c4a76c"/>
+<path class="steam" d="M312 201C300 177 319 165 312 146C305 129 319 117 326 103" stroke="#8b5d66"/>
+<g class="spark s1" fill="#c4a76c"><circle cx="188" cy="104" r="4"/><path d="M188 94v20M178 104h20" stroke="#c4a76c" stroke-width="2"/></g>
+<g class="spark s2" fill="#587084"><circle cx="371" cy="103" r="4"/><path d="M371 93v20M361 103h20" stroke="#587084" stroke-width="2"/></g>
+<g class="spark s3" fill="#8b5d66"><circle cx="337" cy="74" r="3"/><path d="M337 66v16M329 74h16" stroke="#8b5d66" stroke-width="2"/></g>
+<g class="spark s4" fill="#315446"><circle cx="226" cy="74" r="3"/><path d="M226 66v16M218 74h16" stroke="#315446" stroke-width="2"/></g>
+<g class="cupGroup">
+<ellipse cx="280" cy="219" rx="79" ry="18" fill="#d7cdbf" opacity=".48"/>
+<path d="M214 193H345L334 246C331 260 319 268 304 268H254C239 268 226 260 223 246Z" fill="#fdfbf7" stroke="#17362f" stroke-width="4"/>
+<ellipse cx="279.5" cy="193" rx="65.5" ry="16" fill="#fdfbf7" stroke="#17362f" stroke-width="4"/>
+<ellipse cx="279.5" cy="194" rx="55" ry="11" fill="url(#cupCoffee)"/>
+<path d="M344 205C382 201 389 252 350 254" fill="none" stroke="#17362f" stroke-width="5" stroke-linecap="round"/>
+<text x="279" y="236" text-anchor="middle" font-family="Georgia,serif" font-size="11" letter-spacing="3" fill="#17362f">MYOKO</text>
+</g>
+<g class="bean bean1" transform="translate(170 72) rotate(-24)"><ellipse rx="14" ry="20" fill="#684536"/><path d="M0-16C-4-5 5 3 0 16" fill="none" stroke="#d7b39c" stroke-width="2.5" stroke-linecap="round"/></g>
+<g class="bean bean2" transform="translate(388 70) rotate(21)"><ellipse rx="14" ry="20" fill="#7a503d"/><path d="M0-16C4-5-5 3 0 16" fill="none" stroke="#dfc0a9" stroke-width="2.5" stroke-linecap="round"/></g>
+<g class="bean bean3" transform="translate(128 130) rotate(-9)"><ellipse rx="13" ry="19" fill="#5c3c30"/><path d="M0-15C-4-5 5 3 0 15" fill="none" stroke="#d7b39c" stroke-width="2.4" stroke-linecap="round"/></g>
+<g class="bean bean4" transform="translate(432 133) rotate(14)"><ellipse rx="13" ry="19" fill="#825743"/><path d="M0-15C4-5-5 3 0 15" fill="none" stroke="#dfc0a9" stroke-width="2.4" stroke-linecap="round"/></g>
+<g class="bean bean5" transform="translate(280 52) rotate(5)"><ellipse rx="14" ry="20" fill="#6a4535"/><path d="M0-16C-4-5 5 3 0 16" fill="none" stroke="#d7b39c" stroke-width="2.5" stroke-linecap="round"/></g>
+</svg>
+<div class="blendStory">beans → blend → your cup → your story</div>
+</div></div>
 <button class="primary" onclick="startQuestions()">START →</button><div class="subnote">10 STEPS · 約1〜2分</div>
 </section>
 
