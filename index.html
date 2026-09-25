@@ -25,7 +25,7 @@ header{display:flex;align-items:center;justify-content:space-between;min-height:
 .brand{font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.04em;font-size:29px;line-height:.82;color:var(--green)}
 .brand span{display:block}
 .tagline{font-size:6px;letter-spacing:.22em;color:var(--accent);margin-top:7px;text-transform:uppercase}
-.screen{display:none;animation:fade .25s ease}.screen.active{display:block}
+.screen{display:none;animation:fade .16s ease}.screen.active{display:block}
 @keyframes fade{from{opacity:.15;transform:translateY(7px)}to{opacity:1;transform:none}}
 h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.045em;margin:0;color:var(--green)}
 h1{text-align:center;font-size:clamp(50px,12vw,78px);line-height:.88;margin-top:30px}
@@ -231,11 +231,10 @@ var questions=[
 {v:'winey',l:'WINEY',s:'ぶどう・ワインのような熟した果実感',i:'◉',fx:{fruity:4,sweet:2,deep:2}}
 ]},
 
-{id:'complexity',k:'COMPLEXITY',title:'シンプル？ 複雑？',sub:'この回答で、使う豆の種類そのものが変わります。',options:[
-{v:'pure',l:'PURE',s:'1種類。ひとつの豆をそのまま',i:'1',fx:{clean:2,balanced:1}},
-{v:'simple',l:'SIMPLE',s:'2種類。わかりやすく',i:'2',fx:{balanced:2}},
-{v:'layered',l:'LAYERED',s:'3種類。バランスよく',i:'3',fx:{balanced:3}},
-{v:'complex',l:'COMPLEX',s:'4種類。複雑で奥行きが欲しい',i:'4',fx:{fruity:1,sweet:1,nutty:1,deep:1,clean:1}}
+{id:'complexity',k:'BLEND STRUCTURE',title:'何種類の豆で重ねたい？',sub:'オリジナルブレンドとして、2〜4種類の構成から選びます。',options:[
+{v:'simple',l:'2 BEANS',s:'シンプルで輪郭のあるブレンド',i:'2',fx:{balanced:2}},
+{v:'layered',l:'3 BEANS',s:'バランスと奥行きを両立',i:'3',fx:{balanced:3}},
+{v:'complex',l:'4 BEANS',s:'複雑で多層的なブレンド',i:'4',fx:{fruity:1,sweet:1,nutty:1,deep:1,clean:1}}
 ]},
 {id:'moment',k:'WHEN',title:'この一杯を、いつ飲みたい？',sub:'色のイメージとは別に、実際に飲みたい時間や場面を選んでください。',options:[
 {v:'morning',l:'MORNING',s:'一日のはじまり',i:'☼',fx:{clean:3,fruity:2}},
@@ -253,7 +252,7 @@ var questions=[
 {v:'guest',l:'GUEST',s:'誰かをもてなす',i:'◇',fx:{balanced:4,clean:2}},
 {v:'someone',l:'SOMEONE NEW',s:'まだ知らない誰かと',i:'?',fx:{fruity:2,clean:2,balanced:2}}
 ]},
-{id:'brew',k:'HOW',title:'どうやって飲みたい？',sub:'抽出方法から、豆の強さを調整します。',options:[
+{id:'brew',k:'HOW',title:'どうやって飲みたい？',sub:'抽出方法から豆の強さを調整します。デカフェをご希望の場合はスタッフへお声がけください。',options:[
 {v:'hot',l:'HOT BLACK',s:'ブラック・ホット',i:'♨',fx:{balanced:3,deep:1}},
 {v:'ice',l:'ICED',s:'アイスですっきり',i:'◇',fx:{clean:4,fruity:2}},
 {v:'milk',l:'MILK',s:'ラテ・ミルク入り',i:'◍',fx:{sweet:3,deep:2,nutty:3}},
@@ -368,7 +367,7 @@ function makeProfile(){
 var t=topDims(),pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};
 var moment=ans('moment'),withp=ans('with'),complexity=ans('complexity');
 document.getElementById('profileTitle').textContent=pretty[t[0]]+' × '+pretty[t[1]];
-document.getElementById('profileText').textContent=tasteGaugeText()+'。'+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+(complexity?'構成は「'+complexity.l+'」。':'')+'色のイメージは'+colorTheme().label+'。';
+document.getElementById('profileText').textContent=tasteGaugeText()+'。'+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+(complexity?'構成は'+complexity.l+'。':'')+'色のイメージは'+colorTheme().label+'。';
 document.getElementById('profileTags').innerHTML=t.slice(0,4).map(function(x){return '<span class="pill">'+pretty[x]+'</span>'}).join('');
 var items=['<div class="answerMini"><small>TASTE BALANCE</small><b>'+tasteGaugeText()+'</b></div>','<div class="answerMini"><small>BLEND COLOR</small><b>'+colorTheme().label+'</b></div>'];
 questions.forEach(function(q){
@@ -407,9 +406,9 @@ if(a.moment==='morning'&&(b.id==='arichaL'||b.id==='elsalvador'||b.id==='decaf')
 if(a.moment==='snow'&&(b.id==='bella'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
 return x
 }
-function blendPlan(){var c=st.answers.complexity||'layered';if(c==='pure')return {count:1,pct:[100],label:'1 BEAN / PURE'};if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
+function blendPlan(){var c=st.answers.complexity||'layered';if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
 function buildBlend(){
-var scored=beans.map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});
+var scored=beans.filter(function(b){return b.id!=='decaf'}).map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});
 var plan=blendPlan(),top=scored.slice(0,plan.count);
 st.blend=top.map(function(x,i){return {bean:x.b,pct:plan.pct[i],score:x.s}});
 st.no=18+Math.floor(Date.now()/1000)%80;renderBlend();show(3)
