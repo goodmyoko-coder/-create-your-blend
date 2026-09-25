@@ -169,11 +169,11 @@ linear-gradient(160deg,#eee6d9,#fbf8f1 56%,#e8dfd1);overflow:hidden}
 <canvas id="blendCanvas" class="blendCanvas" width="560" height="300" aria-label="Coffee beans blending into a cup and becoming a colorful Myoko landscape"></canvas>
 <div class="blendStory">beans → blend → landscape → one of one</div>
 </div></div>
-<button class="primary" onclick="startQuestions()">START →</button><div class="subnote">8 STEPS · 約1〜2分</div>
+<button class="primary" onclick="startQuestions()">START →</button><div class="subnote">6 STEPS · 約1〜2分</div>
 </section>
 
 <section class="screen" id="s1">
-<div class="progressWrap"><div class="progressMeta"><span id="qStep">QUESTION 01</span><span id="qCount">1 / 8</span></div><div class="progressLine"><div class="progressFill" id="qProgress"></div></div></div>
+<div class="progressWrap"><div class="progressMeta"><span id="qStep">QUESTION 01</span><span id="qCount">1 / 6</span></div><div class="progressLine"><div class="progressFill" id="qProgress"></div></div></div>
 <div class="questionCard"><div class="qnum" id="qKicker">FIRST FEELING</div><div class="qtitle" id="qTitle"></div><div class="qsub" id="qSub"></div><div class="options" id="qOptions"></div></div>
 <div class="qnav"><button class="secondary" onclick="questionBack()">← BACK</button><button class="primary" id="qNext" onclick="questionNext()">NEXT →</button></div>
 </section>
@@ -215,14 +215,7 @@ var beans=[
 ];
 
 var questions=[
-{id:'tasteGauge',type:'gauge',k:'TASTE BALANCE',title:'まずは、好みのバランスを教えてください',sub:'酸味・苦味・ボディを、直感でスライドしてください。'},
-{id:'sweetness',k:'SWEETNESS',title:'甘さは欲しい？',sub:'砂糖ではなく、豆が持つ自然な甘さのこと。',options:[
-{v:'dry',l:'DRY',s:'甘さよりキレ',i:'△',fx:{clean:4,fruity:2,sweet:-2}},
-{v:'soft',l:'SOFT SWEET',s:'ほんのり甘い',i:'◇',fx:{sweet:3,balanced:3}},
-{v:'sweet',l:'SWEET',s:'甘い余韻が好き',i:'◆',fx:{sweet:6,balanced:2}},
-{v:'choco',l:'CHOCOLATE',s:'チョコのような甘さ',i:'■',fx:{sweet:5,deep:3,nutty:2}}
-]},
-{id:'colorMood',type:'colorGauge',k:'BLEND COLOR',title:'このブレンドをイメージする色は？',sub:'あなた自身の好きな色ではなく、この一杯にまとわせたい色の空気感を選んでください。'},
+{id:'tasteGauge',type:'gauge',k:'TASTE BALANCE',title:'まずは、好みのバランスを教えてください',sub:'酸味・苦味・甘さ・ボディを、直感でスライドしてください。'},{id:'colorMood',type:'colorGauge',k:'BLEND COLOR',title:'このブレンドをイメージする色は？',sub:'あなた自身の好きな色ではなく、この一杯にまとわせたい色の空気感を選んでください。'},
 
 {id:'fruit',multi:true,max:2,k:'ACIDITY CHARACTER',title:'どんな果実感に惹かれる？',sub:'コーヒーの酸味の質を4つの方向から、最大2つまで選んでください。',options:[
 {v:'berry',l:'BERRY',s:'いちご・赤スグリ・赤い果実',i:'●',fx:{fruity:5,sweet:2}},
@@ -263,7 +256,7 @@ var questions=[
 
 var st={
 screen:0,qi:0,
-gauges:{acidity:50,bitterness:50,body:50},
+gauges:{acidity:50,bitterness:50,sweetness:50,body:50},
 colorMood:45,
 answers:{fruit:[]},
 scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},
@@ -273,7 +266,7 @@ blend:[],no:18,title:'ONE OF ONE'
 function show(n){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById('s'+n).classList.add('active');st.screen=n;window.scrollTo({top:0,behavior:'smooth'})}
 function startQuestions(){st.qi=0;renderQuestion();show(1)}
 function globalBack(){if(st.screen===1){questionBack();return}if(st.screen>0)show(st.screen-1)}
-function resetAll(){st={screen:0,qi:0,gauges:{acidity:50,bitterness:50,body:50},colorMood:45,answers:{fruit:[]},scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},blend:[],no:18,title:'ONE OF ONE'};var i=document.getElementById('blendNameWord');if(i)i.value='';show(0)}
+function resetAll(){st={screen:0,qi:0,gauges:{acidity:50,bitterness:50,sweetness:50,body:50},colorMood:45,answers:{fruit:[]},scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},blend:[],no:18,title:'ONE OF ONE'};var i=document.getElementById('blendNameWord');if(i)i.value='';show(0)}
 function currentQuestion(){return questions[st.qi]}
 function qById(id){return questions.find(function(q){return q.id===id})}
 function ans(id){var q=qById(id);if(!q||q.type==='gauge'||q.multi)return null;var v=st.answers[id];return q.options.find(function(o){return o.v===v})||null}
@@ -285,10 +278,18 @@ var g=st.gauges;
 return '<div class="gaugePanel">'+
 '<div class="gaugeRow"><div class="gaugeHead"><b>酸味 / ACIDITY</b><span id="acidGaugeLabel">'+gaugeLabel(g.acidity,'ひかえめ','ほどよく','しっかり')+'</span></div><input type="range" min="0" max="100" value="'+g.acidity+'" oninput="setGauge(\'acidity\',this.value)"><div class="gaugeEnds"><span>LOW</span><span>HIGH</span></div></div>'+
 '<div class="gaugeRow"><div class="gaugeHead"><b>苦味 / BITTERNESS</b><span id="bitterGaugeLabel">'+gaugeLabel(g.bitterness,'ひかえめ','ほどよく','しっかり')+'</span></div><input type="range" min="0" max="100" value="'+g.bitterness+'" oninput="setGauge(\'bitterness\',this.value)"><div class="gaugeEnds"><span>LOW</span><span>HIGH</span></div></div>'+
+'<div class="gaugeRow"><div class="gaugeHead"><b>甘さ / SWEETNESS</b><span id="sweetGaugeLabel">'+gaugeLabel(g.sweetness,'ドライ','やわらかい','甘い余韻')+'</span></div><input type="range" min="0" max="100" value="'+g.sweetness+'" oninput="setGauge(\'sweetness\',this.value)"><div class="gaugeEnds"><span>DRY</span><span>SWEET</span></div></div>'+
 '<div class="gaugeRow"><div class="gaugeHead"><b>ボディ / BODY</b><span id="bodyGaugeLabel">'+gaugeLabel(g.body,'軽やか','ミディアム','リッチ')+'</span></div><input type="range" min="0" max="100" value="'+g.body+'" oninput="setGauge(\'body\',this.value)"><div class="gaugeEnds"><span>LIGHT</span><span>RICH</span></div></div>'+
 '</div>'
 }
-function setGauge(k,v){st.gauges[k]=Number(v);var id=k==='acidity'?'acidGaugeLabel':k==='bitterness'?'bitterGaugeLabel':'bodyGaugeLabel';var el=document.getElementById(id);if(!el)return;if(k==='body')el.textContent=gaugeLabel(st.gauges[k],'軽やか','ミディアム','リッチ');else el.textContent=gaugeLabel(st.gauges[k],'ひかえめ','ほどよく','しっかり')}
+function setGauge(k,v){
+st.gauges[k]=Number(v);
+var map={acidity:'acidGaugeLabel',bitterness:'bitterGaugeLabel',sweetness:'sweetGaugeLabel',body:'bodyGaugeLabel'};
+var el=document.getElementById(map[k]);if(!el)return;
+if(k==='body')el.textContent=gaugeLabel(st.gauges[k],'軽やか','ミディアム','リッチ');
+else if(k==='sweetness')el.textContent=gaugeLabel(st.gauges[k],'ドライ','やわらかい','甘い余韻');
+else el.textContent=gaugeLabel(st.gauges[k],'ひかえめ','ほどよく','しっかり')
+}
 function colorTheme(){
 var v=Number(st.colorMood);
 if(v<18)return {key:'snow',label:'SNOW',name:'雪・余白',color:'#eee8df',text:'#17362f',fx:{clean:3,balanced:2}};
@@ -346,9 +347,10 @@ if(st.qi<questions.length-1){st.qi++;renderQuestion();window.scrollTo({top:0,beh
 function addScore(k,v){st.scores[k]=(st.scores[k]||0)+v}
 function recomputeScores(){
 st.scores={fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0};
-var a=(st.gauges.acidity-50)/50,b=(st.gauges.bitterness-50)/50,body=(st.gauges.body-50)/50;
+var a=(st.gauges.acidity-50)/50,b=(st.gauges.bitterness-50)/50,sw=(st.gauges.sweetness-50)/50,body=(st.gauges.body-50)/50;
 if(a>=0){addScore('fruity',a*6);addScore('clean',a*4)}else{addScore('deep',-a*5);addScore('nutty',-a*3);addScore('sweet',-a*2)}
 if(b>=0){addScore('deep',b*6);addScore('nutty',b*4)}else{addScore('clean',-b*4);addScore('fruity',-b*2)}
+if(sw>=0){addScore('sweet',sw*7);addScore('balanced',sw*2)}else{addScore('clean',-sw*3);addScore('sweet',sw*2)}
 if(body>=0){addScore('deep',body*5);addScore('sweet',body*2);addScore('nutty',body*2)}else{addScore('clean',-body*5);addScore('fruity',-body*2)}
 var ct=colorTheme();Object.keys(ct.fx).forEach(function(k){addScore(k,ct.fx[k])});
 questions.forEach(function(q){
@@ -362,7 +364,7 @@ var o=ans(q.id);if(!o)return;Object.keys(o.fx||{}).forEach(function(k){addScore(
 })
 }
 function topDims(){recomputeScores();return Object.keys(st.scores).sort(function(a,b){return st.scores[b]-st.scores[a]})}
-function tasteGaugeText(){return '酸味 '+Math.round(st.gauges.acidity)+' / 苦味 '+Math.round(st.gauges.bitterness)+' / ボディ '+Math.round(st.gauges.body)}
+function tasteGaugeText(){return '酸味 '+Math.round(st.gauges.acidity)+' / 苦味 '+Math.round(st.gauges.bitterness)+' / 甘さ '+Math.round(st.gauges.sweetness)+' / ボディ '+Math.round(st.gauges.body)}
 function makeProfile(){
 var t=topDims(),pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};
 var moment=ans('moment'),withp=ans('with'),complexity=ans('complexity');
@@ -395,12 +397,8 @@ if(ct.key==='night'&&b.roast==='Dark')x+=5;
 if(ct.key==='blue'&&(b.id==='arichaL'||b.id==='decaf'||b.id==='narinoD'))x+=4;
 if(ct.key==='forest'&&(b.id==='elsalvador'||b.id==='narinoD'||b.id==='decaf'))x+=3;
 if(ct.key==='sunset'&&(b.id==='rubi'||b.id==='arichaD'||b.id==='bella'))x+=3;
-if(a.sweetness==='choco'&&(b.id==='arichaD'||b.id==='bella'||b.id==='narinoD'))x+=7;
-if(a.sweetness==='sweet'&&(b.id==='rubi'||b.id==='arichaL'||b.id==='arichaD'))x+=5;
-if(a.brew==='milk'&&(b.id==='bella'||b.id==='arichaD'||b.id==='narinoD'))x+=7;
-if(a.brew==='espresso'&&b.roast==='Dark')x+=7;
-if(a.brew==='ice'&&(b.id==='elsalvador'||b.id==='arichaL'||b.id==='rubi'||b.id==='decaf'))x+=5;
-if(a.brew==='filter'&&b.roast!=='Dark')x+=4;
+if(st.gauges.sweetness>=67&&(b.id==='rubi'||b.id==='arichaL'||b.id==='arichaD'||b.id==='bella'))x+=5;
+if(st.gauges.sweetness<=33&&(b.id==='elsalvador'||b.id==='narinoD'))x+=3;
 if(a.moment==='night'&&(b.id==='decaf'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
 if(a.moment==='morning'&&(b.id==='arichaL'||b.id==='elsalvador'||b.id==='decaf'))x+=4;
 if(a.moment==='snow'&&(b.id==='bella'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
