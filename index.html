@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#f4f0e8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>MYOKO COFFEE — CREATE YOUR BLEND</title>
+<style>
+:root{--bg:#f4f0e8;--paper:#fffdf8;--ink:#20231f;--muted:#78786f;--line:#d8d2c8;--soft:#ebe5da;--accent:#827763}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+body{min-height:100dvh;background:radial-gradient(circle at 10% 0%,#ebe4d8 0,transparent 28%),linear-gradient(#f8f5ee,#f2eee6)}
+button,input,textarea{font:inherit;color:inherit}.app{max-width:760px;min-height:100dvh;margin:auto;padding:calc(14px + env(safe-area-inset-top)) 15px calc(24px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;min-height:48px}.ghost{border:0;background:transparent;font-size:11px;letter-spacing:.12em;color:var(--muted);min-width:54px;padding:10px}
+.logo{text-align:center}.mark{font-size:19px;letter-spacing:-.12em;line-height:1}.brand{font-weight:800;letter-spacing:.25em;font-size:14px;margin-top:4px}.tagline{font-size:5px;letter-spacing:.25em;color:var(--muted);margin-top:5px}
+.screen{display:none;animation:in .25s ease}.screen.active{display:block}@keyframes in{from{opacity:.2;transform:translateY(7px)}to{opacity:1;transform:none}}
+.progress{max-width:360px;margin:13px auto 22px;display:flex;align-items:center;gap:8px}.dot{width:9px;height:9px;border-radius:50%;border:1px solid #9c9b93;background:#faf7f1}.dot.on{background:var(--ink);border-color:var(--ink)}.bar{height:1px;background:#bdb9b0;flex:1}.num{font-family:Georgia,serif;font-size:13px;color:var(--muted);margin-left:5px}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;text-align:center;letter-spacing:-.03em;margin:0}h1{font-size:clamp(46px,12vw,76px);line-height:.9;margin-top:28px}h2{font-size:clamp(42px,10vw,62px);line-height:1;margin-top:18px}.jp{text-align:center;font-size:20px;margin-top:10px}.rule{width:50px;height:1px;background:var(--ink);margin:20px auto}.lede{text-align:center;color:var(--muted);font-size:13px;line-height:1.9;max-width:520px;margin:18px auto}
+.hero{max-width:540px;margin:24px auto;background:rgba(255,253,248,.7);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 18px 50px rgba(25,28,24,.08)}.hero-art{height:260px;border-radius:18px;background:linear-gradient(145deg,#e5ddd1,#faf7f1);display:grid;place-items:center;overflow:hidden}.bag{width:190px;height:220px;background:#d8cec0;clip-path:polygon(7% 0,93% 0,100% 100%,0 100%);display:grid;place-items:center}.sticker{width:132px;height:168px;background:#fff;border:1px solid #cbc6bc;box-shadow:0 5px 14px rgba(0,0,0,.08);padding:14px;text-align:center}.sticker b{font-family:Georgia,serif;font-size:22px;font-weight:400}.mountain{width:72px;height:42px;margin:15px auto;background:#222;clip-path:polygon(0 100%,35% 27%,50% 63%,64% 41%,100% 100%)}.mini{font-size:6px;letter-spacing:.18em;color:#555}
+.primary{display:flex;justify-content:center;align-items:center;width:min(100%,530px);margin:18px auto 0;border:0;border-radius:999px;background:var(--ink);color:#fff;padding:17px 20px;font-family:Georgia,serif;font-size:16px;letter-spacing:.17em;box-shadow:0 8px 24px rgba(20,22,20,.13)}.primary:active{transform:scale(.992)}.subnote{text-align:center;font-size:11px;color:var(--muted);margin-top:11px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;max-width:620px;margin:28px auto 10px}.taste{aspect-ratio:1;border:1px solid var(--line);border-radius:50%;background:rgba(255,253,248,.45);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:7px;position:relative}.taste.sel{border:2px solid var(--accent);background:#eee6db}.taste.sel:after{content:"✓";position:absolute;right:9%;top:8%;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-size:12px}.taste .ico{font-family:Georgia,serif;font-size:30px;line-height:1;margin-bottom:9px}.taste b{font-family:Georgia,serif;font-size:13px;font-weight:400;letter-spacing:.1em}.taste span{font-size:9px;color:var(--muted);margin-top:4px}.strength{max-width:540px;margin:24px auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:17px}.strengthline{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:10px}.strength input{width:100%;accent-color:#333}
+.card{max-width:600px;margin:24px auto;background:rgba(255,253,248,.9);border:1px solid var(--line);padding:22px;border-radius:5px;box-shadow:0 18px 48px rgba(20,24,20,.08)}.card h3{font-family:Georgia,serif;font-size:28px;font-weight:400;margin:0}.cardno{font-family:Georgia,serif;margin:3px 0 14px}.pills{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 14px}.pill{background:#eee9e0;border-radius:999px;padding:6px 10px;font-family:Georgia,serif;font-size:11px}.row{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;border-top:1px solid var(--line);padding:14px 0}.bean{font-size:27px;filter:grayscale(1)}.meta b{display:block;font-size:13px}.meta small{display:block;font-size:9px;color:var(--muted);line-height:1.45;margin-top:2px}.pct{display:flex;align-items:center;gap:5px}.pct strong{font-family:Georgia,serif;font-weight:400;font-size:18px;min-width:42px;text-align:center}.round{width:29px;height:29px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:17px;padding:0}.barista{border-top:1px solid var(--line);padding-top:13px;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.75}
+.moodbox{max-width:600px;margin:23px auto}.label{font-size:11px;color:var(--muted);margin:14px 0 9px 3px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:rgba(255,255,255,.5);border-radius:999px;padding:10px 13px;font-size:12px}.chip.sel{background:var(--ink);color:#fff;border-color:var(--ink)}textarea{width:100%;min-height:72px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.55);padding:13px;resize:none;outline:none}.preview{margin-top:15px;border:1px solid var(--line);border-radius:16px;background:#faf8f2;min-height:230px;padding:12px;display:grid;place-items:center}.preview svg{width:100%;max-height:250px}
+.final{display:grid;grid-template-columns:1fr 270px;gap:20px;max-width:700px;margin:22px auto}.stage{min-height:540px;border-radius:22px;background:linear-gradient(145deg,#e4ddd3,#faf7f0);display:grid;place-items:center;padding:22px;box-shadow:0 18px 50px rgba(20,24,20,.09)}.paper{width:min(100%,300px);aspect-ratio:5/8;background:white;border:1px solid #c8c5bc;border-radius:9px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.12)}.paper svg{width:100%;height:100%;display:block}.panel h3{font-family:Georgia,serif;font-weight:400;font-size:27px;margin:5px 0 10px}.panel p{font-size:12px;line-height:1.75;color:var(--muted)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}.secondary{border:1px solid var(--line);background:rgba(255,255,255,.45);border-radius:999px;padding:12px 10px;font-size:11px}.print{grid-column:1/-1;border:0;border-radius:999px;background:var(--ink);color:#fff;padding:15px 10px;font-family:Georgia,serif;letter-spacing:.12em}.help{font-size:10px!important}.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,15px);background:#20231f;color:#fff;padding:10px 14px;border-radius:999px;font-size:11px;opacity:0;transition:.2s;z-index:30;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}footer{text-align:center;font-size:7px;letter-spacing:.24em;color:#99968f;margin-top:27px}
+@media(max-width:620px){.hero-art{height:220px}.grid{gap:8px}.taste .ico{font-size:26px}.final{grid-template-columns:1fr}.stage{min-height:500px}.panel{text-align:center}.actions{max-width:420px;margin:18px auto 0}.card{padding:17px}.row{grid-template-columns:35px 1fr auto}.meta b{font-size:12px}.pct{gap:3px}.round{width:27px;height:27px}.pct strong{font-size:16px;min-width:36px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><button class="ghost" onclick="resetApp()">RESET</button><div class="logo"><div class="mark">⌁⌃⌁</div><div class="brand">MYOKO COFFEE</div><div class="tagline">GOOD COFFEE · A RICHER TOMORROW</div></div><button class="ghost" onclick="back()">BACK</button></header>
+
+<section class="screen active" id="s0">
+<h1>CREATE<br>YOUR BLEND</h1><div class="jp">世界にひとつのブレンドをつくる</div><div class="rule"></div>
+<div class="lede">いまの気分と好きな味を選ぶだけ。<br>あなただけのコーヒーと、モノクロのオリジナルラベルをつくります。</div>
+<div class="hero"><div class="hero-art"><div class="bag"><div class="sticker"><div class="mini">MYOKO COFFEE</div><b>MY BLEND</b><div class="mountain"></div><div class="mini">ONE OF ONE<br><br>CREATED IN MYOKO</div></div></div></div></div>
+<button class="primary" onclick="go(1)">START →</button><div class="subnote">所要時間：約1分</div>
+</section>
+
+<section class="screen" id="s1">
+<div class="progress"><i class="dot on"></i><i class="bar"></i><i class="dot"></i><i class="bar"></i><i class="dot"></i><i class="bar"></i><i class="dot"></i><span class="num">1 / 4</span></div>
+<h2>1. TASTE</h2><div class="jp">どんな味わいが好き？</div><div class="lede">直感でひとつ選んでください。</div>
+<div class="grid" id="tasteGrid"></div>
+<div class="strength"><div class="strengthline"><span>LIGHT</span><span>飲みごたえ</span><span>BOLD</span></div><input id="strength" type="range" min="0" max="100" value="50"></div>
+<button class="primary" onclick="makeBlend()">NEXT →</button>
+</section>
+
+<section class="screen" id="s2">
+<div class="progress"><i class="dot on"></i><i class="bar"></i><i class="dot on"></i><i class="bar"></i><i class="dot"></i><i class="bar"></i><i class="dot"></i><span class="num">2 / 4</span></div>
+<h2>2. BLEND</h2><div class="jp">おすすめのブレンドができました</div><div class="lede">気になるところだけ、±5%で調整できます。</div>
+<div class="card"><h3>MY BLEND</h3><div class="cardno" id="blendNo">#018</div><div class="pills" id="tags"></div><div id="blendRows"></div><div class="barista" id="note"></div></div>
+<button class="primary" onclick="go(3)">NEXT →</button>
+</section>
+
+<section class="screen" id="s3">
+<div class="progress"><i class="dot on"></i><i class="bar"></i><i class="dot on"></i><i class="bar"></i><i class="dot on"></i><i class="bar"></i><i class="dot"></i><span class="num">3 / 4</span></div>
+<h2>3. MOOD</h2><div class="jp">ラベルのイメージを選ぶ</div><div class="lede">その日の気分を3〜4個選んでください。</div>
+<div class="moodbox"><div class="label">KEYWORDS</div><div class="chips" id="moodChips"></div><div class="label">ひとこと（任意）</div><textarea id="freeMood" maxlength="48" placeholder="例：落ち着いていて少し幻想的"></textarea><div class="label">LABEL PREVIEW</div><div class="preview" id="preview"></div></div>
+<button class="primary" onclick="finish()">GENERATE LABEL →</button>
+</section>
+
+<section class="screen" id="s4">
+<div class="progress"><i class="dot on"></i><i class="bar"></i><i class="dot on"></i><i class="bar"></i><i class="dot on"></i><i class="bar"></i><i class="dot on"></i><span class="num">4 / 4</span></div>
+<h2>4. PRINT</h2><div class="jp">ラベルができました</div>
+<div class="final"><div class="stage"><div class="paper" id="paper"></div></div><div class="panel"><h3 id="finalTitle">QUIET NIGHT</h3><p>50mm幅のモノクロラベルを想定しています。画像を共有してNIIMBOTアプリで印刷してください。</p><div class="actions"><button class="secondary" onclick="go(3)">EDIT</button><button class="secondary" onclick="downloadLabel()">SAVE PNG</button><button class="print" onclick="shareLabel()">PRINT / SHARE</button></div><p class="help">iPhone：PRINT / SHARE → 共有 → NIIMBOT、または「画像を保存」してNIIMBOTアプリから読み込み。</p></div></div>
+</section>
+<footer>COFFEE BRINGS US TOGETHER</footer>
+</div><div class="toast" id="toast"></div>
+
+<script>
+var beans=[
+{id:'peace',name:'Peace Blend',short:'PEACE BLEND',roast:'中煎り',note:'繊細な風味と心地よいコク',w:{balanced:5,sweet:3,clean:3}},
+{id:'tree',name:'Tree Blend',short:'TREE BLEND',roast:'深煎り',note:'厚みのある深い味わい',w:{deep:5,nutty:4,sweet:2}},
+{id:'rubi',name:'ブラジル・ルビ',short:'BRAZIL RUBI',roast:'浅煎り',note:'フルーティでクリーミー',w:{fruity:4,nutty:4,sweet:3}},
+{id:'aricha',name:'エチオピア・アリーチャ',short:'ETHIOPIA ARICHA',roast:'浅煎り',note:'野いちごのような可憐な香り',w:{fruity:5,clean:3,sweet:3}},
+{id:'narinoL',name:'コロンビア・ナリーニョ',short:'COLOMBIA',roast:'浅煎り',note:'りんごを思わせる爽やかさ',w:{clean:5,fruity:4,balanced:3}},
+{id:'bella',name:'ブラジル・ベラビスタ',short:'BELLA VISTA',roast:'深煎り',note:'ナッツとダークチョコの余韻',w:{nutty:5,deep:4,sweet:4}},
+{id:'narinoD',name:'コロンビア・ナリーニョ',short:'COLOMBIA',roast:'深煎り',note:'濃厚なのに後味すっきり',w:{deep:5,clean:4,balanced:3}},
+{id:'decaf',name:'エチオピア・デカフェ',short:'ETHIOPIA DECAF',roast:'デカフェ',note:'爽やかでやさしい',w:{clean:4,balanced:4,sweet:2}}
+];
+var tastes=[
+{id:'fruity',en:'FRUITY',jp:'フルーティー',ico:'✦'},
+{id:'sweet',en:'SWEET',jp:'スイート',ico:'◆'},
+{id:'nutty',en:'NUTTY',jp:'ナッティー',ico:'◉'},
+{id:'deep',en:'DEEP',jp:'ディープ',ico:'●'},
+{id:'clean',en:'CLEAN',jp:'クリーン',ico:'△'},
+{id:'balanced',en:'BALANCED',jp:'バランス',ico:'◎'}
+];
+var moods=[['雪の夜','❄'],['森','♠'],['静けさ','≈'],['月','◐'],['妙高','⌃'],['朝','☼'],['ベリー','●'],['川','≋'],['星','✦'],['野性','⌁'],['ミニマル','□']];
+var st={screen:0,taste:'fruity',strength:50,blend:[],moods:['雪の夜','森','静けさ'],no:18,title:'QUIET NIGHT'};
+function show(n){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById('s'+n).classList.add('active');st.screen=n;window.scrollTo({top:0,behavior:'smooth'})}
+function go(n){show(n)}function back(){if(st.screen>0)show(st.screen-1)}
+function resetApp(){st={screen:0,taste:'fruity',strength:50,blend:[],moods:['雪の夜','森','静けさ'],no:18,title:'QUIET NIGHT'};document.getElementById('strength').value=50;document.getElementById('freeMood').value='';renderTaste();renderMoods();renderPreview();show(0)}
+function renderTaste(){document.getElementById('tasteGrid').innerHTML=tastes.map(function(t){return '<button class="taste '+(st.taste===t.id?'sel':'')+'" onclick="pickTaste(\''+t.id+'\')"><span class="ico">'+t.ico+'</span><b>'+t.en+'</b><span>'+t.jp+'</span></button>'}).join('')}
+function pickTaste(id){st.taste=id;renderTaste()}
+function makeBlend(){st.strength=Number(document.getElementById('strength').value);var sorted=beans.map(function(b,i){var score=(b.w[st.taste]||0);if(st.strength>65&&b.roast==='深煎り')score+=2;if(st.strength<35&&b.roast==='浅煎り')score+=2;if(st.taste==='balanced'&&b.id==='peace')score+=2;return {b:b,s:score,i:i}}).sort(function(a,b){return b.s-a.s||a.i-b.i}).slice(0,3);var p=st.strength>70?[55,30,15]:st.strength<30?[45,35,20]:[50,30,20];st.blend=sorted.map(function(x,i){return {bean:x.b,pct:p[i]}});st.no=18+Math.floor(Date.now()/1000)%80;renderBlend();show(2)}
+function renderBlend(){document.getElementById('blendNo').textContent='#'+String(st.no).padStart(3,'0');var t=tastes.filter(function(x){return x.id===st.taste})[0];document.getElementById('tags').innerHTML=[''+t.en.toLowerCase(),st.strength>65?'bold':st.strength<35?'light':'balanced','one of one'].map(function(x){return '<span class="pill">'+x+'</span>'}).join('');document.getElementById('blendRows').innerHTML=st.blend.map(function(x,i){return '<div class="row"><div class="bean">◉</div><div class="meta"><b>'+x.bean.name+'</b><small>'+x.bean.short+'<br>'+x.bean.note+'</small></div><div class="pct"><button class="round" onclick="adj('+i+',-5)">−</button><strong>'+x.pct+'%</strong><button class="round" onclick="adj('+i+',5)">＋</button></div></div>'}).join('');var notes={fruity:'華やかな香りを軸に、後味は軽やかに。',sweet:'やさしい甘さを中心に、丸い余韻へ。',nutty:'香ばしさとコクが続く落ち着いた配合。',deep:'深いコクを中心に、後味には抜けを残しました。',clean:'透明感を大切に、爽やかな余韻へ。',balanced:'毎日飲みたくなる調和を狙ったバランスです。'};document.getElementById('note').innerHTML='<b style="color:#20231f">バリスタからのひとこと</b><br>'+notes[st.taste]}
+function adj(i,d){var j=(i+1)%st.blend.length;if(st.blend[i].pct+d<10||st.blend[j].pct-d<10)return;st.blend[i].pct+=d;st.blend[j].pct-=d;renderBlend()}
+function renderMoods(){document.getElementById('moodChips').innerHTML=moods.map(function(m){return '<button class="chip '+(st.moods.indexOf(m[0])>-1?'sel':'')+'" onclick="toggleMood(\''+m[0]+'\')">'+m[1]+' '+m[0]+'</button>'}).join('')}
+function toggleMood(m){var i=st.moods.indexOf(m);if(i>-1)st.moods.splice(i,1);else if(st.moods.length<4)st.moods.push(m);else return toast('キーワードは4つまで');renderMoods();renderPreview()}
+function chooseTitle(){var m=st.moods;if(m.indexOf('ベリー')>-1)return 'WILD BERRY';if(m.indexOf('川')>-1&&st.taste==='deep')return 'DEEP RIVER';if(m.indexOf('朝')>-1)return 'MORNING MIST';if(m.indexOf('雪の夜')>-1||m.indexOf('月')>-1)return 'QUIET NIGHT';if(m.indexOf('森')>-1)return 'FOREST AIR';if(m.indexOf('星')>-1)return 'NIGHT SIGNAL';if(m.indexOf('野性')>-1)return 'WILD SIDE';if(m.indexOf('ミニマル')>-1)return 'STILL FORM';return tastes.filter(function(x){return x.id===st.taste})[0].en+' DAY'}
+function tree(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M0 -46L-17 -18L-8 -20L-27 4L-12 1L-32 29L-7 22L-7 46L7 46L7 22L32 29L12 1L27 4L8 -20L17 -18Z" fill="#111"/></g>'}
+function mountain(){return '<path d="M34 168L102 72L140 116L184 48L236 110L278 79L352 168Z" fill="none" stroke="#111" stroke-width="8" stroke-linejoin="round"/><path d="M102 72L88 115L105 101L117 123L140 116M184 48L166 101L185 82L205 109L236 110M278 79L264 116L280 101L297 120" fill="none" stroke="#111" stroke-width="6"/>'}
+function art(){var night=st.moods.indexOf('雪の夜')>-1||st.moods.indexOf('月')>-1||st.moods.indexOf('星')>-1;var berry=st.moods.indexOf('ベリー')>-1;var river=st.moods.indexOf('川')>-1;var a='<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="260" fill="#fff"/>';if(night)a+='<path d="M48 166A132 132 0 0 1 312 166Z" fill="#111"/><circle cx="263" cy="72" r="22" fill="#fff"/>';a+=mountain();if(berry)a+='<g fill="#111"><circle cx="125" cy="145" r="16"/><circle cx="155" cy="132" r="16"/><circle cx="185" cy="148" r="16"/><circle cx="145" cy="176" r="16"/><circle cx="178" cy="177" r="16"/><path d="M78 195C56 145 68 101 108 71M282 195C305 145 294 101 253 72" fill="none" stroke="#111" stroke-width="6"/></g>';if(river)a+='<path d="M150 188C220 205 226 236 181 262C147 282 139 304 156 330" fill="none" stroke="#111" stroke-width="22" stroke-linecap="round"/>';if(!berry)a+=tree(62,180,.8)+tree(105,190,.56)+tree(295,184,.72)+tree(334,194,.52);a+='<text x="180" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="12" letter-spacing="3">'+chooseTitle()+'</text></svg>';return a}
+function renderPreview(){st.title=chooseTitle();document.getElementById('preview').innerHTML=art()}
+function finish(){if(!st.blend.length)makeBlend();st.title=chooseTitle();document.getElementById('finalTitle').textContent=st.title;document.getElementById('paper').innerHTML=labelSvg();show(4)}
+function labelSvg(){var date=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit'}).replaceAll('/','.');var a='<svg id="labelSvg" viewBox="0 0 500 800" xmlns="http://www.w3.org/2000/svg"><rect width="500" height="800" fill="#fff"/><rect x="14" y="14" width="472" height="772" rx="18" fill="none" stroke="#111" stroke-width="4"/><text x="250" y="60" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="7">MYOKO COFFEE</text><line x1="215" y1="80" x2="285" y2="80" stroke="#111" stroke-width="3"/><text x="250" y="116" text-anchor="middle" font-family="Georgia,serif" font-size="18" letter-spacing="4">ONE OF ONE</text><text x="250" y="145" text-anchor="middle" font-family="Georgia,serif" font-size="18">#'+String(st.no).padStart(3,'0')+'</text><text x="250" y="202" text-anchor="middle" font-family="Georgia,serif" font-size="39" font-weight="700">'+st.title+'</text><g transform="translate(70 220)">'+art().replace('<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">','<g>').replace('</svg>','</g>')+'</g><line x1="92" y1="520" x2="408" y2="520" stroke="#111" stroke-width="2"/>';st.blend.forEach(function(x,i){a+='<text x="120" y="'+(562+i*34)+'" font-family="Georgia,serif" font-size="19" letter-spacing="1">'+x.bean.short+'</text><text x="390" y="'+(562+i*34)+'" text-anchor="end" font-family="Georgia,serif" font-size="19">'+x.pct+'</text>'});a+='<line x1="205" y1="672" x2="295" y2="672" stroke="#111" stroke-width="3"/><text x="250" y="712" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="4">CREATED IN MYOKO</text><text x="250" y="744" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" letter-spacing="4">'+date+'</text></svg>';return a}
+async function pngBlob(){var svg=document.getElementById('labelSvg');var xml=new XMLSerializer().serializeToString(svg);var url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml'}));var img=new Image();await new Promise(function(ok,no){img.onload=ok;img.onerror=no;img.src=url});var c=document.createElement('canvas');c.width=591;c.height=945;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);return await new Promise(function(ok){c.toBlob(ok,'image/png',1)})}
+async function downloadLabel(){try{var b=await pngBlob();var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='MYOKO_'+st.title.replaceAll(' ','_')+'_'+st.no+'.png';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1200);toast('PNGを保存しました')}catch(e){toast('保存できませんでした')}}
+async function shareLabel(){try{var b=await pngBlob();var f=new File([b],'MYOKO_'+st.no+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'MYOKO COFFEE LABEL',text:'NIIMBOTで印刷'});toast('共有しました')}else{downloadLabel()}}catch(e){if(e.name!=='AbortError')downloadLabel()}}
+function toast(s){var t=document.getElementById('toast');t.textContent=s;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(function(){t.classList.remove('show')},1800)}
+renderTaste();renderMoods();renderPreview();
+</script>
+</body></html>
