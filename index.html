@@ -117,15 +117,20 @@ footer{text-align:center;font-size:8px;letter-spacing:.22em;color:var(--accent);
 .namePrompt{margin-top:16px;color:var(--muted);font-size:12px;line-height:1.7}
 .nameInput{width:100%;height:54px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.58);padding:0 16px;margin-top:10px;outline:none;font-family:Georgia,serif;font-size:18px;color:var(--green);letter-spacing:.04em}
 .proposalLead{max-width:620px;margin:16px auto 0;text-align:center;font-family:Georgia,serif;font-size:18px;line-height:1.6;color:var(--green)}
+
 .colorPalettePanel{margin-top:22px;background:rgba(255,255,255,.44);border:1px solid var(--line);border-radius:22px;padding:18px}
-.colorMoodTitle{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
-.colorMoodTitle b{font-family:Georgia,serif;font-size:18px;font-weight:400;color:var(--green)}
-.colorMoodTitle span{font-size:11px;color:var(--accent);letter-spacing:.08em}
-.colorRange{-webkit-appearance:none;appearance:none;width:100%;height:20px;border-radius:999px;outline:none;background:linear-gradient(90deg,#f1ece3 0%,#d9d1c4 12%,#315446 30%,#587084 52%,#9a745f 74%,#4e3434 86%,#202321 100%);box-shadow:inset 0 0 0 1px rgba(23,54,47,.12)}
-.colorRange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;border:3px solid var(--green);box-shadow:0 3px 10px rgba(23,54,47,.22)}
-.colorRange::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--green);box-shadow:0 3px 10px rgba(23,54,47,.22)}
-.paletteLabels{display:flex;justify-content:space-between;gap:4px;margin-top:10px;font-size:8px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
-.paletteSwatch{height:56px;border-radius:16px;margin-top:14px;border:1px solid rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:16px;letter-spacing:.12em;transition:.2s}
+.paletteGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.paletteTile{aspect-ratio:1/1;border:0;border-radius:14px;position:relative;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12),0 5px 14px rgba(23,54,47,.05);transition:.14s transform,.14s box-shadow}
+.paletteTile:active{transform:scale(.96)}
+.paletteTile.sel{box-shadow:inset 0 0 0 3px #fff,0 0 0 3px var(--green),0 8px 18px rgba(23,54,47,.14)}
+.paletteTile.sel:after{content:"✓";position:absolute;right:8px;top:7px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.94);color:var(--green);font-size:12px;font-weight:700}
+.paletteName{text-align:center;margin-top:14px;font-family:Georgia,serif;font-size:18px;letter-spacing:.1em;color:var(--green)}
+.paletteHint{text-align:center;margin-top:5px;font-size:10px;color:var(--muted);letter-spacing:.08em}
+.structurePanel{margin-top:22px;background:rgba(255,255,255,.44);border:1px solid var(--line);border-radius:22px;padding:20px 18px}
+.structurePanel input[type=range]{width:100%;margin:18px 0 10px;accent-color:var(--green)}
+.structureEnds{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.structureMood{text-align:center;font-family:Georgia,serif;color:var(--green);font-size:18px;letter-spacing:.08em;margin-top:10px}
+@media(max-width:420px){.paletteGrid{grid-template-columns:repeat(4,1fr);gap:8px}.paletteTile{border-radius:11px}}
 
 
 .blendHero{position:relative;height:300px;border-radius:21px;background:
@@ -215,7 +220,7 @@ var beans=[
 ];
 
 var questions=[
-{id:'tasteGauge',type:'gauge',k:'TASTE BALANCE',title:'まずは、好みのバランスを教えてください',sub:'酸味・苦味・甘さ・ボディを、直感でスライドしてください。'},{id:'colorMood',type:'colorGauge',k:'BLEND COLOR',title:'このブレンドをイメージする色は？',sub:'あなた自身の好きな色ではなく、この一杯にまとわせたい色の空気感を選んでください。'},
+{id:'tasteGauge',type:'gauge',k:'TASTE BALANCE',title:'まずは、好みのバランスを教えてください',sub:'酸味・苦味・甘さ・ボディを、直感でスライドしてください。'},{id:'colorMood',type:'colorPalette',k:'BLEND COLOR',title:'このブレンドをイメージする色は？',sub:'この一杯にまとわせたい色を、直感でひとつ選んでください。'},
 
 {id:'fruit',multi:true,max:2,k:'ACIDITY CHARACTER',title:'どんな果実感に惹かれる？',sub:'コーヒーの酸味の質を4つの方向から、最大2つまで選んでください。',options:[
 {v:'berry',l:'BERRY',s:'いちご・赤スグリ・赤い果実',i:'●',fx:{fruity:5,sweet:2}},
@@ -224,11 +229,7 @@ var questions=[
 {v:'winey',l:'WINEY',s:'ぶどう・ワインのような熟した果実感',i:'◉',fx:{fruity:4,sweet:2,deep:2}}
 ]},
 
-{id:'complexity',k:'BLEND STRUCTURE',title:'何種類の豆で重ねたい？',sub:'オリジナルブレンドとして、2〜4種類の構成から選びます。',options:[
-{v:'simple',l:'2 BEANS',s:'シンプルで輪郭のあるブレンド',i:'2',fx:{balanced:2}},
-{v:'layered',l:'3 BEANS',s:'バランスと奥行きを両立',i:'3',fx:{balanced:3}},
-{v:'complex',l:'4 BEANS',s:'複雑で多層的なブレンド',i:'4',fx:{fruity:1,sweet:1,nutty:1,deep:1,clean:1}}
-]},
+{id:'complexity',type:'structureGauge',k:'BLEND STRUCTURE',title:'ブレンドの重なり方は？',sub:'シンプルから複雑まで、直感で調整してください。'},
 {id:'moment',k:'WHEN',title:'この一杯を、いつ飲みたい？',sub:'色のイメージとは別に、実際に飲みたい時間や場面を選んでください。',options:[
 {v:'morning',l:'MORNING',s:'一日のはじまり',i:'☼',fx:{clean:3,fruity:2}},
 {v:'work',l:'FOCUS',s:'集中したい時',i:'▤',fx:{balanced:4,deep:1}},
@@ -250,7 +251,8 @@ var questions=[
 var st={
 screen:0,qi:0,
 gauges:{acidity:50,bitterness:50,sweetness:50,body:50},
-colorMood:45,
+colorChoice:'blue',
+structure:50,
 answers:{fruit:[]},
 scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},
 blend:[],no:18,title:'ONE OF ONE'
@@ -259,10 +261,10 @@ blend:[],no:18,title:'ONE OF ONE'
 function show(n){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById('s'+n).classList.add('active');st.screen=n;window.scrollTo({top:0,behavior:'smooth'})}
 function startQuestions(){st.qi=0;renderQuestion();show(1)}
 function globalBack(){if(st.screen===1){questionBack();return}if(st.screen>0)show(st.screen-1)}
-function resetAll(){st={screen:0,qi:0,gauges:{acidity:50,bitterness:50,sweetness:50,body:50},colorMood:45,answers:{fruit:[]},scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},blend:[],no:18,title:'ONE OF ONE'};var i=document.getElementById('blendNameWord');if(i)i.value='';show(0)}
+function resetAll(){st={screen:0,qi:0,gauges:{acidity:50,bitterness:50,sweetness:50,body:50},colorChoice:'blue',structure:50,answers:{fruit:[]},scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},blend:[],no:18,title:'ONE OF ONE'};var i=document.getElementById('blendNameWord');if(i)i.value='';show(0)}
 function currentQuestion(){return questions[st.qi]}
 function qById(id){return questions.find(function(q){return q.id===id})}
-function ans(id){var q=qById(id);if(!q||q.type==='gauge'||q.multi)return null;var v=st.answers[id];return q.options.find(function(o){return o.v===v})||null}
+function ans(id){var q=qById(id);if(!q||q.type==='gauge'||q.type==='colorPalette'||q.type==='structureGauge'||q.multi)return null;var v=st.answers[id];return q.options.find(function(o){return o.v===v})||null}
 function fruitOptions(){var q=qById('fruit');var arr=Array.isArray(st.answers.fruit)?st.answers.fruit:[];return q.options.filter(function(o){return arr.indexOf(o.v)>-1})}
 function fruitHas(v){return Array.isArray(st.answers.fruit)&&st.answers.fruit.indexOf(v)>-1}
 function gaugeLabel(v,left,mid,right){if(v<34)return left;if(v<67)return mid;return right}
@@ -283,22 +285,43 @@ if(k==='body')el.textContent=gaugeLabel(st.gauges[k],'軽やか','ミディア�
 else if(k==='sweetness')el.textContent=gaugeLabel(st.gauges[k],'ドライ','やわらかい','甘い余韻');
 else el.textContent=gaugeLabel(st.gauges[k],'ひかえめ','ほどよく','しっかり')
 }
+var colorChoices=[
+{key:'snow',label:'SNOW',name:'雪・余白',color:'#eee8df',fx:{clean:3,balanced:2}},
+{key:'mint',label:'MINT',name:'若葉・軽やか',color:'#a7cbb8',fx:{clean:3,fruity:2}},
+{key:'forest',label:'FOREST',name:'森・深緑',color:'#315446',fx:{balanced:3,clean:2,nutty:1}},
+{key:'aqua',label:'AQUA',name:'水・透明感',color:'#6eb7b0',fx:{clean:4,fruity:2}},
+{key:'blue',label:'BLUE HOUR',name:'青・静けさ',color:'#587084',fx:{clean:4,balanced:1}},
+{key:'navy',label:'NAVY',name:'夜明け前・深さ',color:'#293c55',fx:{deep:2,clean:2}},
+{key:'violet',label:'VIOLET',name:'幻想・余韻',color:'#76678f',fx:{fruity:2,sweet:2,deep:1}},
+{key:'pink',label:'ROSE',name:'花・柔らかさ',color:'#c98b9b',fx:{sweet:3,fruity:2}},
+{key:'red',label:'CRIMSON',name:'赤・鮮やか',color:'#9a4f4f',fx:{fruity:3,sweet:2}},
+{key:'orange',label:'SUNSET',name:'夕暮れ・温もり',color:'#b56f4e',fx:{sweet:3,fruity:2}},
+{key:'yellow',label:'GOLD',name:'陽だまり・明るさ',color:'#c6a24f',fx:{sweet:3,clean:1}},
+{key:'brown',label:'EARTH',name:'土・香ばしさ',color:'#7a5a45',fx:{nutty:4,deep:2}},
+{key:'black',label:'NIGHT',name:'夜・深さ',color:'#202321',fx:{deep:4,nutty:2}}
+];
 function colorTheme(){
-var v=Number(st.colorMood);
-if(v<18)return {key:'snow',label:'SNOW',name:'雪・余白',color:'#eee8df',text:'#17362f',fx:{clean:3,balanced:2}};
-if(v<40)return {key:'forest',label:'FOREST',name:'森・深緑',color:'#315446',text:'#ffffff',fx:{balanced:3,clean:2,nutty:1}};
-if(v<62)return {key:'blue',label:'BLUE HOUR',name:'青・静けさ',color:'#587084',text:'#ffffff',fx:{clean:4,balanced:1}};
-if(v<82)return {key:'sunset',label:'SUNSET',name:'夕暮れ・温もり',color:'#9a745f',text:'#ffffff',fx:{sweet:3,fruity:2}};
-return {key:'night',label:'NIGHT',name:'夜・深さ',color:'#202321',text:'#ffffff',fx:{deep:4,nutty:2}};
+return colorChoices.find(function(x){return x.key===st.colorChoice})||colorChoices[4]
 }
-function renderColorGauge(){
+function renderColorPalette(){
 var t=colorTheme();
-return '<div class="colorPalettePanel"><div class="colorMoodTitle"><b>BLEND COLOR</b><span id="colorMoodLabel">'+t.name+'</span></div>'+
-'<input class="colorRange" type="range" min="0" max="100" value="'+st.colorMood+'" oninput="setColorMood(this.value)">'+
-'<div class="paletteLabels"><span>SNOW</span><span>FOREST</span><span>BLUE HOUR</span><span>SUNSET</span><span>NIGHT</span></div>'+
-'<div id="paletteSwatch" class="paletteSwatch" style="background:'+t.color+';color:'+t.text+'">'+t.label+'</div></div>'
+return '<div class="colorPalettePanel"><div class="paletteGrid">'+colorChoices.map(function(o){
+return '<button type="button" aria-label="'+o.label+'" class="paletteTile '+(o.key===st.colorChoice?'sel':'')+'" style="background:'+o.color+'" onclick="setColorChoice(\''+o.key+'\')"></button>'
+}).join('')+'</div><div class="paletteName">'+t.label+'</div><div class="paletteHint">'+t.name+'</div></div>'
 }
-function setColorMood(v){st.colorMood=Number(v);var t=colorTheme();var l=document.getElementById('colorMoodLabel');if(l)l.textContent=t.name;var s=document.getElementById('paletteSwatch');if(s){s.style.background=t.color;s.style.color=t.text;s.textContent=t.label}}
+function setColorChoice(key){st.colorChoice=key;renderQuestion()}
+function structureTheme(){
+var v=Number(st.structure);
+if(v<34)return {key:'simple',label:'SIMPLE',fx:{balanced:2}};
+if(v<67)return {key:'layered',label:'LAYERED',fx:{balanced:3}};
+return {key:'complex',label:'COMPLEX',fx:{fruity:1,sweet:1,nutty:1,deep:1,clean:1}}
+}
+function renderStructureGauge(){
+var t=structureTheme();
+return '<div class="structurePanel"><input type="range" min="0" max="100" value="'+st.structure+'" oninput="setStructure(this.value)"><div class="structureEnds"><span>SIMPLE</span><span>COMPLEX</span></div><div id="structureMood" class="structureMood">'+t.label+'</div></div>'
+}
+function setStructure(v){st.structure=Number(v);var el=document.getElementById('structureMood');if(el)el.textContent=structureTheme().label}
+
 function renderQuestion(){
 var q=currentQuestion();
 document.getElementById('qStep').textContent='STEP '+String(st.qi+1).padStart(2,'0');
@@ -308,7 +331,8 @@ document.getElementById('qKicker').textContent=q.k;
 document.getElementById('qTitle').textContent=q.title;
 document.getElementById('qSub').textContent=q.sub;
 if(q.type==='gauge'){document.getElementById('qOptions').innerHTML=renderGauge();document.getElementById('qNext').textContent='NEXT →';return}
-if(q.type==='colorGauge'){document.getElementById('qOptions').innerHTML=renderColorGauge();document.getElementById('qNext').textContent='NEXT →';return}
+if(q.type==='colorPalette'){document.getElementById('qOptions').innerHTML=renderColorPalette();document.getElementById('qNext').textContent='NEXT →';return}
+if(q.type==='structureGauge'){document.getElementById('qOptions').innerHTML=renderStructureGauge();document.getElementById('qNext').textContent='NEXT →';return}
 var selected=st.answers[q.id];
 document.getElementById('qOptions').innerHTML=q.options.map(function(o){
 var isSel=q.multi?(Array.isArray(selected)&&selected.indexOf(o.v)>-1):selected===o.v;
@@ -331,7 +355,7 @@ renderQuestion()
 function questionBack(){if(st.qi>0){st.qi--;renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}else show(0)}
 function questionNext(){
 var q=currentQuestion();
-if(q.type!=='gauge'&&q.type!=='colorGauge'){
+if(q.type!=='gauge'&&q.type!=='colorPalette'&&q.type!=='structureGauge'){
 if(q.multi){if(!Array.isArray(st.answers[q.id])||st.answers[q.id].length===0){toast('ひとつ以上選んでください');return}}
 else if(!st.answers[q.id]){toast('ひとつ選んでください');return}
 }
@@ -346,8 +370,9 @@ if(b>=0){addScore('deep',b*6);addScore('nutty',b*4)}else{addScore('clean',-b*4);
 if(sw>=0){addScore('sweet',sw*7);addScore('balanced',sw*2)}else{addScore('clean',-sw*3);addScore('sweet',sw*2)}
 if(body>=0){addScore('deep',body*5);addScore('sweet',body*2);addScore('nutty',body*2)}else{addScore('clean',-body*5);addScore('fruity',-body*2)}
 var ct=colorTheme();Object.keys(ct.fx).forEach(function(k){addScore(k,ct.fx[k])});
+var stx=structureTheme();Object.keys(stx.fx).forEach(function(k){addScore(k,stx.fx[k])});
 questions.forEach(function(q){
-if(q.type==='gauge'||q.type==='colorGauge')return;
+if(q.type==='gauge'||q.type==='colorPalette'||q.type==='structureGauge')return;
 if(q.multi){
 var opts=fruitOptions();if(!opts.length)return;
 opts.forEach(function(o){Object.keys(o.fx||{}).forEach(function(k){addScore(k,o.fx[k]/opts.length)})})
@@ -360,13 +385,13 @@ function topDims(){recomputeScores();return Object.keys(st.scores).sort(function
 function tasteGaugeText(){return '酸味 '+Math.round(st.gauges.acidity)+' / 苦味 '+Math.round(st.gauges.bitterness)+' / 甘さ '+Math.round(st.gauges.sweetness)+' / ボディ '+Math.round(st.gauges.body)}
 function makeProfile(){
 var t=topDims(),pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};
-var moment=ans('moment'),withp=ans('with'),complexity=ans('complexity');
+var moment=ans('moment'),withp=ans('with'),structure=structureTheme();
 document.getElementById('profileTitle').textContent=pretty[t[0]]+' × '+pretty[t[1]];
-document.getElementById('profileText').textContent=tasteGaugeText()+'。'+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+(complexity?'構成は'+complexity.l+'。':'')+'色のイメージは'+colorTheme().label+'。';
+document.getElementById('profileText').textContent=tasteGaugeText()+'。'+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+'構成は'+structure.label+'。色のイメージは'+colorTheme().label+'。';
 document.getElementById('profileTags').innerHTML=t.slice(0,4).map(function(x){return '<span class="pill">'+pretty[x]+'</span>'}).join('');
-var items=['<div class="answerMini"><small>TASTE BALANCE</small><b>'+tasteGaugeText()+'</b></div>','<div class="answerMini"><small>BLEND COLOR</small><b>'+colorTheme().label+'</b></div>'];
+var items=['<div class="answerMini"><small>TASTE BALANCE</small><b>'+tasteGaugeText()+'</b></div>','<div class="answerMini"><small>BLEND COLOR</small><b>'+colorTheme().label+'</b></div>','<div class="answerMini"><small>BLEND STRUCTURE</small><b>'+structureTheme().label+'</b></div>'];
 questions.forEach(function(q){
-if(q.type==='gauge'||q.type==='colorGauge')return;
+if(q.type==='gauge'||q.type==='colorPalette'||q.type==='structureGauge')return;
 if(q.multi){var l=fruitOptions().map(function(o){return o.l}).join(' / ');items.push('<div class="answerMini"><small>'+q.k+'</small><b>'+l+'</b></div>')}
 else{var o=ans(q.id);items.push('<div class="answerMini"><small>'+q.k+'</small><b>'+(o?o.l:'—')+'</b></div>')}
 });
@@ -397,7 +422,7 @@ if(a.moment==='morning'&&(b.id==='arichaL'||b.id==='elsalvador'||b.id==='decaf')
 if(a.moment==='snow'&&(b.id==='bella'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
 return x
 }
-function blendPlan(){var c=st.answers.complexity||'layered';if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
+function blendPlan(){var c=structureTheme().key;if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
 function buildBlend(){
 var scored=beans.filter(function(b){return b.id!=='decaf'}).map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});
 var plan=blendPlan(),top=scored.slice(0,plan.count);
@@ -408,30 +433,36 @@ function renderBlend(){
 var pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'},t=topDims(),plan=blendPlan();
 document.getElementById('blendNo').textContent='#'+String(st.no).padStart(3,'0');
 document.getElementById('blendTags').innerHTML=('<span class="pill">'+plan.label+'</span>')+t.slice(0,3).map(function(x){return '<span class="pill">'+pretty[x]+'</span>'}).join('');
-var complex=ans('complexity');document.getElementById('why').innerHTML='TASTE GAUGE<br>'+tasteGaugeText()+'<br>'+(complex?complex.l:'');
+var structure=structureTheme();document.getElementById('why').innerHTML='TASTE GAUGE<br>'+tasteGaugeText()+'<br>'+structure.label;
 document.getElementById('blendRows').innerHTML=st.blend.map(function(x,i){
 var controls=st.blend.length>1?'<div class="pct"><button class="round" onclick="adj('+i+',-5)">−</button><strong>'+x.pct+'%</strong><button class="round" onclick="adj('+i+',5)">＋</button></div>':'<div class="pct"><strong>100%</strong></div>';
 return '<div class="row"><div class="bean">◉</div><div class="meta"><b>'+x.bean.name+'</b><small>'+x.bean.roast+' / '+x.bean.process+'<br>'+x.bean.note+'</small></div>'+controls+'</div>'
 }).join('');
 var fruit=fruitOptions().map(function(o){return o.l}).join(' / '),moment=ans('moment');
-document.getElementById('barista').innerHTML='<b style="color:#17362f">なぜこの構成？</b><br>'+tasteGaugeText()+'というバランスに、'+(fruit||'COFFEE ONLY')+'の香りの記憶を重ねました。'+(complex?complex.l+'を選んだので、豆は'+st.blend.length+'種類です。':'')+(moment?' '+moment.l+'で飲むことも想定しています。':'')
+document.getElementById('barista').innerHTML='<b style="color:#17362f">なぜこの構成？</b><br>'+tasteGaugeText()+'というバランスに、'+(fruit||'COFFEE ONLY')+'の香りの記憶を重ねました。'+structure.label+'の重なり方から、豆は'+st.blend.length+'種類で提案しています。'+(moment?' '+moment.l+'で飲むことも想定しています。':'')
 }
 function adj(i,d){if(st.blend.length<2)return;var j=(i+1)%st.blend.length;if(st.blend[i].pct+d<10||st.blend[j].pct-d<10)return;st.blend[i].pct+=d;st.blend[j].pct-=d;renderBlend()}
 function labelWords(){
 var out=[];
 out.push(colorTheme().label);
 fruitOptions().forEach(function(o){out.push(o.l)});
-['moment','with','complexity'].forEach(function(id){var o=ans(id);if(o)out.push(o.l)});
+['moment','with'].forEach(function(id){var o=ans(id);if(o)out.push(o.l)});out.push(structureTheme().label);
 return out
 }
 function autoTitle(){
 var a=st.answers,theme=colorTheme();
 if(theme.key==='blue'&&a.moment==='morning')return 'MORNING MIST';
-if(theme.key==='night'&&st.gauges.bitterness>66)return 'DEEP NIGHT';
+if((theme.key==='black'||theme.key==='navy')&&st.gauges.bitterness>66)return 'DEEP NIGHT';
 if(a.moment==='snow')return 'SNOW LINE';
 if(theme.key==='forest')return 'QUIET FOREST';
-if(theme.key==='sunset')return 'AFTERGLOW';
-if(theme.key==='blue')return 'BLUE HOUR';
+if(theme.key==='violet')return 'VIOLET HAZE';
+if(theme.key==='pink')return 'WILD ROSE';
+if(theme.key==='red')return 'CRIMSON FRUIT';
+if(theme.key==='brown')return 'EARTH & FIRE';
+if(theme.key==='mint')return 'MINT AIR';
+if(theme.key==='aqua')return 'CLEAR WATER';
+if(theme.key==='orange'||theme.key==='yellow')return 'AFTERGLOW';
+if(theme.key==='blue'||theme.key==='navy')return 'BLUE HOUR';
 if(a.moment==='night')return 'QUIET NIGHT';
 if(a.moment==='morning')return 'FIRST LIGHT';
 if(fruitHas('berry'))return 'WILD BERRY';
@@ -454,10 +485,10 @@ function artSvg(withTitle){
 var a=st.answers,theme=colorTheme(),night=a.moment==='night'||theme.key==='night',s='<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="260" fill="#fff"/>';
 if(night)s+='<path d="M45 166A135 135 0 0 1 315 166Z" fill="#111"/><circle cx="265" cy="72" r="20" fill="#fff"/>';else s+='<circle cx="268" cy="72" r="23" fill="none" stroke="#111" stroke-width="5"/>';
 s+=mountains();
-if(theme.key==='blue'||theme.key==='snow')s+='<path d="M53 185C115 172 244 172 307 185M68 201C130 190 227 190 292 201M94 218C146 210 214 210 268 218" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>';
-if(theme.key==='forest')s+=tree(54,184,.72)+tree(104,192,.52)+tree(298,186,.68)+tree(334,194,.48);
-if(theme.key==='sunset')s+='<path d="M70 190C126 176 234 176 290 190" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>';
-if(theme.key==='night')s+=tree(66,190,.58)+tree(314,192,.54);
+if(theme.key==='blue'||theme.key==='aqua'||theme.key==='snow'||theme.key==='mint')s+='<path d="M53 185C115 172 244 172 307 185M68 201C130 190 227 190 292 201M94 218C146 210 214 210 268 218" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>';
+if(theme.key==='forest'||theme.key==='brown')s+=tree(54,184,.72)+tree(104,192,.52)+tree(298,186,.68)+tree(334,194,.48);
+if(theme.key==='orange'||theme.key==='yellow'||theme.key==='pink'||theme.key==='red'||theme.key==='violet')s+='<path d="M70 190C126 176 234 176 290 190" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>';
+if(theme.key==='black'||theme.key==='navy')s+=tree(66,190,.58)+tree(314,192,.54);
 if(fruitHas('berry'))s+='<g fill="#111"><circle cx="145" cy="187" r="10"/><circle cx="162" cy="177" r="10"/><circle cx="179" cy="188" r="10"/><circle cx="160" cy="198" r="10"/></g>';
 if(fruitHas('winey'))s+='<path d="M121 174C142 151 164 151 187 174M130 185C150 165 169 165 178 185" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>';
 if(withTitle){var name=currentBlendName();s+='<text x="180" y="246" text-anchor="middle" font-family="Georgia,serif" font-size="'+(name.length>15?10:12)+'" letter-spacing="2">'+name.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</text>'}
