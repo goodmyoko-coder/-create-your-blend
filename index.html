@@ -290,6 +290,33 @@ footer{font-size:7px;letter-spacing:.30em;color:var(--muted);margin-top:42px}
 .questionCard.sliderWide .gaugeRow{width:100%!important;max-width:none!important}
 .questionCard.sliderWide input[type=range]{width:100%!important;max-width:none!important;display:block!important}
 
+
+/* final slider viewport-width fix */
+.questionCard.sliderWide{
+  width:min(960px,calc(100vw - 32px))!important;
+  max-width:none!important;
+  margin-left:50%!important;
+  margin-right:0!important;
+  transform:translateX(-50%)!important;
+}
+.questionCard.sliderWide #qOptions,
+.questionCard.sliderWide .gaugePanel,
+.questionCard.sliderWide .structurePanel,
+.questionCard.sliderWide .gaugeRow{
+  width:100%!important;
+  max-width:none!important;
+}
+.questionCard.sliderWide input[type=range]{
+  width:100%!important;
+  max-width:none!important;
+  display:block!important;
+}
+@media(max-width:620px){
+  .questionCard.sliderWide{
+    width:calc(100vw - 32px)!important;
+  }
+}
+
 </style>
 </head>
 <body>
