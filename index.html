@@ -144,7 +144,7 @@ linear-gradient(160deg,#eee6d9,#fbf8f1 56%,#e8dfd1);overflow:hidden}
 .blendMotion .spark{opacity:0;transform-box:fill-box;transform-origin:center;animation:sparkle 6.8s ease-in-out infinite}
 .blendMotion .spark.s2{animation-delay:.12s}.blendMotion .spark.s3{animation-delay:.24s}.blendMotion .spark.s4{animation-delay:.36s}
 .blendMotion .steam{fill:none;stroke-linecap:round;stroke-width:5;opacity:0;animation:steamUp 6.8s ease-in-out infinite}
-.blendStory{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:Georgia,serif;font-size:10px;letter-spacing:.19em;color:var(--accent);text-transform:uppercase}
+.blendCanvas{width:100%;height:300px;display:block}.blendStory{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:Georgia,serif;font-size:10px;letter-spacing:.19em;color:var(--accent);text-transform:uppercase}
 @keyframes beanOne{0%,7%{transform:translate(-105px,-54px) rotate(-34deg);opacity:0}12%{opacity:1}38%{transform:translate(34px,70px) rotate(160deg);opacity:1}45%,100%{transform:translate(42px,84px) rotate(190deg);opacity:0}}
 @keyframes beanTwo{0%,5%{transform:translate(112px,-50px) rotate(28deg);opacity:0}12%{opacity:1}39%{transform:translate(-28px,72px) rotate(-145deg);opacity:1}46%,100%{transform:translate(-34px,86px) rotate(-180deg);opacity:0}}
 @keyframes beanThree{0%,8%{transform:translate(-128px,4px) rotate(-18deg);opacity:0}15%{opacity:1}40%{transform:translate(34px,55px) rotate(160deg);opacity:1}47%,100%{transform:translate(40px,70px) rotate(190deg);opacity:0}}
@@ -166,48 +166,7 @@ linear-gradient(160deg,#eee6d9,#fbf8f1 56%,#e8dfd1);overflow:hidden}
 <h1>CREATE<br>YOUR BLEND</h1><div class="jp">あなたの景色を、一杯のコーヒーに。</div><div class="rule"></div>
 <div class="lede">雪の朝、深い森、焚き火の夜。<br>味だけでなく、好きな景色や時間まで重ねて、Myoko Coffeeらしい一杯をつくります。</div>
 <div class="hero"><div class="blendHero">
-<svg class="blendMotion" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" aria-label="Coffee beans blending into a cup and becoming a colorful Myoko landscape">
-<defs>
-<radialGradient id="auraGold"><stop offset="0" stop-color="#c4a76c" stop-opacity=".68"/><stop offset="1" stop-color="#c4a76c" stop-opacity="0"/></radialGradient>
-<radialGradient id="auraBlue"><stop offset="0" stop-color="#587084" stop-opacity=".58"/><stop offset="1" stop-color="#587084" stop-opacity="0"/></radialGradient>
-<radialGradient id="auraBerry"><stop offset="0" stop-color="#8b5d66" stop-opacity=".52"/><stop offset="1" stop-color="#8b5d66" stop-opacity="0"/></radialGradient>
-<linearGradient id="cupCoffee" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4b2e24"/><stop offset="1" stop-color="#2e1f19"/></linearGradient>
-</defs>
-<g class="magic">
-<circle cx="280" cy="146" r="88" fill="url(#auraGold)"/>
-<circle cx="228" cy="143" r="72" fill="url(#auraBlue)"/>
-<circle cx="334" cy="142" r="68" fill="url(#auraBerry)"/>
-</g>
-<g class="mountainMagic">
-<path d="M156 178L213 117L247 150L286 92L327 139L361 112L405 178Z" fill="#315446" opacity=".94"/>
-<path d="M205 177L259 127L288 155L326 119L382 177Z" fill="#587084" opacity=".82"/>
-<path d="M286 92L274 126L289 115L307 141L327 139" fill="none" stroke="#f5f1e8" stroke-width="4" stroke-linecap="round"/>
-<g fill="#17362f">
-<path d="M186 176l-13-23h7l-10-16h7l-12-20 0 59z"/><path d="M390 176l-13-23h7l-10-16h7l-12-20 0 59z"/>
-</g>
-<circle cx="210" cy="126" r="8" fill="#a86d58"/><circle cx="228" cy="117" r="7" fill="#8b5d66"/><circle cx="245" cy="128" r="8" fill="#a86d58"/>
-</g>
-<path class="steam" d="M246 201C228 176 250 163 239 143C229 124 237 111 248 99" stroke="#587084"/>
-<path class="steam" d="M280 200C263 174 287 157 277 138C268 120 279 107 288 94" stroke="#c4a76c"/>
-<path class="steam" d="M312 201C300 177 319 165 312 146C305 129 319 117 326 103" stroke="#8b5d66"/>
-<g class="spark s1" fill="#c4a76c"><circle cx="188" cy="104" r="4"/><path d="M188 94v20M178 104h20" stroke="#c4a76c" stroke-width="2"/></g>
-<g class="spark s2" fill="#587084"><circle cx="371" cy="103" r="4"/><path d="M371 93v20M361 103h20" stroke="#587084" stroke-width="2"/></g>
-<g class="spark s3" fill="#8b5d66"><circle cx="337" cy="74" r="3"/><path d="M337 66v16M329 74h16" stroke="#8b5d66" stroke-width="2"/></g>
-<g class="spark s4" fill="#315446"><circle cx="226" cy="74" r="3"/><path d="M226 66v16M218 74h16" stroke="#315446" stroke-width="2"/></g>
-<g class="cupGroup">
-<ellipse cx="280" cy="219" rx="79" ry="18" fill="#d7cdbf" opacity=".48"/>
-<path d="M214 193H345L334 246C331 260 319 268 304 268H254C239 268 226 260 223 246Z" fill="#fdfbf7" stroke="#17362f" stroke-width="4"/>
-<ellipse cx="279.5" cy="193" rx="65.5" ry="16" fill="#fdfbf7" stroke="#17362f" stroke-width="4"/>
-<ellipse cx="279.5" cy="194" rx="55" ry="11" fill="url(#cupCoffee)"/>
-<path d="M344 205C382 201 389 252 350 254" fill="none" stroke="#17362f" stroke-width="5" stroke-linecap="round"/>
-<text x="279" y="236" text-anchor="middle" font-family="Georgia,serif" font-size="11" letter-spacing="3" fill="#17362f">MYOKO</text>
-</g>
-<g class="bean bean1" transform="translate(170 72) rotate(-24)"><ellipse rx="14" ry="20" fill="#684536"/><path d="M0-16C-4-5 5 3 0 16" fill="none" stroke="#d7b39c" stroke-width="2.5" stroke-linecap="round"/></g>
-<g class="bean bean2" transform="translate(388 70) rotate(21)"><ellipse rx="14" ry="20" fill="#7a503d"/><path d="M0-16C4-5-5 3 0 16" fill="none" stroke="#dfc0a9" stroke-width="2.5" stroke-linecap="round"/></g>
-<g class="bean bean3" transform="translate(128 130) rotate(-9)"><ellipse rx="13" ry="19" fill="#5c3c30"/><path d="M0-15C-4-5 5 3 0 15" fill="none" stroke="#d7b39c" stroke-width="2.4" stroke-linecap="round"/></g>
-<g class="bean bean4" transform="translate(432 133) rotate(14)"><ellipse rx="13" ry="19" fill="#825743"/><path d="M0-15C4-5-5 3 0 15" fill="none" stroke="#dfc0a9" stroke-width="2.4" stroke-linecap="round"/></g>
-<g class="bean bean5" transform="translate(280 52) rotate(5)"><ellipse rx="14" ry="20" fill="#6a4535"/><path d="M0-16C-4-5 5 3 0 16" fill="none" stroke="#d7b39c" stroke-width="2.5" stroke-linecap="round"/></g>
-</svg>
+<canvas id="blendCanvas" class="blendCanvas" width="560" height="300" aria-label="Coffee beans blending into a cup and becoming a colorful Myoko landscape"></canvas>
 <div class="blendStory">beans → blend → your cup → your story</div>
 </div></div>
 <button class="primary" onclick="startQuestions()">START →</button><div class="subnote">10 STEPS · 約1〜2分</div>
@@ -553,5 +512,80 @@ async function pngBlob(){var svg=document.getElementById('labelSvg');var xml=new
 async function downloadLabel(){try{var b=await pngBlob();var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='MYOKO_'+st.title.replaceAll(' ','_')+'_'+st.no+'.png';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1200);toast('PNGを保存しました')}catch(e){toast('保存できませんでした')}}
 async function shareLabel(){try{var b=await pngBlob();var f=new File([b],'MYOKO_'+st.no+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'MYOKO COFFEE LABEL',text:'NIIMBOTで印刷'});toast('共有しました')}else downloadLabel()}catch(e){if(e.name!=='AbortError')downloadLabel()}}
 function toast(s){var t=document.getElementById('toast');t.textContent=s;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(function(){t.classList.remove('show')},1800)}
+
+(function(){
+var canvas=document.getElementById('blendCanvas');
+if(!canvas||!canvas.getContext)return;
+var ctx=canvas.getContext('2d'),W=560,H=300;
+var beans=[
+{x:86,y:52,tx:262,ty:198,c:'#684536',r:-.5},
+{x:474,y:50,tx:298,ty:198,c:'#7a503d',r:.4},
+{x:42,y:134,tx:270,ty:204,c:'#5c3c30',r:-.2},
+{x:518,y:134,tx:292,ty:204,c:'#825743',r:.24},
+{x:280,y:22,tx:280,ty:196,c:'#6a4535',r:.1}
+];
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function ease(v){v=clamp(v,0,1);return v*v*(3-2*v)}
+function lerp(a,b,t){return a+(b-a)*t}
+function hex(h,a){h=h.replace('#','');var n=parseInt(h,16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'}
+function bean(x,y,ang,color,alpha){
+ctx.save();ctx.translate(x,y);ctx.rotate(ang);ctx.globalAlpha=alpha;
+ctx.fillStyle=color;ctx.beginPath();ctx.ellipse(0,0,10,15,0,0,Math.PI*2);ctx.fill();
+ctx.strokeStyle='#ddbaa3';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-11);ctx.bezierCurveTo(-3,-3,4,3,0,11);ctx.stroke();ctx.restore()
+}
+function sparkle(x,y,s,color,a){
+ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x+s,y);ctx.moveTo(x,y-s);ctx.lineTo(x,y+s);ctx.stroke();ctx.restore()
+}
+function tree(x,y,s,a){
+ctx.save();ctx.globalAlpha=a;ctx.fillStyle='#17362f';ctx.beginPath();
+ctx.moveTo(x,y-44*s);ctx.lineTo(x-12*s,y-21*s);ctx.lineTo(x-5*s,y-22*s);ctx.lineTo(x-18*s,y-4*s);ctx.lineTo(x-8*s,y-6*s);ctx.lineTo(x-22*s,y+15*s);ctx.lineTo(x+22*s,y+15*s);ctx.lineTo(x+8*s,y-6*s);ctx.lineTo(x+18*s,y-4*s);ctx.lineTo(x+5*s,y-22*s);ctx.lineTo(x+12*s,y-21*s);ctx.closePath();ctx.fill();ctx.restore()
+}
+function drawCup(){
+ctx.save();ctx.fillStyle='rgba(203,193,177,.45)';ctx.beginPath();ctx.ellipse(280,263,80,12,0,0,Math.PI*2);ctx.fill();
+ctx.strokeStyle='#17362f';ctx.lineWidth=4;ctx.fillStyle='#fdfbf7';
+ctx.beginPath();ctx.moveTo(214,200);ctx.lineTo(346,200);ctx.lineTo(335,249);ctx.quadraticCurveTo(331,265,305,268);ctx.lineTo(254,268);ctx.quadraticCurveTo(228,265,224,249);ctx.closePath();ctx.fill();ctx.stroke();
+ctx.beginPath();ctx.ellipse(280,200,66,15,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+ctx.fillStyle='#4b2e24';ctx.beginPath();ctx.ellipse(280,201,55,9,0,0,Math.PI*2);ctx.fill();
+ctx.beginPath();ctx.arc(349,226,27,-1.3,1.3);ctx.stroke();
+ctx.fillStyle='#17362f';ctx.textAlign='center';ctx.font='11px Georgia';ctx.fillText('MYOKO',280,239);ctx.restore()
+}
+function draw(){
+var now=performance.now()/1000,t=(now%6.8)/6.8;
+ctx.clearRect(0,0,W,H);
+var bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#eee6d9');bg.addColorStop(.56,'#fbf8f1');bg.addColorStop(1,'#e8dfd1');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+var gather=ease((t-.04)/.38);
+var fantasy=ease((t-.42)/.18)*(1-ease((t-.84)/.13));
+if(fantasy>0){
+var glows=[{x:280,y:148,r:92,c:'#c4a76c',a:.24},{x:230,y:148,r:74,c:'#587084',a:.20},{x:334,y:148,r:70,c:'#8b5d66',a:.18}];
+glows.forEach(function(g){var rg=ctx.createRadialGradient(g.x,g.y,0,g.x,g.y,g.r);rg.addColorStop(0,hex(g.c,g.a*fantasy));rg.addColorStop(1,hex(g.c,0));ctx.fillStyle=rg;ctx.beginPath();ctx.arc(g.x,g.y,g.r,0,Math.PI*2);ctx.fill()});
+ctx.save();ctx.globalAlpha=fantasy;
+var base=187-8*fantasy;
+ctx.fillStyle='#315446';ctx.beginPath();ctx.moveTo(155,base);ctx.lineTo(213,126);ctx.lineTo(247,158);ctx.lineTo(286,100);ctx.lineTo(327,147);ctx.lineTo(361,120);ctx.lineTo(405,base);ctx.closePath();ctx.fill();
+ctx.fillStyle='rgba(88,112,132,.84)';ctx.beginPath();ctx.moveTo(205,base);ctx.lineTo(259,137);ctx.lineTo(288,163);ctx.lineTo(326,129);ctx.lineTo(382,base);ctx.closePath();ctx.fill();
+ctx.strokeStyle='#f5f1e8';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(286,100);ctx.lineTo(274,134);ctx.lineTo(289,123);ctx.lineTo(307,149);ctx.lineTo(327,147);ctx.stroke();
+tree(183,180,.65,fantasy);tree(392,180,.65,fantasy);
+ctx.fillStyle='#8b5d66';ctx.beginPath();ctx.arc(214,138,7,0,Math.PI*2);ctx.arc(229,128,6,0,Math.PI*2);ctx.arc(244,140,7,0,Math.PI*2);ctx.fill();
+ctx.restore();
+
+['#587084','#c4a76c','#8b5d66'].forEach(function(col,i){
+ctx.save();ctx.globalAlpha=.58*fantasy;ctx.strokeStyle=col;ctx.lineWidth=4;ctx.lineCap='round';ctx.beginPath();for(var u=0;u<=1.001;u+=.05){var y=204-u*105*fantasy;var x=252+i*28+Math.sin(u*6+i)*8*fantasy;if(u===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();ctx.restore()
+});
+sparkle(190,91,8,'#c4a76c',fantasy*(.45+.45*Math.sin(now*3)));
+sparkle(374,92,8,'#587084',fantasy*(.45+.45*Math.sin(now*3+1.5)));
+sparkle(337,65,6,'#8b5d66',fantasy*(.45+.45*Math.sin(now*3+2.8)));
+}
+
+drawCup();
+beans.forEach(function(b,i){
+var local=ease((t-(.03+i*.012))/.40),alpha=local<=0?0:local<.88?1:1-ease((local-.88)/.12);
+var x=lerp(b.x,b.tx,local)+Math.sin(local*Math.PI*2+i)*18*Math.sin(local*Math.PI);
+var y=lerp(b.y,b.ty,local)-Math.sin(local*Math.PI)*45;
+bean(x,y,b.r+local*3.2,b.c,alpha)
+});
+requestAnimationFrame(draw)
+}
+requestAnimationFrame(draw)
+})();
 </script>
 </body></html>
