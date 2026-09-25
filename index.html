@@ -281,6 +281,15 @@ footer{font-size:7px;letter-spacing:.30em;color:var(--muted);margin-top:42px}
 #qOptions>.gaugePanel>.gaugeRow{width:100%!important;max-width:none!important;display:block!important}
 #qOptions>.gaugePanel>.gaugeRow input[type=range]{display:block!important;width:100%!important;max-width:none!important;box-sizing:border-box!important}
 
+
+/* slider screens only: use the full app width */
+.questionCard.sliderWide{max-width:none!important;width:100%!important}
+.questionCard.sliderWide #qOptions{width:100%!important;max-width:none!important}
+.questionCard.sliderWide .gaugePanel,
+.questionCard.sliderWide .structurePanel{width:100%!important;max-width:none!important}
+.questionCard.sliderWide .gaugeRow{width:100%!important;max-width:none!important}
+.questionCard.sliderWide input[type=range]{width:100%!important;max-width:none!important;display:block!important}
+
 </style>
 </head>
 <body>
@@ -444,6 +453,7 @@ function setStructure(v){st.structure=Number(v);var el=document.getElementById('
 
 function renderQuestion(){
 var q=currentQuestion();
+var qc=document.querySelector('.questionCard');if(qc){if(q.type==='gauge'||q.type==='structureGauge')qc.classList.add('sliderWide');else qc.classList.remove('sliderWide')}
 document.getElementById('qStep').textContent='STEP '+String(st.qi+1).padStart(2,'0');
 document.getElementById('qCount').textContent=(st.qi+1)+' / '+questions.length;
 document.getElementById('qProgress').style.width=((st.qi+1)/questions.length*100)+'%';
