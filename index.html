@@ -169,11 +169,11 @@ linear-gradient(160deg,#eee6d9,#fbf8f1 56%,#e8dfd1);overflow:hidden}
 <canvas id="blendCanvas" class="blendCanvas" width="560" height="300" aria-label="Coffee beans blending into a cup and becoming a colorful Myoko landscape"></canvas>
 <div class="blendStory">beans → blend → landscape → one of one</div>
 </div></div>
-<button class="primary" onclick="startQuestions()">START →</button><div class="subnote">10 STEPS · 約1〜2分</div>
+<button class="primary" onclick="startQuestions()">START →</button><div class="subnote">8 STEPS · 約1〜2分</div>
 </section>
 
 <section class="screen" id="s1">
-<div class="progressWrap"><div class="progressMeta"><span id="qStep">QUESTION 01</span><span id="qCount">1 / 10</span></div><div class="progressLine"><div class="progressFill" id="qProgress"></div></div></div>
+<div class="progressWrap"><div class="progressMeta"><span id="qStep">QUESTION 01</span><span id="qCount">1 / 8</span></div><div class="progressLine"><div class="progressFill" id="qProgress"></div></div></div>
 <div class="questionCard"><div class="qnum" id="qKicker">FIRST FEELING</div><div class="qtitle" id="qTitle"></div><div class="qsub" id="qSub"></div><div class="options" id="qOptions"></div></div>
 <div class="qnav"><button class="secondary" onclick="questionBack()">← BACK</button><button class="primary" id="qNext" onclick="questionNext()">NEXT →</button></div>
 </section>
@@ -237,7 +237,7 @@ var questions=[
 {v:'layered',l:'LAYERED',s:'3種類。バランスよく',i:'3',fx:{balanced:3}},
 {v:'complex',l:'COMPLEX',s:'4種類。複雑で奥行きが欲しい',i:'4',fx:{fruity:1,sweet:1,nutty:1,deep:1,clean:1}}
 ]},
-{id:'moment',k:'WHEN',title:'どんな時に飲みたい？',sub:'その一杯の役割を決めます。',options:[
+{id:'moment',k:'WHEN',title:'この一杯を、いつ飲みたい？',sub:'色のイメージとは別に、実際に飲みたい時間や場面を選んでください。',options:[
 {v:'morning',l:'MORNING',s:'一日のはじまり',i:'☼',fx:{clean:3,fruity:2}},
 {v:'work',l:'FOCUS',s:'集中したい時',i:'▤',fx:{balanced:4,deep:1}},
 {v:'aftermeal',l:'AFTER MEAL',s:'食後にゆっくり',i:'◐',fx:{deep:4,sweet:2}},
@@ -260,16 +260,7 @@ var questions=[
 {v:'espresso',l:'ESPRESSO',s:'短く濃く',i:'●',fx:{deep:6,nutty:2}},
 {v:'filter',l:'FILTER',s:'ハンドドリップ',i:'▽',fx:{clean:2,fruity:2,balanced:3}},
 {v:'any',l:'ANY',s:'その日の気分で',i:'∞',fx:{balanced:4}}
-]},
-{id:'food',k:'PAIRING',title:'合わせるなら何？',sub:'食べ物との相性から、最後の微調整。',options:[
-{v:'chocolate',l:'CHOCOLATE',s:'チョコレート',i:'■',fx:{sweet:4,deep:3}},
-{v:'sweets',l:'SWEETS',s:'焼き菓子・ケーキ',i:'◇',fx:{sweet:4,fruity:1,balanced:1}},
-{v:'nuts',l:'NUTS',s:'ナッツ・香ばしいもの',i:'◉',fx:{nutty:5,deep:1}},
-{v:'fruit',l:'FRUIT',s:'フルーツそのもの',i:'✦',fx:{fruity:5,clean:2}},
-{v:'savory',l:'SAVORY',s:'チーズ・塩気',i:'▱',fx:{deep:3,nutty:3}},
-{v:'nothing',l:'COFFEE ONLY',s:'コーヒーだけ',i:'—',fx:{clean:3,balanced:3}}
-]},
-{id:'scene',k:'SCENE',title:'最後に、惹かれる風景は？',sub:'これは味と、最後のラベルアートの両方に使います。',options:[
+]},{id:'scene',k:'SCENE',title:'最後に、惹かれる風景は？',sub:'これは味と、最後のラベルアートの両方に使います。',options:[
 {v:'mountain',l:'MOUNTAIN',s:'山・稜線',i:'⌃',fx:{clean:2,deep:1,balanced:1}},
 {v:'forest',l:'FOREST',s:'森・木々',i:'♠',fx:{balanced:2,nutty:2,clean:1}},
 {v:'lake',l:'LAKE',s:'湖・水辺',i:'≈',fx:{clean:4,balanced:1}},
@@ -383,9 +374,9 @@ function topDims(){recomputeScores();return Object.keys(st.scores).sort(function
 function tasteGaugeText(){return '酸味 '+Math.round(st.gauges.acidity)+' / 苦味 '+Math.round(st.gauges.bitterness)+' / ボディ '+Math.round(st.gauges.body)}
 function makeProfile(){
 var t=topDims(),pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};
-var moment=ans('moment'),withp=ans('with'),scene=ans('scene'),complexity=ans('complexity');
+var moment=ans('moment'),withp=ans('with'),complexity=ans('complexity');
 document.getElementById('profileTitle').textContent=pretty[t[0]]+' × '+pretty[t[1]];
-document.getElementById('profileText').textContent=tasteGaugeText()+'。'+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+(complexity?'構成は「'+complexity.l+'」。':'')+(scene?scene.l+'のような空気感を持つ一杯です。':'');
+document.getElementById('profileText').textContent=tasteGaugeText()+'。'+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+(complexity?'構成は「'+complexity.l+'」。':'')+'色のイメージは'+colorTheme().label+'。';
 document.getElementById('profileTags').innerHTML=t.slice(0,4).map(function(x){return '<span class="pill">'+pretty[x]+'</span>'}).join('');
 var items=['<div class="answerMini"><small>TASTE BALANCE</small><b>'+tasteGaugeText()+'</b></div>','<div class="answerMini"><small>BLEND COLOR</small><b>'+colorTheme().label+'</b></div>'];
 questions.forEach(function(q){
@@ -422,11 +413,6 @@ if(a.brew==='filter'&&b.roast!=='Dark')x+=4;
 if(a.moment==='night'&&(b.id==='decaf'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
 if(a.moment==='morning'&&(b.id==='arichaL'||b.id==='elsalvador'||b.id==='decaf'))x+=4;
 if(a.moment==='snow'&&(b.id==='bella'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
-if(a.food==='nuts'&&(b.id==='bella'||b.id==='rubi'))x+=6;
-if(a.food==='chocolate'&&(b.id==='bella'||b.id==='arichaD'))x+=6;
-if(a.food==='fruit'&&(b.id==='elsalvador'||b.id==='arichaL'||b.id==='rubi'))x+=5;
-if(a.scene==='forest'&&(b.id==='narinoD'||b.id==='bella'))x+=3;
-if(a.scene==='lake'&&(b.id==='elsalvador'||b.id==='decaf'))x+=3;
 return x
 }
 function blendPlan(){var c=st.answers.complexity||'layered';if(c==='pure')return {count:1,pct:[100],label:'1 BEAN / PURE'};if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
@@ -453,17 +439,15 @@ function labelWords(){
 var out=[];
 out.push(colorTheme().label);
 fruitOptions().forEach(function(o){out.push(o.l)});
-['moment','with','complexity','scene'].forEach(function(id){var o=ans(id);if(o)out.push(o.l)});
+['moment','with','complexity'].forEach(function(id){var o=ans(id);if(o)out.push(o.l)});
 return out
 }
 function autoTitle(){
 var a=st.answers;
-if(a.scene==='lake'&&a.moment==='morning')return 'MORNING MIST';
+if(colorTheme().key==='blue'&&a.moment==='morning')return 'MORNING MIST';
 if(fruitHas('berry'))return 'WILD BERRY';
-if(a.scene==='city'&&a.moment==='night')return 'CITY AFTER DARK';
-if(a.scene==='forest'&&colorTheme().key==='forest')return 'QUIET FOREST';
-if(a.scene==='mountain'&&a.moment==='snow')return 'SNOW LINE';
-if(a.scene==='road')return 'OPEN ROAD';
+if(colorTheme().key==='forest')return 'QUIET FOREST';
+if(a.moment==='snow')return 'SNOW LINE';
 if(colorTheme().key==='night'&&st.gauges.bitterness>66)return 'DEEP NIGHT';
 if(colorTheme().key==='blue')return 'BLUE HOUR';
 if(colorTheme().key==='sunset')return 'AFTERGLOW';
@@ -482,12 +466,13 @@ document.getElementById('labelPreview').innerHTML=artSvg(true);show(4)
 function tree(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M0 -46L-17 -18L-8 -20L-27 4L-12 1L-32 29L-7 22L-7 46L7 46L7 22L32 29L12 1L27 4L8 -20L17 -18Z" fill="#111"/></g>'}
 function mountains(){return '<path d="M28 166L90 84L128 119L181 52L232 111L278 79L334 166Z" fill="none" stroke="#111" stroke-width="8" stroke-linejoin="round"/><path d="M90 84L80 118L94 104L108 125L128 119M181 52L165 101L182 83L200 108L232 111M278 79L266 114L280 100L295 119" fill="none" stroke="#111" stroke-width="5"/>'}
 function artSvg(withTitle){
-var a=st.answers,night=a.moment==='night'||a.scene==='city'||colorTheme().key==='night',s='<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="260" fill="#fff"/>';
+var a=st.answers,theme=colorTheme(),night=a.moment==='night'||theme.key==='night',s='<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="260" fill="#fff"/>';
 if(night)s+='<path d="M45 166A135 135 0 0 1 315 166Z" fill="#111"/><circle cx="265" cy="72" r="20" fill="#fff"/>';else s+='<circle cx="268" cy="72" r="23" fill="none" stroke="#111" stroke-width="5"/>';
 s+=mountains();
-if(a.scene==='lake')s+='<path d="M53 185C115 172 244 172 307 185M68 201C130 190 227 190 292 201M94 218C146 210 214 210 268 218" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>';
-if(a.scene==='road')s+='<path d="M169 168L135 250M192 168L227 250" stroke="#111" stroke-width="7"/>';
-if(a.scene==='city')s+='<g fill="#111"><rect x="48" y="135" width="34" height="82"/><rect x="86" y="113" width="42" height="104"/><rect x="235" y="127" width="38" height="90"/><rect x="278" y="99" width="42" height="118"/></g>';else s+=tree(54,184,.72)+tree(104,192,.52)+tree(298,186,.68)+tree(334,194,.48);
+if(theme.key==='blue'||theme.key==='snow')s+='<path d="M53 185C115 172 244 172 307 185M68 201C130 190 227 190 292 201M94 218C146 210 214 210 268 218" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>';
+if(theme.key==='forest')s+=tree(54,184,.72)+tree(104,192,.52)+tree(298,186,.68)+tree(334,194,.48);
+if(theme.key==='sunset')s+='<path d="M70 190C126 176 234 176 290 190" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>';
+if(theme.key==='night')s+=tree(66,190,.58)+tree(314,192,.54);
 if(fruitHas('berry'))s+='<g fill="#111"><circle cx="145" cy="187" r="10"/><circle cx="162" cy="177" r="10"/><circle cx="179" cy="188" r="10"/><circle cx="160" cy="198" r="10"/></g>';
 if(fruitHas('winey'))s+='<path d="M121 174C142 151 164 151 187 174M130 185C150 165 169 165 178 185" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>';
 if(withTitle){var name=currentBlendName();s+='<text x="180" y="246" text-anchor="middle" font-family="Georgia,serif" font-size="'+(name.length>15?10:12)+'" letter-spacing="2">'+name.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</text>'}
