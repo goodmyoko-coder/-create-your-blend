@@ -69,16 +69,14 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spac
 
 <script>
 var beans=[
-{id:'peace',name:'Peace Blend',short:'PEACE BLEND',roast:'中煎り',note:'繊細な風味と、心地よいコク。',w:{fruity:1,sweet:3,nutty:1,deep:2,clean:3,balanced:5}},
-{id:'tree',name:'Tree Blend',short:'TREE BLEND',roast:'深煎り',note:'厚みのある、深い味わい。',w:{fruity:0,sweet:2,nutty:4,deep:5,clean:1,balanced:2}},
-{id:'rubi',name:'ブラジル・ルビ',short:'BRAZIL RUBI',roast:'浅煎り',note:'フルーティで、クリーミー。',w:{fruity:4,sweet:3,nutty:4,deep:1,clean:2,balanced:3}},
-{id:'aricha',name:'エチオピア・アリーチャ',short:'ETHIOPIA ARICHA',roast:'浅煎り',note:'野いちごのような、可憐な香り。',w:{fruity:5,sweet:3,nutty:0,deep:1,clean:4,balanced:2}},
-{id:'narinoL',name:'コロンビア・ナリーニョ',short:'COLOMBIA NARINO',roast:'浅煎り',note:'りんごを思わせる、爽やかさ。',w:{fruity:4,sweet:2,nutty:0,deep:1,clean:5,balanced:4}},
-{id:'bella',name:'ブラジル・ベラビスタ',short:'BELLA VISTA',roast:'深煎り',note:'ナッツの香ばしさ、チョコの余韻。',w:{fruity:0,sweet:4,nutty:5,deep:4,clean:1,balanced:3}},
-{id:'narinoD',name:'コロンビア・ナリーニョ',short:'COLOMBIA DARK',roast:'深煎り',note:'濃厚なのに、後味はすっきり。',w:{fruity:1,sweet:2,nutty:2,deep:5,clean:4,balanced:3}},
-{id:'decaf',name:'エチオピア・デカフェ',short:'ETHIOPIA DECAF',roast:'デカフェ',note:'カフェイン控えめ。風味は爽やか。',w:{fruity:3,sweet:2,nutty:1,deep:1,clean:4,balanced:4}}
-];
-
+{id:'elsalvador',name:'エルサルバドル ACOPACA CO-OP',short:'EL SALVADOR ACOPACA',origin:'EL SALVADOR',process:'Washed',roast:'Light',acid:4,bitter:1,note:'グレープフルーツ・オレンジ・ウォールナッツ',mood:'花火・日向・キャンプ',w:{fruity:4,sweet:2,nutty:3,deep:1,clean:5,balanced:3}},
+{id:'arichaL',name:'エチオピア Yirgacheffe Aricha',short:'ETHIOPIA ARICHA LIGHT',origin:'ETHIOPIA',process:'Natural',roast:'Light',acid:3,bitter:2,note:'ヨーグルト・野いちご・ミルクチョコレート',mood:'日の出・デート・モーニングブルーアワー',w:{fruity:5,sweet:3,nutty:0,deep:1,clean:4,balanced:2}},
+{id:'rubi',name:'ブラジル No.2 Tropical Bahia Rubi',short:'BRAZIL RUBI',origin:'BRAZIL',process:'Natural',roast:'Light',acid:3,bitter:2,note:'ナッツ・赤スグリ・バタークリーム',mood:'紅葉・夕間暮れ・秘めた想い',w:{fruity:3,sweet:4,nutty:4,deep:1,clean:2,balanced:3}},
+{id:'arichaD',name:'エチオピア Yirgacheffe Aricha',short:'ETHIOPIA ARICHA DARK',origin:'ETHIOPIA',process:'Natural',roast:'Dark',acid:2,bitter:5,note:'アロマティック・ストロベリーリキュール・ダークチョコレート',mood:'日の入・あでやか・イブニングブルーアワー',w:{fruity:3,sweet:4,nutty:1,deep:5,clean:2,balanced:3}},
+{id:'narinoD',name:'コロンビア Nariño Gran Joya SUP',short:'COLOMBIA NARINO',origin:'COLOMBIA',process:'Washed',roast:'Dark',acid:1,bitter:5,note:'黒ゴマ・赤りんご・焦キャラメル',mood:'深林浴・渓流・新月',w:{fruity:2,sweet:3,nutty:3,deep:5,clean:3,balanced:3}},
+{id:'bella',name:'ブラジル South Minas Bella Vista',short:'BRAZIL BELLA VISTA',origin:'BRAZIL',process:'Pulped Natural',roast:'Dark',acid:1,bitter:5,note:'ナッツ・ダークチョコレート・ドライオレンジ',mood:'焚き火・読書・一服',w:{fruity:1,sweet:4,nutty:5,deep:5,clean:1,balanced:3}},
+{id:'decaf',name:'エチオピア Various smallholder farmers',short:'ETHIOPIA DECAF',origin:'ETHIOPIA',process:'Decaf MC Washed',roast:'Medium',acid:4,bitter:3,note:'レモネード・ハーブ・ダージリンティー',mood:'窓辺・安寧・散歩',w:{fruity:3,sweet:2,nutty:1,deep:2,clean:4,balanced:4}}
+]
 var questions=[
 {id:'acidity',k:'ACIDITY',title:'酸味は好き？',sub:'ここはかなり大事。コーヒーの明るさを決めます。',options:[
 {v:'love',l:'LOVE IT',s:'果実のような酸味が好き',i:'✦',fx:{fruity:6,clean:4,deep:-2}},
@@ -184,27 +182,39 @@ function qById(id){return questions.find(function(q){return q.id===id})}
 function ans(id){var q=qById(id);return q?answerObj(q):null}
 function makeProfile(){var t=topDims();var pretty={fruity:'FRUITY',sweet:'SWEET',nutty:'NUTTY',deep:'DEEP',clean:'CLEAN',balanced:'BALANCED'};var moment=ans('moment'),withp=ans('with'),scene=ans('scene'),acid=ans('acidity'),complexity=ans('complexity');document.getElementById('profileTitle').textContent=pretty[t[0]]+' × '+pretty[t[1]];document.getElementById('profileText').textContent=(acid?acid.s+'。':'')+(moment?moment.s+'に、':'')+(withp?withp.s+'楽しみたい。':'')+'味は'+pretty[t[0]]+'を軸に'+pretty[t[1]]+'を重ねる。'+(complexity?'構成は「'+complexity.l+'」。':'')+(scene?scene.l+'のような空気感を持つ一杯です。':'');document.getElementById('profileTags').innerHTML=t.slice(0,4).map(function(x){return '<span class="pill">'+pretty[x]+' '+st.scores[x]+'</span>'}).join('');document.getElementById('answerRibbon').innerHTML=questions.map(function(q){var o=answerObj(q);return '<div class="answerMini"><small>'+q.k+'</small><b>'+(o?o.l:'—')+'</b></div>'}).join('');show(2)}
 function beanBonus(b){var x=0,a=st.answers;
-if(a.acidity==='love'&&(b.id==='aricha'||b.id==='narinoL'||b.id==='rubi'))x+=8;
-if(a.acidity==='dislike'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'||b.id==='peace'))x+=7;
-if(a.acidity==='dislike'&&(b.id==='aricha'||b.id==='narinoL'))x-=8;
-if(a.fruit==='berry'&&b.id==='aricha')x+=7;
-if(a.fruit==='apple'&&b.id==='narinoL')x+=7;
-if(a.fruit==='tropical'&&b.id==='rubi')x+=6;
-if(a.color==='black'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'))x+=5;
-if(a.color==='blue'&&(b.id==='narinoL'||b.id==='decaf'))x+=4;
-if(a.bitterness==='high'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'))x+=6;
-if(a.bitterness==='low'&&(b.id==='aricha'||b.id==='narinoL'||b.id==='rubi'))x+=5;
-if(a.sweetness==='choco'&&(b.id==='bella'||b.id==='tree'))x+=6;
-if(a.sweetness==='sweet'&&(b.id==='peace'||b.id==='rubi'||b.id==='bella'))x+=4;
-if(a.body==='light'&&(b.id==='aricha'||b.id==='narinoL'))x+=5;
-if(a.body==='rich'&&(b.id==='tree'||b.id==='bella'||b.id==='narinoD'))x+=5;
-if(a.brew==='milk'&&(b.id==='bella'||b.id==='tree'))x+=6;
-if(a.brew==='espresso'&&(b.id==='tree'||b.id==='bella'))x+=6;
-if(a.brew==='ice'&&(b.id==='narinoL'||b.id==='aricha'||b.id==='rubi'))x+=5;
-if(a.moment==='night'&&b.id==='decaf')x+=4;
-if(a.food==='nuts'&&b.id==='bella')x+=5;
-if(a.food==='chocolate'&&(b.id==='bella'||b.id==='tree'))x+=5;
-if(a.with==='family'&&b.id==='peace')x+=3;
+if(a.acidity==='love')x+=b.acid*2;
+if(a.acidity==='little')x+=b.acid;
+if(a.acidity==='neutral')x+=2;
+if(a.acidity==='dislike')x+=(6-b.acid)*2;
+if(a.bitterness==='low')x+=(6-b.bitter)*2;
+if(a.bitterness==='medium')x+=Math.max(0,6-Math.abs(b.bitter-3)*2);
+if(a.bitterness==='high')x+=b.bitter*2;
+if(a.bitterness==='roasty')x+=b.bitter*2+(b.roast==='Dark'?3:0);
+if(a.fruit==='berry'&&b.id==='arichaL')x+=8;
+if(a.fruit==='citrus'&&(b.id==='elsalvador'||b.id==='decaf'))x+=8;
+if(a.fruit==='apple'&&b.id==='narinoD')x+=7;
+if(a.fruit==='tropical'&&b.id==='rubi')x+=5;
+if(a.fruit==='grape'&&(b.id==='rubi'||b.id==='arichaD'))x+=4;
+if(a.color==='black'&&b.roast==='Dark')x+=5;
+if(a.color==='blue'&&(b.id==='arichaL'||b.id==='decaf'||b.id==='narinoD'))x+=4;
+if(a.color==='green'&&(b.id==='elsalvador'||b.id==='narinoD'||b.id==='decaf'))x+=3;
+if(a.sweetness==='choco'&&(b.id==='arichaD'||b.id==='bella'||b.id==='narinoD'))x+=7;
+if(a.sweetness==='sweet'&&(b.id==='rubi'||b.id==='arichaL'||b.id==='arichaD'))x+=5;
+if(a.body==='light'&&b.roast==='Light')x+=6;
+if(a.body==='rich'&&b.roast==='Dark')x+=6;
+if(a.body==='creamy'&&(b.id==='rubi'||b.id==='bella'||b.id==='arichaD'))x+=5;
+if(a.brew==='milk'&&(b.id==='bella'||b.id==='arichaD'||b.id==='narinoD'))x+=7;
+if(a.brew==='espresso'&&b.roast==='Dark')x+=7;
+if(a.brew==='ice'&&(b.id==='elsalvador'||b.id==='arichaL'||b.id==='rubi'||b.id==='decaf'))x+=5;
+if(a.brew==='filter'&&b.roast!=='Dark')x+=4;
+if(a.moment==='night'&&(b.id==='decaf'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
+if(a.moment==='morning'&&(b.id==='arichaL'||b.id==='elsalvador'||b.id==='decaf'))x+=4;
+if(a.moment==='snow'&&(b.id==='bella'||b.id==='arichaD'||b.id==='narinoD'))x+=4;
+if(a.food==='nuts'&&(b.id==='bella'||b.id==='rubi'))x+=6;
+if(a.food==='chocolate'&&(b.id==='bella'||b.id==='arichaD'))x+=6;
+if(a.food==='fruit'&&(b.id==='elsalvador'||b.id==='arichaL'||b.id==='rubi'))x+=5;
+if(a.scene==='forest'&&(b.id==='narinoD'||b.id==='bella'))x+=3;
+if(a.scene==='lake'&&(b.id==='elsalvador'||b.id==='decaf'))x+=3;
 return x}
 function blendPlan(){var c=st.answers.complexity||'layered';if(c==='pure')return {count:1,pct:[100],label:'1 BEAN / PURE'};if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
 function buildBlend(){var dims=topDims();var scored=beans.map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});var plan=blendPlan();var top=scored.slice(0,plan.count);st.blend=top.map(function(x,i){return {bean:x.b,pct:plan.pct[i],score:x.s}});st.no=18+Math.floor(Date.now()/1000)%80;renderBlend();show(3)}
@@ -217,7 +227,7 @@ function tree(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')">
 function mountains(){return '<path d="M28 166L90 84L128 119L181 52L232 111L278 79L334 166Z" fill="none" stroke="#111" stroke-width="8" stroke-linejoin="round"/><path d="M90 84L80 118L94 104L108 125L128 119M181 52L165 101L182 83L200 108L232 111M278 79L266 114L280 100L295 119" fill="none" stroke="#111" stroke-width="5"/>'}
 function artSvg(withTitle){var a=st.answers;var night=a.moment==='night'||a.scene==='city'||a.color==='black';var s='<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="260" fill="#fff"/>';if(night)s+='<path d="M45 166A135 135 0 0 1 315 166Z" fill="#111"/><circle cx="265" cy="72" r="20" fill="#fff"/>';else s+='<circle cx="268" cy="72" r="23" fill="none" stroke="#111" stroke-width="5"/>';s+=mountains();if(a.scene==='lake')s+='<path d="M53 185C115 172 244 172 307 185M68 201C130 190 227 190 292 201M94 218C146 210 214 210 268 218" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>';if(a.scene==='road')s+='<path d="M169 168L135 250M192 168L227 250" stroke="#111" stroke-width="7"/>';if(a.scene==='city')s+='<g fill="#111"><rect x="48" y="135" width="34" height="82"/><rect x="86" y="113" width="42" height="104"/><rect x="235" y="127" width="38" height="90"/><rect x="278" y="99" width="42" height="118"/></g>';else s+=tree(54,184,.72)+tree(104,192,.52)+tree(298,186,.68)+tree(334,194,.48);if(a.fruit==='berry')s+='<g fill="#111"><circle cx="145" cy="187" r="10"/><circle cx="162" cy="177" r="10"/><circle cx="179" cy="188" r="10"/><circle cx="160" cy="198" r="10"/></g>';if(withTitle)s+='<text x="180" y="246" text-anchor="middle" font-family="Georgia,serif" font-size="12" letter-spacing="3">'+st.title+'</text>';return s+'</svg>'}
 function finish(){st.title=chooseTitle();document.getElementById('finalTitle').textContent=st.title;document.getElementById('paper').innerHTML=labelSvg();var note=document.getElementById('freeMood').value.trim();var t=topDims();var pretty={fruity:'華やか',sweet:'甘く',nutty:'香ばしく',deep:'深く',clean:'澄んだ',balanced:'丸い'};document.getElementById('finalStory').textContent='あなたの選択から生まれた、'+pretty[t[0]]+' × '+pretty[t[1]]+'一杯。'+(note?'「'+note+'」という気分もラベルに込めました。':'');show(5)}
-function labelSvg(){var date=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit'}).replaceAll('/','.');var a='<svg id="labelSvg" viewBox="0 0 500 800" xmlns="http://www.w3.org/2000/svg"><rect width="500" height="800" fill="#fff"/><rect x="14" y="14" width="472" height="772" rx="18" fill="none" stroke="#111" stroke-width="4"/><text x="250" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="7">MYOKO COFFEE</text><line x1="215" y1="80" x2="285" y2="80" stroke="#111" stroke-width="3"/><text x="250" y="116" text-anchor="middle" font-family="Georgia,serif" font-size="18" letter-spacing="4">ONE OF ONE</text><text x="250" y="145" text-anchor="middle" font-family="Georgia,serif" font-size="18">#'+String(st.no).padStart(3,'0')+'</text><text x="250" y="200" text-anchor="middle" font-family="Georgia,serif" font-size="36" font-weight="700">'+st.title+'</text><g transform="translate(70 220)">'+artSvg(false).replace('<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">','<g>').replace('</svg>','</g>')+'</g><line x1="92" y1="520" x2="408" y2="520" stroke="#111" stroke-width="2"/>';st.blend.forEach(function(x,i){a+='<text x="120" y="'+(562+i*34)+'" font-family="Georgia,serif" font-size="18" letter-spacing="1">'+x.bean.short+'</text><text x="390" y="'+(562+i*34)+'" text-anchor="end" font-family="Georgia,serif" font-size="18">'+x.pct+'</text>'});a+='<line x1="205" y1="672" x2="295" y2="672" stroke="#111" stroke-width="3"/><text x="250" y="712" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="4">CREATED IN MYOKO</text><text x="250" y="744" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" letter-spacing="4">'+date+'</text></svg>';return a}
+function labelSvg(){var date=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit'}).replaceAll('/','.');var a='<svg id="labelSvg" viewBox="0 0 500 800" xmlns="http://www.w3.org/2000/svg"><rect width="500" height="800" fill="#fff"/><rect x="14" y="14" width="472" height="772" rx="18" fill="none" stroke="#111" stroke-width="4"/><text x="250" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="7">MYOKO COFFEE</text><line x1="215" y1="80" x2="285" y2="80" stroke="#111" stroke-width="3"/><text x="250" y="116" text-anchor="middle" font-family="Georgia,serif" font-size="18" letter-spacing="4">ONE OF ONE</text><text x="250" y="145" text-anchor="middle" font-family="Georgia,serif" font-size="18">#'+String(st.no).padStart(3,'0')+'</text><text x="250" y="200" text-anchor="middle" font-family="Georgia,serif" font-size="36" font-weight="700">'+st.title+'</text><g transform="translate(70 220)">'+artSvg(false).replace('<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">','<g>').replace('</svg>','</g>')+'</g><line x1="92" y1="520" x2="408" y2="520" stroke="#111" stroke-width="2"/>';st.blend.forEach(function(x,i){a+='<text x="120" y="'+(548+i*30)+'" font-family="Georgia,serif" font-size="18" letter-spacing="1">'+x.bean.short+'</text><text x="390" y="'+(562+i*34)+'" text-anchor="end" font-family="Georgia,serif" font-size="18">'+x.pct+'</text>'});a+='<line x1="205" y1="672" x2="295" y2="672" stroke="#111" stroke-width="3"/><text x="250" y="712" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="4">CREATED IN MYOKO</text><text x="250" y="744" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" letter-spacing="4">'+date+'</text></svg>';return a}
 async function pngBlob(){var svg=document.getElementById('labelSvg');var xml=new XMLSerializer().serializeToString(svg);var url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml'}));var img=new Image();await new Promise(function(ok,no){img.onload=ok;img.onerror=no;img.src=url});var c=document.createElement('canvas');c.width=591;c.height=945;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);return await new Promise(function(ok){c.toBlob(ok,'image/png',1)})}
 async function downloadLabel(){try{var b=await pngBlob();var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='MYOKO_'+st.title.replaceAll(' ','_')+'_'+st.no+'.png';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1200);toast('PNGを保存しました')}catch(e){toast('保存できませんでした')}}
 async function shareLabel(){try{var b=await pngBlob();var f=new File([b],'MYOKO_'+st.no+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'MYOKO COFFEE LABEL',text:'NIIMBOTで印刷'});toast('共有しました')}else downloadLabel()}catch(e){if(e.name!=='AbortError')downloadLabel()}}
