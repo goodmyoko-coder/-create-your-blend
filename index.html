@@ -106,7 +106,7 @@ textarea{width:100%;min-height:76px;border:1px solid var(--line);border-radius:1
 .toast.show{opacity:1;transform:translate(-50%,0)}
 footer{text-align:center;font-size:8px;letter-spacing:.22em;color:var(--accent);margin-top:30px;text-transform:uppercase}
 
-.gaugePanel{display:grid;gap:20px;margin-top:22px}
+.gaugePanel{display:grid;gap:20px;margin-top:22px;grid-column:1/-1}
 .gaugeRow{background:rgba(255,255,255,.44);border:1px solid var(--line);border-radius:20px;padding:16px}
 .gaugeHead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
 .gaugeHead b{font-family:Georgia,serif;font-size:18px;font-weight:400;color:var(--green);letter-spacing:.04em}
@@ -118,7 +118,7 @@ footer{text-align:center;font-size:8px;letter-spacing:.22em;color:var(--accent);
 .nameInput{width:100%;height:54px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.58);padding:0 16px;margin-top:10px;outline:none;font-family:Georgia,serif;font-size:18px;color:var(--green);letter-spacing:.04em}
 .proposalLead{max-width:620px;margin:16px auto 0;text-align:center;font-family:Georgia,serif;font-size:18px;line-height:1.6;color:var(--green)}
 
-.colorPalettePanel{margin-top:22px;background:rgba(255,255,255,.44);border:1px solid var(--line);border-radius:22px;padding:18px}
+.colorPalettePanel{margin-top:22px;background:rgba(255,255,255,.44);border:1px solid var(--line);border-radius:22px;padding:18px;grid-column:1/-1}
 .paletteGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .paletteTile{aspect-ratio:1/1;border:0;border-radius:14px;position:relative;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12),0 5px 14px rgba(23,54,47,.05);transition:.14s transform,.14s box-shadow}
 .paletteTile:active{transform:scale(.96)}
@@ -126,7 +126,7 @@ footer{text-align:center;font-size:8px;letter-spacing:.22em;color:var(--accent);
 .paletteTile.sel:after{content:"✓";position:absolute;right:8px;top:7px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.94);color:var(--green);font-size:12px;font-weight:700}
 .paletteName{text-align:center;margin-top:14px;font-family:Georgia,serif;font-size:18px;letter-spacing:.1em;color:var(--green)}
 .paletteHint{text-align:center;margin-top:5px;font-size:10px;color:var(--muted);letter-spacing:.08em}
-.structurePanel{margin-top:22px;background:rgba(255,255,255,.44);border:1px solid var(--line);border-radius:22px;padding:20px 18px}
+.structurePanel{margin-top:22px;background:rgba(255,255,255,.44);border:1px solid var(--line);border-radius:22px;padding:20px 18px;grid-column:1/-1}
 .structurePanel input[type=range]{width:100%;margin:18px 0 10px;accent-color:var(--green)}
 .structureEnds{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 .structureMood{text-align:center;font-family:Georgia,serif;color:var(--green);font-size:18px;letter-spacing:.08em;margin-top:10px}
@@ -212,7 +212,7 @@ h2{font-size:clamp(37px,9vw,54px);letter-spacing:.04em;margin-top:38px}
 .option small{font-size:9px;line-height:1.7;color:var(--muted)}
 .qnav{margin-top:20px}
 .qnav .primary{padding:13px 23px;font-size:9px}.qnav .secondary{padding:13px 17px}
-.gaugePanel{gap:0;margin-top:26px;border-top:1px solid var(--line)}
+.gaugePanel{gap:0;margin-top:26px;border-top:1px solid var(--line);grid-column:1/-1}
 .gaugeRow{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:18px 2px 16px}
 .gaugeHead b{font-family:Georgia,"Times New Roman",serif;font-size:16px;font-weight:400;letter-spacing:.06em}
 .gaugeHead span{font-size:9px;letter-spacing:.14em;color:var(--muted)}
@@ -220,14 +220,14 @@ h2{font-size:clamp(37px,9vw,54px);letter-spacing:.04em;margin-top:38px}
 .gaugeRow input[type=range]::-webkit-slider-thumb,.structurePanel input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:0;background:var(--paper);border:1px solid var(--ink);box-shadow:none}
 .gaugeRow input[type=range]::-moz-range-thumb,.structurePanel input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:0;background:var(--paper);border:1px solid var(--ink);box-shadow:none}
 .gaugeEnds{font-size:7px;letter-spacing:.18em}
-.colorPalettePanel{background:transparent;border:0;border-radius:0;padding:0;margin-top:26px}
+.colorPalettePanel{background:transparent;border:0;border-radius:0;padding:0;margin-top:26px;grid-column:1/-1}
 .paletteGrid{grid-template-columns:repeat(4,1fr);gap:6px}
 .paletteTile{border-radius:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.10);transition:.12s}
 .paletteTile.sel{box-shadow:inset 0 0 0 4px var(--paper),0 0 0 1px var(--ink)}
 .paletteTile.sel:after{right:7px;top:6px;width:18px;height:18px;background:rgba(247,243,235,.92);font-size:9px}
 .paletteName{font-size:16px;letter-spacing:.18em;color:var(--ink);margin-top:16px}
 .paletteHint{font-size:8px;letter-spacing:.15em}
-.structurePanel{background:transparent;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;padding:22px 0;margin-top:26px}
+.structurePanel{background:transparent;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;padding:22px 0;margin-top:26px;grid-column:1/-1}
 .structureEnds{font-size:8px;letter-spacing:.20em}
 .structureMood{font-family:Georgia,"Times New Roman",serif;font-size:16px;letter-spacing:.14em;color:var(--ink)}
 .profileCard,.card,.labelBuild{background:transparent;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;padding:28px 0;box-shadow:none}
