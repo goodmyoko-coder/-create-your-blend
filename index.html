@@ -443,11 +443,12 @@ document.getElementById('qProgress').style.width=((st.qi+1)/questions.length*100
 document.getElementById('qKicker').textContent=q.k;
 document.getElementById('qTitle').textContent=q.title;
 document.getElementById('qSub').textContent=q.sub;
-if(q.type==='gauge'){document.getElementById('qOptions').innerHTML=renderGauge();document.getElementById('qNext').textContent='NEXT →';return}
-if(q.type==='colorPalette'){document.getElementById('qOptions').innerHTML=renderColorPalette();document.getElementById('qNext').textContent='NEXT →';return}
-if(q.type==='structureGauge'){document.getElementById('qOptions').innerHTML=renderStructureGauge();document.getElementById('qNext').textContent='NEXT →';return}
+if(q.type==='gauge'){var qo=document.getElementById('qOptions');qo.style.display='block';qo.style.width='100%';qo.innerHTML=renderGauge();document.getElementById('qNext').textContent='NEXT →';return}
+if(q.type==='colorPalette'){var qo=document.getElementById('qOptions');qo.style.display='block';qo.style.width='100%';qo.innerHTML=renderColorPalette();document.getElementById('qNext').textContent='NEXT →';return}
+if(q.type==='structureGauge'){var qo=document.getElementById('qOptions');qo.style.display='block';qo.style.width='100%';qo.innerHTML=renderStructureGauge();document.getElementById('qNext').textContent='NEXT →';return}
 var selected=st.answers[q.id];
-document.getElementById('qOptions').innerHTML=q.options.map(function(o){
+var normalOptions=document.getElementById('qOptions');normalOptions.style.display='grid';normalOptions.style.width='100%';
+normalOptions.innerHTML=q.options.map(function(o){
 var isSel=q.multi?(Array.isArray(selected)&&selected.indexOf(o.v)>-1):selected===o.v;
 var visual=o.c?'<div class="colorDot" style="background:'+o.c+'"></div>':'<div class="oi">'+(o.i||'○')+'</div>';
 return '<button class="option '+(isSel?'sel':'')+'" onclick="pickAnswer(\''+o.v+'\')">'+visual+'<b>'+o.l+'</b><small>'+o.s+'</small></button>'
