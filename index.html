@@ -180,14 +180,14 @@ linear-gradient(160deg,#eee6d9,#fbf8f1 56%,#e8dfd1);overflow:hidden}
 
 <section class="screen" id="s2">
 <h2>YOUR PROFILE</h2><div class="jp">あなたの好みから、コーヒー像が見えてきました</div>
-<div class="reveal"><div class="profileCard"><div class="kicker">COFFEE PERSONALITY</div><div class="profileTitle" id="profileTitle"></div><div class="profileText" id="profileText"></div><div class="profileTags" id="profileTags"></div><div class="answerRibbon" id="answerRibbon"></div></div></div>
-<button class="primary" onclick="buildBlend()">BLEND MY COFFEE →</button>
+<div class="reveal"><div class="profileCard"><div class="kicker">BLEND PROFILE</div><div class="profileTitle" id="profileTitle"></div><div class="profileText" id="profileText"></div><div class="profileTags" id="profileTags"></div><div class="answerRibbon" id="answerRibbon"></div></div></div>
+<button class="primary" onclick="buildBlend()">CREATE MY BLEND →</button>
 </section>
 
 <section class="screen" id="s3">
 <h2>YOUR BLEND</h2><div class="jp">ここで初めて、豆を選びます</div><div class="proposalLead">私たちが提案する、あなたのオリジナルブレンドはこちらです。</div><div class="lede">ここから配合を少しだけ調整して、自分の一杯に仕上げることもできます。</div>
 <div class="card"><div class="cardtop"><div><h3>MY BLEND</h3><div class="cardno" id="blendNo">#018</div></div><div class="why" id="why"></div></div><div class="profileTags" id="blendTags"></div><div id="blendRows"></div><div class="barista" id="barista"></div></div>
-<button class="primary" onclick="buildLabelStep()">MAKE MY LABEL →</button>
+<button class="primary" onclick="buildLabelStep()">NAME MY BLEND →</button>
 </section>
 
 <section class="screen" id="s4">
@@ -434,16 +434,19 @@ fruitOptions().forEach(function(o){out.push(o.l)});
 return out
 }
 function autoTitle(){
-var a=st.answers;
-if(colorTheme().key==='blue'&&a.moment==='morning')return 'MORNING MIST';
-if(fruitHas('berry'))return 'WILD BERRY';
-if(colorTheme().key==='forest')return 'QUIET FOREST';
+var a=st.answers,theme=colorTheme();
+if(theme.key==='blue'&&a.moment==='morning')return 'MORNING MIST';
+if(theme.key==='night'&&st.gauges.bitterness>66)return 'DEEP NIGHT';
 if(a.moment==='snow')return 'SNOW LINE';
-if(colorTheme().key==='night'&&st.gauges.bitterness>66)return 'DEEP NIGHT';
-if(colorTheme().key==='blue')return 'BLUE HOUR';
-if(colorTheme().key==='sunset')return 'AFTERGLOW';
+if(theme.key==='forest')return 'QUIET FOREST';
+if(theme.key==='sunset')return 'AFTERGLOW';
+if(theme.key==='blue')return 'BLUE HOUR';
 if(a.moment==='night')return 'QUIET NIGHT';
 if(a.moment==='morning')return 'FIRST LIGHT';
+if(fruitHas('berry'))return 'WILD BERRY';
+if(fruitHas('winey'))return 'VELVET WINE';
+if(fruitHas('citrus'))return 'CITRUS AIR';
+if(fruitHas('apple'))return 'GREEN APPLE';
 return 'ONE OF ONE'
 }
 function currentBlendName(){var el=document.getElementById('blendNameWord');if(!el)return autoTitle();var v=(el.value||'').trim();return v?v.toUpperCase():autoTitle()}
