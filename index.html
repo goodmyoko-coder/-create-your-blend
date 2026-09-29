@@ -96,7 +96,7 @@ h3{font-size:28px}
 textarea{width:100%;min-height:76px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.55);padding:14px;resize:none;outline:none;margin-top:8px}
 .final{display:grid;grid-template-columns:1fr 270px;gap:20px;max-width:720px;margin:22px auto}
 .stage{min-height:540px;border-radius:26px;background:linear-gradient(145deg,#e3dbcf,#faf7f0);display:grid;place-items:center;padding:22px;box-shadow:0 16px 44px rgba(23,54,47,.09);border:1px solid var(--line)}
-.paper{width:min(100%,300px);aspect-ratio:5/8;background:white;border:1px solid #c8c5bc;border-radius:10px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.12)}
+.paper{width:min(100%,300px);aspect-ratio:25/38;background:white;border:1px solid #c8c5bc;border-radius:10px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.12)}
 .paper svg{width:100%;height:100%;display:block}
 .panel h3{font-family:Georgia,serif;font-size:30px;margin:5px 0 10px;color:var(--green)}
 .panel p{font-size:12px;line-height:1.8;color:var(--muted)}
@@ -373,7 +373,7 @@ footer{font-size:7px;letter-spacing:.30em;color:var(--muted);margin-top:42px}
 .preview{display:flex;justify-content:center;align-items:center;min-height:0;padding:34px 24px;background:#e8e6dd;border:0;margin-top:28px}
 .preview svg{display:block;width:min(100%,300px);height:auto;max-height:none;box-shadow:0 15px 28px #18392b20}
 .stage{min-height:0;padding:38px 28px;background:#e8e6dd;border:0}
-.paper{width:min(100%,330px);aspect-ratio:5/8;box-shadow:0 18px 35px #18392b26}
+.paper{width:min(100%,330px);aspect-ratio:25/38;box-shadow:0 18px 35px #18392b26}
 .profileArt{background:#103e32;border:0;height:230px}
 .namePrompt,.panel p{font-size:14px;line-height:1.85}
 .nameInput{font-size:22px;min-width:0;width:100%}
@@ -428,7 +428,7 @@ footer{font-size:7px;letter-spacing:.30em;color:var(--muted);margin-top:42px}
 
 <section class="screen" id="s5">
 <h2>PRINT</h2><div class="jp">あなたのコーヒーができました</div>
-<div class="final"><div class="stage"><div class="paper" id="paper"></div></div><div class="panel"><h3 id="finalTitle">QUIET NIGHT</h3><p id="finalStory"></p><div class="actions"><button class="secondary" onclick="show(4)">EDIT LABEL</button><button class="secondary" onclick="rerollArt()">別のアートをつくる</button><button class="secondary" onclick="downloadLabel()">SAVE PNG</button><button class="print" onclick="shareLabel()">PRINT / SHARE</button></div><p class="small">カラーPNG · 1500 × 2400 px<br>ラベル比率 5：8（50 × 80 mmなど）</p></div></div>
+<div class="final"><div class="stage"><div class="paper" id="paper"></div></div><div class="panel"><h3 id="finalTitle">QUIET NIGHT</h3><p id="finalStory"></p><div class="actions"><button class="secondary" onclick="show(4)">EDIT LABEL</button><button class="secondary" onclick="rerollArt()">別のアートをつくる</button><button class="secondary" onclick="downloadLabel()">印刷用JPEGを保存</button><button class="print" onclick="shareLabel()">画像を共有</button></div><p class="small">Canon iNSPiC PV-223-PK 対応<br>標準シール紙 50 × 76 mm（縦）<br>カラーJPEG · 1500 × 2280 px<br><br>画像をスマホに保存し、Canon Mini Printの写真選択から取り込んで印刷してください。印刷前のプレビューで、ロゴと文字が収まっていることを確認してください。</p></div></div>
 </section>
 <footer>MYOKO COFFEE · CREATE YOUR OWN STORY IN A CUP</footer>
 </div><div class="toast" id="toast"></div>
@@ -837,19 +837,19 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function labelSvg(finalLabel){
 var p=artPalette(),title=finalLabel===false?currentBlendName():st.title;
 var name=esc(title),wide=/[^\x00-\x7F]/.test(title),fs=wide?(title.length>14?18:24):(title.length>20?18:title.length>14?24:30);
-var a='<svg '+(finalLabel===false?'':'id="labelSvg" ')+'viewBox="0 0 500 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+name+' — Myoko Coffee オリジナルラベル"><rect width="500" height="800" fill="'+p[0]+'"/>';
+var a='<svg '+(finalLabel===false?'':'id="labelSvg" ')+'viewBox="0 0 500 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+name+' — Myoko Coffee オリジナルラベル"><rect width="500" height="760" fill="'+p[0]+'"/>';
 a+=brandWordmark(100);
-a+='<g transform="translate(65 202) scale(.925)">'+cutComposition()+'</g>';
-a+='<text x="250" y="659" text-anchor="middle" font-family="Arial, Hiragino Kaku Gothic ProN, sans-serif" font-size="'+fs+'" letter-spacing="'+(wide?1:2)+'" font-weight="500" fill="'+p[2]+'">'+name+'</text>';
-a+='<text x="250" y="687" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing="3" fill="'+p[1]+'">YOUR ORIGINAL BLEND</text>';
+a+='<g transform="translate(65 183) scale(.925)">'+cutComposition()+'</g>';
+a+='<text x="250" y="619" text-anchor="middle" font-family="Arial, Hiragino Kaku Gothic ProN, sans-serif" font-size="'+fs+'" letter-spacing="'+(wide?1:2)+'" font-weight="500" fill="'+p[2]+'">'+name+'</text>';
+a+='<text x="250" y="647" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing="3" fill="'+p[1]+'">YOUR ORIGINAL BLEND</text>';
 var lines=[st.blend.slice(0,2),st.blend.slice(2)].map(function(items){return items.map(function(x){return x.bean.origin+' '+x.pct+'%'}).join('  /  ')});
-lines.forEach(function(line,i){if(line)a+='<text x="250" y="'+(722+i*18)+'" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing=".8" fill="'+p[2]+'">'+esc(line)+'</text>'});
-a+='<text x="250" y="775" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="2.4" fill="'+p[2]+'">MYOKO, JAPAN · NO. '+String(st.no).padStart(3,'0')+'</text>';
+lines.forEach(function(line,i){if(line)a+='<text x="250" y="'+(682+i*18)+'" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing=".8" fill="'+p[2]+'">'+esc(line)+'</text>'});
+a+='<text x="250" y="735" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="2.4" fill="'+p[2]+'">MYOKO, JAPAN · NO. '+String(st.no).padStart(3,'0')+'</text>';
 return a+'</svg>';
 }
-async function pngBlob(){var svg=document.getElementById('labelSvg');var xml=new XMLSerializer().serializeToString(svg);var url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml'}));var img=new Image();await new Promise(function(ok,no){img.onload=ok;img.onerror=no;img.src=url});var can=document.createElement('canvas');can.width=1500;can.height=2400;var x=can.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,can.width,can.height);x.drawImage(img,0,0,can.width,can.height);URL.revokeObjectURL(url);return await new Promise(function(ok){can.toBlob(ok,'image/png',1)})}
-async function downloadLabel(){try{var b=await pngBlob();var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='MYOKO_'+st.title.replaceAll(' ','_')+'_'+st.no+'.png';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1200);toast('PNGを保存しました')}catch(e){toast('保存できませんでした')}}
-async function shareLabel(){try{var b=await pngBlob();var f=new File([b],'MYOKO_'+st.no+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'MYOKO COFFEE LABEL',text:'Myoko Coffee — '+st.title});toast('共有しました')}else downloadLabel()}catch(e){if(e.name!=='AbortError')downloadLabel()}}
+async function labelBlob(){var svg=document.getElementById('labelSvg');var xml=new XMLSerializer().serializeToString(svg);var url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml'}));var img=new Image();await new Promise(function(ok,no){img.onload=ok;img.onerror=no;img.src=url});var can=document.createElement('canvas');can.width=1500;can.height=2280;var x=can.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,can.width,can.height);x.drawImage(img,0,0,can.width,can.height);URL.revokeObjectURL(url);return await new Promise(function(ok,no){can.toBlob(function(blob){if(blob)ok(blob);else no(new Error('画像を作成できませんでした'))},'image/jpeg',.98)})}
+async function downloadLabel(){try{var b=await labelBlob();var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='MYOKO_'+st.title.replaceAll(' ','_')+'_PV223_50x76mm_'+st.no+'.jpg';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1200);toast('50 × 76 mm用のJPEGを保存しました')}catch(e){toast('保存できませんでした')}}
+async function shareLabel(){try{var b=await labelBlob();var f=new File([b],'MYOKO_PV223_50x76mm_'+st.no+'.jpg',{type:'image/jpeg'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'MYOKO COFFEE LABEL',text:'Myoko Coffee — '+st.title});toast('共有しました')}else downloadLabel()}catch(e){if(e.name!=='AbortError')downloadLabel()}}
 function toast(s){var t=document.getElementById('toast');t.textContent=s;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(function(){t.classList.remove('show')},1800)}
 
 (function(){
