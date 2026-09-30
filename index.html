@@ -386,6 +386,21 @@ footer{font-size:7px;letter-spacing:.30em;color:var(--muted);margin-top:42px}
 /* v22 — official wordmark and stable randomized collage */
 .officialHeaderLogo{display:block;width:112px;height:auto;filter:brightness(0) saturate(100%);opacity:.86}
 .artControls{text-align:center;margin-top:20px}.artControls .secondary{min-height:46px;font-size:14px;width:auto;padding:12px 26px}.artControls p{font-size:12px;line-height:1.8;color:var(--muted);margin:12px 0 0}
+
+/* v24 — visible selection, with a stable border to avoid layout shifts */
+.option{transition:background-color .16s,box-shadow .16s;min-height:124px;padding:18px}
+.option.sel{background:#fbe1dd;border-right:1px solid #bc645b;border-bottom:1px solid #bc645b;box-shadow:inset 0 0 0 2px #ba5148}
+.option.sel:after{content:"✓";right:10px;top:10px;width:32px;height:32px;display:grid;place-items:center;background:#ad4139;color:#fff;font-size:23px;font-weight:800;border-radius:50%;line-height:1}
+.option b{font-size:15px;letter-spacing:.06em}.option small{font-size:13px;color:#505950;line-height:1.65}
+.option.sel b,.option.sel small{color:#602a26}
+.option:focus-visible,.paletteTile:focus-visible{outline:3px solid #ad4139;outline-offset:3px}
+.paletteGrid{gap:12px}.paletteTile.sel{box-shadow:inset 0 0 0 4px #fff,0 0 0 3px #b64c43}
+.paletteTile.sel:after{width:32px;height:32px;right:6px;top:6px;background:#ad4139;color:#fff;border:2px solid #fff;font-size:22px;font-weight:800;display:grid;place-items:center;border-radius:50%}
+.printAdjustment{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:20px 0;text-align:left}
+.printAdjustment label{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;font-weight:600}
+.printAdjustment input{width:100%;min-width:0;margin:16px 0 8px;accent-color:#16846a}
+.printAdjustment p{font-size:12px;line-height:1.75;margin:8px 0 0}
+.printEnds{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -428,7 +443,7 @@ footer{font-size:7px;letter-spacing:.30em;color:var(--muted);margin-top:42px}
 
 <section class="screen" id="s5">
 <h2>PRINT</h2><div class="jp">あなたのコーヒーができました</div>
-<div class="final"><div class="stage"><div class="paper" id="paper"></div></div><div class="panel"><h3 id="finalTitle">QUIET NIGHT</h3><p id="finalStory"></p><div class="actions"><button class="secondary" onclick="show(4)">EDIT LABEL</button><button class="secondary" onclick="rerollArt()">別のアートをつくる</button><button class="secondary" onclick="downloadLabel()">印刷用JPEGを保存</button><button class="print" onclick="shareLabel()">画像を共有</button></div><p class="small">Canon iNSPiC PV-223-PK 対応<br>標準シール紙 50 × 76 mm（縦）<br>カラーJPEG · 1500 × 2280 px<br><br>画像をスマホに保存し、Canon Mini Printの写真選択から取り込んで印刷してください。印刷前のプレビューで、ロゴと文字が収まっていることを確認してください。</p></div></div>
+<div class="final"><div class="stage"><div class="paper" id="paper"></div></div><div class="panel"><h3 id="finalTitle">QUIET NIGHT</h3><p id="finalStory"></p><div class="printAdjustment"><label for="printStrength">印刷補正 <output id="printStrengthValue">65%</output></label><input id="printStrength" type="range" min="0" max="100" value="65" step="5" oninput="setPrintStrength(this.value)"><div class="printEnds"><span>元の色</span><span>明るく・緑を強く</span></div><p>画面と保存画像に反映されます。まずは65%で1枚印刷し、仕上がりに合わせて調整してください。</p></div><div class="actions"><button class="secondary" onclick="show(4)">EDIT LABEL</button><button class="secondary" onclick="rerollArt()">別のアートをつくる</button><button class="secondary" onclick="downloadLabel()">印刷用JPEGを保存</button><button class="print" onclick="shareLabel()">画像を共有</button></div><p class="small">Canon iNSPiC PV-223-PK 対応<br>標準シール紙 50 × 76 mm（縦）<br>カラーJPEG · 1500 × 2280 px<br><br>画像をスマホに保存し、Canon Mini Printの写真選択から取り込んで印刷してください。印刷前のプレビューで、ロゴと文字が収まっていることを確認してください。</p></div></div>
 </section>
 <footer>MYOKO COFFEE · CREATE YOUR OWN STORY IN A CUP</footer>
 </div><div class="toast" id="toast"></div>
@@ -456,7 +471,7 @@ var questions=[
 {v:'winey',l:'WINEY',s:'ぶどう・ワインのような熟した果実感',i:'◉',fx:{fruity:4,sweet:2,deep:2}}
 ]},
 
-{id:'complexity',type:'structureGauge',k:'BLEND STRUCTURE',title:'ブレンドの重なり方は？',sub:'シンプルから複雑まで、直感で調整してください。'},
+{id:'complexity',type:'structureGauge',k:'BLEND STRUCTURE',title:'ブレンドの複雑味',sub:'シンプルから複雑まで、直感で調整してください。'},
 {id:'moment',k:'WHEN',title:'この一杯を、いつ飲みたい？',sub:'色のイメージとは別に、実際に飲みたい時間や場面を選んでください。',options:[
 {v:'morning',l:'MORNING',s:'一日のはじまり',i:'☼',fx:{clean:3,fruity:2}},
 {v:'work',l:'FOCUS',s:'集中したい時',i:'▤',fx:{balanced:4,deep:1}},
@@ -533,7 +548,7 @@ return colorChoices.find(function(x){return x.key===st.colorChoice})||colorChoic
 function renderColorPalette(){
 var t=colorTheme();
 return '<div class="colorPalettePanel"><div class="paletteGrid">'+colorChoices.map(function(o){
-return '<button type="button" aria-label="'+o.label+'" class="paletteTile '+(o.key===st.colorChoice?'sel':'')+'" style="background:'+o.color+'" onclick="setColorChoice(\''+o.key+'\')"></button>'
+return '<button type="button" aria-label="'+o.label+'" aria-pressed="'+(o.key===st.colorChoice)+'" class="paletteTile '+(o.key===st.colorChoice?'sel':'')+'" style="background:'+o.color+'" onclick="setColorChoice(\''+o.key+'\')"></button>'
 }).join('')+'</div><div class="paletteName">'+t.label+'</div><div class="paletteHint">'+t.name+'</div></div>'
 }
 function setColorChoice(key){st.colorChoice=key;var t=colorTheme();document.documentElement.style.setProperty('--userColor',t.color);renderQuestion()}
@@ -566,7 +581,7 @@ var normalOptions=document.getElementById('qOptions');normalOptions.style.displa
 normalOptions.innerHTML=q.options.map(function(o){
 var isSel=q.multi?(Array.isArray(selected)&&selected.indexOf(o.v)>-1):selected===o.v;
 var visual=o.c?'<div class="colorDot" style="background:'+o.c+'"></div>':'<div class="oi">'+(o.i||'○')+'</div>';
-return '<button class="option '+(isSel?'sel':'')+'" onclick="pickAnswer(\''+o.v+'\')">'+visual+'<b>'+o.l+'</b><small>'+o.s+'</small></button>'
+return '<button type="button" aria-pressed="'+isSel+'" class="option '+(isSel?'sel':'')+'" onclick="pickAnswer(\''+o.v+'\')">'+visual+'<b>'+o.l+'</b><small>'+o.s+'</small></button>'
 }).join('')+(q.multi?'<div class="multiHint">'+((selected||[]).length)+' / '+q.max+' SELECTED</div>':'');
 document.getElementById('qNext').textContent=st.qi===questions.length-1?'SEE MY PROFILE →':'NEXT →'
 }
@@ -671,7 +686,7 @@ var controls=st.blend.length>1?'<div class="pct"><button class="round" onclick="
 return '<div class="row"><div class="bean">◉</div><div class="meta"><b>'+x.bean.name+'</b><small>'+x.bean.roast+' / '+x.bean.process+'<br>'+x.bean.note+'</small></div>'+controls+'</div>'
 }).join('');
 var fruit=fruitOptions().map(function(o){return o.l}).join(' / '),moment=ans('moment');
-document.getElementById('barista').innerHTML='<b style="color:#17362f">なぜこの構成？</b><br>'+tasteGaugeText()+'というバランスに、'+(fruit||'COFFEE ONLY')+'の香りの記憶を重ねました。'+structure.label+'の重なり方から、豆は'+st.blend.length+'種類で提案しています。'+(moment?' '+moment.l+'で飲むことも想定しています。':'')
+document.getElementById('barista').innerHTML='<b style="color:#17362f">なぜこの構成？</b><br>'+tasteGaugeText()+'というバランスに、'+(fruit||'COFFEE ONLY')+'の香りの記憶を重ねました。'+structure.label+'の複雑味から、豆は'+st.blend.length+'種類で提案しています。'+(moment?' '+moment.l+'で飲むことも想定しています。':'')
 }
 function adj(i,d){if(st.blend.length<2)return;var j=(i+1)%st.blend.length;if(st.blend[i].pct+d<10||st.blend[j].pct-d<10)return;st.blend[i].pct+=d;st.blend[j].pct-=d;renderBlend()}
 function labelWords(){
@@ -714,9 +729,18 @@ document.getElementById('labelPreview').innerHTML=artSvg(true);show(4)
 }
 function escXml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 // A two-ink identity: fixed forest ground, personal colour, cut-paper forms.
+var printStrength=65;
+function mixInk(a,b,t){var aa=a.slice(1).match(/../g),bb=b.slice(1).match(/../g);return '#'+aa.map(function(v,i){return Math.round(parseInt(v,16)*(1-t)+parseInt(bb[i],16)*t).toString(16).padStart(2,'0')}).join('')}
+function setPrintStrength(value){
+printStrength=Math.max(0,Math.min(100,Number(value)||0));
+var text=document.getElementById('printStrengthValue');if(text)text.textContent=printStrength+'%';
+var preview=document.getElementById('labelPreview');if(preview)preview.innerHTML=artSvg(true);
+var profile=document.getElementById('profileArt');if(profile)profile.innerHTML=abstractArtSvg(false,true);
+if(st.screen===5)document.getElementById('paper').innerHTML=labelSvg();
+}
 function artPalette(){
 var inks={snow:'#eee5cf',mint:'#b8d2b1',forest:'#b6c18d',aqua:'#86c9c3',blue:'#a6bddd',navy:'#96a1c8',violet:'#c29adc',pink:'#e7a5b7',red:'#e56a70',orange:'#e5a16e',yellow:'#e3c572',brown:'#cba681',black:'#cbc7bc'};
-return ['#103e32',inks[colorTheme().key]||inks.blue,'#f6efdd'];
+var strength=printStrength/100;return [mixInk('#103e32','#178f65',strength),mixInk(inks[colorTheme().key]||inks.blue,'#fffdf5',strength*.16),'#fffdf5'];
 }
 function randomArtNumber(){
 if(window.crypto&&window.crypto.getRandomValues){var n=new Uint32Array(1);window.crypto.getRandomValues(n);return n[0]}
@@ -816,7 +840,7 @@ out+='<g transform="translate('+x.toFixed(1)+' '+y.toFixed(1)+') rotate('+(-28+r
 return '<svg width="400" height="420" viewBox="0 0 400 420" overflow="hidden" xmlns="http://www.w3.org/2000/svg">'+out+'</svg>';
 }
 function brandWordmark(y){
-return '<image x="102" y="'+(y-50)+'" width="296" height="124" preserveAspectRatio="xMidYMid meet" href="'+officialWordmark+'"/>';
+return '<image x="85" y="'+(y-50)+'" width="330" height="138" preserveAspectRatio="xMidYMid meet" href="'+officialWordmark+'"/>';
 }
 function abstractArtSvg(withTitle,compact){
 if(withTitle)return labelSvg(false);
@@ -834,17 +858,22 @@ document.getElementById('finalStory').textContent='私たちが提案する、�
 show(5)
 }
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function labelTitleLines(title){
+var chars=Array.from(title);if(chars.length<=15)return [title];
+var words=title.split(/\s+/);
+if(words.length>1){var best=1,gap=Infinity;for(var i=1;i<words.length;i++){var left=words.slice(0,i).join(' '),right=words.slice(i).join(' '),diff=Math.abs(left.length-right.length);if(diff<gap){gap=diff;best=i}}return [words.slice(0,best).join(' '),words.slice(best).join(' ')]}
+var half=Math.ceil(chars.length/2);return [chars.slice(0,half).join(''),chars.slice(half).join('')];
+}
 function labelSvg(finalLabel){
-var p=artPalette(),title=finalLabel===false?currentBlendName():st.title;
-var name=esc(title),wide=/[^\x00-\x7F]/.test(title),fs=wide?(title.length>14?18:24):(title.length>20?18:title.length>14?24:30);
+var p=artPalette(),title=finalLabel===false?currentBlendName():st.title,lines=labelTitleLines(title),two=lines.length>1;
+var name=esc(title);
 var a='<svg '+(finalLabel===false?'':'id="labelSvg" ')+'viewBox="0 0 500 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+name+' — Myoko Coffee オリジナルラベル"><rect width="500" height="760" fill="'+p[0]+'"/>';
-a+=brandWordmark(100);
-a+='<g transform="translate(65 183) scale(.925)">'+cutComposition()+'</g>';
-a+='<text x="250" y="619" text-anchor="middle" font-family="Arial, Hiragino Kaku Gothic ProN, sans-serif" font-size="'+fs+'" letter-spacing="'+(wide?1:2)+'" font-weight="500" fill="'+p[2]+'">'+name+'</text>';
-a+='<text x="250" y="647" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing="3" fill="'+p[1]+'">YOUR ORIGINAL BLEND</text>';
-var lines=[st.blend.slice(0,2),st.blend.slice(2)].map(function(items){return items.map(function(x){return x.bean.origin+' '+x.pct+'%'}).join('  /  ')});
-lines.forEach(function(line,i){if(line)a+='<text x="250" y="'+(682+i*18)+'" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing=".8" fill="'+p[2]+'">'+esc(line)+'</text>'});
-a+='<text x="250" y="735" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="2.4" fill="'+p[2]+'">MYOKO, JAPAN · NO. '+String(st.no).padStart(3,'0')+'</text>';
+a+=brandWordmark(67);
+a+='<g transform="translate('+(two?50:42)+' 155) scale('+(two?'1.00':'1.04')+')">'+cutComposition()+'</g>';
+lines.forEach(function(line,i){var units=Array.from(line).reduce(function(n,c){return n+(/[^\x00-\x7F]/.test(c)?1:.64)},0),fs=Math.min(two?34:42,430/Math.max(units,1));a+='<text x="250" y="'+(two?615+i*38:644)+'" text-anchor="middle" font-family="Arial, Hiragino Kaku Gothic ProN, sans-serif" font-size="'+fs.toFixed(1)+'" letter-spacing=".6" font-weight="600" fill="'+p[2]+'">'+esc(line)+'</text>'});
+var recipe=[st.blend.slice(0,2),st.blend.slice(2)].map(function(items){return items.map(function(x){return x.bean.origin+' '+x.pct+'%'}).join(' / ')});
+recipe.forEach(function(line,i){if(line)a+='<text x="250" y="'+(recipe[1]?681+i*27:693)+'" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" letter-spacing=".2" font-weight="600" fill="'+p[2]+'">'+esc(line)+'</text>'});
+a+='<text x="250" y="740" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" letter-spacing="1.6" fill="'+p[2]+'">MYOKO, JAPAN · NO. '+String(st.no).padStart(3,'0')+'</text>';
 return a+'</svg>';
 }
 async function labelBlob(){var svg=document.getElementById('labelSvg');var xml=new XMLSerializer().serializeToString(svg);var url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml'}));var img=new Image();await new Promise(function(ok,no){img.onload=ok;img.onerror=no;img.src=url});var can=document.createElement('canvas');can.width=1500;can.height=2280;var x=can.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,can.width,can.height);x.drawImage(img,0,0,can.width,can.height);URL.revokeObjectURL(url);return await new Promise(function(ok,no){can.toBlob(function(blob){if(blob)ok(blob);else no(new Error('画像を作成できませんでした'))},'image/jpeg',.98)})}
