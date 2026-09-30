@@ -1,6 +1,102 @@
 <!doctype html>
 <html lang="ja">
 <head>
+<!-- Title lettering uses Bodoni Moda, outlined for consistent rendering.
+Copyright 2020 The Bodoni Moda Project Authors (https://github.com/indestructible-type/Bodoni)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://openfontlicense.org/
+
+
+—————————————————————————————-
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+—————————————————————————————-
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting — in part or in whole — any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+-->
 <!-- Embedded Nimbus font program: Latin subset in WOFF format.
 Source: https://github.com/ArtifexSoftware/urw-base35-fonts
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
@@ -1471,6 +1567,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 footer{font-size:9px;letter-spacing:.16em}.subnote{font-size:10px;letter-spacing:.12em}
 @media(max-width:620px){header{margin:0 -16px;padding:14px 16px}.questionCard{padding:22px 12px}.option{padding:14px}.option b{font-size:18px}.blendHero{height:auto}.hero{margin:20px auto}.blendStory{font-size:9px;bottom:8px}.qnav .primary,.qnav .secondary{font-size:12px}.qnav .primary{min-width:150px}.qnav .secondary{min-width:100px}}
 @media(prefers-reduced-motion:reduce){.paperMotion,.screen{animation:none}.progressFill{transition:none}}
+.createWordmark{width:min(100%,500px);margin:28px auto 0;line-height:0;color:#103e32}.createWordmark svg{display:block;width:100%;height:auto}
 </style>
 </head>
 <body>
@@ -1478,7 +1575,7 @@ footer{font-size:9px;letter-spacing:.16em}.subnote{font-size:10px;letter-spacing
 <header><button class="ghost" onclick="resetAll()">RESET</button><div class="logo"><div class="mark">MOUNTAIN ROASTER</div><div class="brand"><img class="officialHeaderLogo" id="officialHeaderLogo" alt="Myoko Coffee"></div><div class="tagline">GOOD COFFEE · A RICHER TOMORROW</div></div><button class="ghost" onclick="globalBack()">BACK</button></header>
 
 <section class="screen active" id="s0">
-<h1>CREATE<br>YOUR BLEND</h1><div class="jp">あなたの景色を、一杯のコーヒーに。</div><div class="rule"></div>
+<h1 class="createWordmark" aria-label="Create your own blend"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 166" aria-hidden="true" focusable="false" fill="currentColor"><path transform="translate(30.236199999999968 76) scale(0.03780000000000001 -0.035)" d="M840 -20Q597 -20 427.5 79.5Q258 179 169.0 353.0Q80 527 80 750Q80 973 169.0 1147.0Q258 1321 427.5 1420.5Q597 1520 840 1520Q926 1520 994.5 1491.5Q1063 1463 1120 1410L1366 1500H1370V1030H1362Q1295 1167 1222.0 1275.5Q1149 1384 1061.0 1447.0Q973 1510 860 1510Q767 1510 706.5 1443.5Q646 1377 612.0 1266.5Q578 1156 564.0 1021.5Q550 887 550 750Q550 614 564.0 479.0Q578 344 612.0 233.5Q646 123 706.5 56.5Q767 -10 860 -10Q961 -10 1039.5 27.5Q1118 65 1180.5 131.0Q1243 197 1292.5 284.0Q1342 371 1384 470H1390V0H1386L1163 104Q1100 46 1020.5 13.0Q941 -20 840 -20Z"/><path transform="translate(83.82039999999998 76) scale(0.03780000000000001 -0.035)" d="M536 436Q536 549 550.0 641.5Q564 734 596.5 800.5Q629 867 684.5 903.5Q740 940 824 940Q905 940 960.5 901.0Q1016 862 1045.0 802.0Q1074 742 1074 678Q1074 590 1013.5 523.0Q953 456 858 456Q764 456 702.5 517.5Q641 579 641 661Q641 750 698.5 813.5Q756 877 854 877Q918 877 967.0 848.0Q1016 819 1044.0 773.5Q1072 728 1072 678H1070Q1070 740 1041.5 799.5Q1013 859 958.5 897.5Q904 936 824 936Q741 936 686.0 899.5Q631 863 599.0 796.0Q567 729 553.5 637.5Q540 546 540 436ZM540 920V4H714V0H20V4H160V916H20V920Z"/><path transform="translate(123.3808 76) scale(0.03780000000000001 -0.035)" d="M566 -20Q415 -20 298.5 33.5Q182 87 116.0 193.5Q50 300 50 460Q50 620 114.5 726.5Q179 833 294.0 886.5Q409 940 560 940Q709 940 812.5 880.5Q916 821 970.0 725.0Q1024 629 1024 520H184V524H642Q641 598 639.0 670.5Q637 743 629.5 803.5Q622 864 605.5 900.0Q589 936 560 936Q531 936 511.5 900.5Q492 865 480.5 803.5Q469 742 464.5 664.0Q460 586 460 500Q460 392 467.5 300.5Q475 209 495.5 142.0Q516 75 553.5 37.5Q591 0 650 0Q782 0 883.5 79.5Q985 159 1022 286H1026Q987 156 875.0 68.0Q763 -20 566 -20Z"/><path transform="translate(162.0718 76) scale(0.03780000000000001 -0.035)" d="M936 -20Q854 -20 792.5 0.5Q731 21 696.5 61.0Q662 101 662 160V609Q662 681 646.5 754.5Q631 828 588.5 877.5Q546 927 466 927Q424 927 367.5 917.0Q311 907 257.5 883.0Q204 859 169.0 817.5Q134 776 134 712H132Q132 786 193.0 834.0Q254 882 339 882Q427 882 490.0 839.5Q553 797 553 716Q553 634 489.0 588.0Q425 542 339 542Q248 542 189.0 589.0Q130 636 130 712Q130 777 165.5 820.5Q201 864 259.5 889.5Q318 915 388.0 925.5Q458 936 526 936Q694 936 809.0 898.5Q924 861 983.0 788.0Q1042 715 1042 609V92Q1042 62 1061.0 42.0Q1080 22 1116 22Q1139 22 1183.0 43.0Q1227 64 1258 126H1262Q1228 50 1140.5 15.0Q1053 -20 936 -20ZM345 -20Q215 -20 137.5 46.5Q60 113 60 227Q60 361 177.5 432.5Q295 504 508 504H755V500H645Q582 500 542.0 460.0Q502 420 483.0 365.5Q464 311 464 266Q464 221 472.5 186.5Q481 152 501.0 132.0Q521 112 553 112Q584 112 608.5 140.5Q633 169 647.5 224.5Q662 280 662 361H666Q666 237 628.0 152.0Q590 67 518.5 23.5Q447 -20 345 -20Z"/><path transform="translate(208.285 76) scale(0.03780000000000001 -0.035)" d="M428 -14Q316 -14 255.0 14.5Q194 43 170.0 100.0Q146 157 146 242V1120Q236 1120 343.5 1131.5Q451 1143 526 1180V186Q526 111 544.0 73.5Q562 36 602 36Q644 36 701.5 73.5Q759 111 796 204H800Q764 108 672.0 47.0Q580 -14 428 -14ZM0 916V920H740V916Z"/><path transform="translate(236.5432 76) scale(0.03780000000000001 -0.035)" d="M566 -20Q415 -20 298.5 33.5Q182 87 116.0 193.5Q50 300 50 460Q50 620 114.5 726.5Q179 833 294.0 886.5Q409 940 560 940Q709 940 812.5 880.5Q916 821 970.0 725.0Q1024 629 1024 520H184V524H642Q641 598 639.0 670.5Q637 743 629.5 803.5Q622 864 605.5 900.0Q589 936 560 936Q531 936 511.5 900.5Q492 865 480.5 803.5Q469 742 464.5 664.0Q460 586 460 500Q460 392 467.5 300.5Q475 209 495.5 142.0Q516 75 553.5 37.5Q591 0 650 0Q782 0 883.5 79.5Q985 159 1022 286H1026Q987 156 875.0 68.0Q763 -20 566 -20Z"/><path transform="translate(275.23420000000004 76) scale(0.03780000000000001 -0.035)" d=""/><path transform="translate(292.19020000000006 76) scale(0.03780000000000001 -0.035)" d="M583 916 871 371 656 -54 114 916H-29V920H815V916ZM1340 920V916H1148L490 -386Q465 -436 417.5 -473.0Q370 -510 290 -510Q240 -510 196.0 -487.5Q152 -465 124.5 -421.5Q97 -378 97 -315Q97 -257 126.0 -211.5Q155 -166 203.0 -140.0Q251 -114 308 -114Q367 -114 416.5 -149.0Q466 -184 489.5 -243.5Q513 -303 492 -376L1144 916H917V920Z"/><path transform="translate(339.7642000000001 76) scale(0.03780000000000001 -0.035)" d="M568 -20Q407 -20 291.0 46.0Q175 112 112.5 221.0Q50 330 50 460Q50 590 112.5 699.0Q175 808 291.0 874.0Q407 940 568 940Q729 940 845.0 874.0Q961 808 1023.5 699.0Q1086 590 1086 460Q1086 330 1023.5 221.0Q961 112 845.0 46.0Q729 -20 568 -20ZM568 -16Q597 -16 620.5 17.5Q644 51 661.0 114.0Q678 177 687.0 264.7389830508474Q696 352.4779661016949 696 460.2406779661017Q696 568 687.0 655.5Q678 743 661.0 806.0Q644 869 620.5 902.5Q597 936 568 936Q539 936 515.5 902.5Q492 869 475.0 806.0Q458 743 449.0 655.2602040816327Q440 567.5204081632653 440 459.76190476190476Q440 352 449.0 264.5Q458 177 475.0 114.0Q492 51 515.5 17.5Q539 -16 568 -16Z"/><path transform="translate(380.7232000000001 76) scale(0.03780000000000001 -0.035)" d="M444 -20Q337 -20 275.0 19.5Q213 59 186.5 127.0Q160 195 160 282V916H20V920H540V264Q540 180 546.5 140.0Q553 100 568.5 88.0Q584 76 612 76Q654 76 684.0 112.0Q714 148 733.0 207.0Q752 266 761.0 336.0Q770 406 770 474H774Q774 397 762.0 311.0Q750 225 716.0 150.0Q682 75 616.5 27.5Q551 -20 444 -20ZM770 0V916H650V920H1150V4H1290V0Z"/><path transform="translate(428.2594000000001 76) scale(0.03780000000000001 -0.035)" d="M536 436Q536 549 550.0 641.5Q564 734 596.5 800.5Q629 867 684.5 903.5Q740 940 824 940Q905 940 960.5 901.0Q1016 862 1045.0 802.0Q1074 742 1074 678Q1074 590 1013.5 523.0Q953 456 858 456Q764 456 702.5 517.5Q641 579 641 661Q641 750 698.5 813.5Q756 877 854 877Q918 877 967.0 848.0Q1016 819 1044.0 773.5Q1072 728 1072 678H1070Q1070 740 1041.5 799.5Q1013 859 958.5 897.5Q904 936 824 936Q741 936 686.0 899.5Q631 863 599.0 796.0Q567 729 553.5 637.5Q540 546 540 436ZM540 920V4H714V0H20V4H160V916H20V920Z"/><path transform="translate(58.834599999999966 150) scale(0.03780000000000001 -0.035)" d="M568 -20Q407 -20 291.0 46.0Q175 112 112.5 221.0Q50 330 50 460Q50 590 112.5 699.0Q175 808 291.0 874.0Q407 940 568 940Q729 940 845.0 874.0Q961 808 1023.5 699.0Q1086 590 1086 460Q1086 330 1023.5 221.0Q961 112 845.0 46.0Q729 -20 568 -20ZM568 -16Q597 -16 620.5 17.5Q644 51 661.0 114.0Q678 177 687.0 264.7389830508474Q696 352.4779661016949 696 460.2406779661017Q696 568 687.0 655.5Q678 743 661.0 806.0Q644 869 620.5 902.5Q597 936 568 936Q539 936 515.5 902.5Q492 869 475.0 806.0Q458 743 449.0 655.2602040816327Q440 567.5204081632653 440 459.76190476190476Q440 352 449.0 264.5Q458 177 475.0 114.0Q492 51 515.5 17.5Q539 -16 568 -16Z"/><path transform="translate(99.79359999999997 150) scale(0.03780000000000001 -0.035)" d="M1780 920V916H1577L1264 -20H1118L844 680L572 -20H426L121 916H-10V920H712V916H529L690 296L940 940H1210L1382 348L1571 916H1352V920Z"/><path transform="translate(164.71779999999998 150) scale(0.03780000000000001 -0.035)" d="M540 920V4H620V0H20V4H160V916H20V920ZM1150 638V4H1290V0H690V4H770V656Q770 740 763.5 780.0Q757 820 741.5 832.0Q726 844 698 844Q656 844 626.0 808.0Q596 772 577.0 713.0Q558 654 549.0 584.0Q540 514 540 446H536Q536 523 548.0 609.0Q560 695 594.0 770.0Q628 845 693.5 892.5Q759 940 866 940Q973 940 1035.0 901.0Q1097 862 1123.5 793.5Q1150 725 1150 638Z"/><path transform="translate(212.254 150) scale(0.03780000000000001 -0.035)" d=""/><path transform="translate(229.20999999999998 150) scale(0.03780000000000001 -0.035)" d="M852 -20Q715 -20 635.5 80.0Q556 180 540 364V0H20V4H160V1496H20V1500H540V557Q556 740 634.5 839.0Q713 938 852 938Q961 938 1058.0 881.0Q1155 824 1215.5 717.0Q1276 610 1276 460Q1276 310 1215.5 202.5Q1155 95 1058.0 37.5Q961 -20 852 -20ZM762 12Q796 12 814.0 60.0Q832 108 839.0 207.0Q846 306 846 460Q846 614 839.0 712.5Q832 811 814.0 858.5Q796 906 762 906Q712 906 660.5 858.5Q609 811 574.5 712.5Q540 614 540 460Q540 306 574.5 207.0Q609 108 660.5 60.0Q712 12 762 12Z"/><path transform="translate(277.351 150) scale(0.03780000000000001 -0.035)" d="M580 1500V4H760V0H20V4H200V1496H20V1500Z"/><path transform="translate(304.8532 150) scale(0.03780000000000001 -0.035)" d="M566 -20Q415 -20 298.5 33.5Q182 87 116.0 193.5Q50 300 50 460Q50 620 114.5 726.5Q179 833 294.0 886.5Q409 940 560 940Q709 940 812.5 880.5Q916 821 970.0 725.0Q1024 629 1024 520H184V524H642Q641 598 639.0 670.5Q637 743 629.5 803.5Q622 864 605.5 900.0Q589 936 560 936Q531 936 511.5 900.5Q492 865 480.5 803.5Q469 742 464.5 664.0Q460 586 460 500Q460 392 467.5 300.5Q475 209 495.5 142.0Q516 75 553.5 37.5Q591 0 650 0Q782 0 883.5 79.5Q985 159 1022 286H1026Q987 156 875.0 68.0Q763 -20 566 -20Z"/><path transform="translate(343.54420000000005 150) scale(0.03780000000000001 -0.035)" d="M540 920V4H620V0H20V4H160V916H20V920ZM1150 638V4H1290V0H690V4H770V656Q770 740 763.5 780.0Q757 820 741.5 832.0Q726 844 698 844Q656 844 626.0 808.0Q596 772 577.0 713.0Q558 654 549.0 584.0Q540 514 540 446H536Q536 523 548.0 609.0Q560 695 594.0 770.0Q628 845 693.5 892.5Q759 940 866 940Q973 940 1035.0 901.0Q1097 862 1123.5 793.5Q1150 725 1150 638Z"/><path transform="translate(391.08040000000005 150) scale(0.03780000000000001 -0.035)" d="M474 -20Q365 -20 268.0 37.0Q171 94 110.5 201.0Q50 308 50 458Q50 608 110.5 715.5Q171 823 268.0 880.5Q365 938 474 938Q611 938 690.5 838.0Q770 738 786 554V1496H646V1500H1166V4H1306V0H786V361Q770 178 691.5 79.0Q613 -20 474 -20ZM564 12Q614 12 665.5 59.5Q717 107 751.5 205.5Q786 304 786 458Q786 612 751.5 711.0Q717 810 665.5 858.0Q614 906 564 906Q530 906 512.0 858.0Q494 810 487.0 711.0Q480 612 480 458Q480 304 487.0 205.5Q494 107 512.0 59.5Q530 12 564 12Z"/></svg></h1><div class="jp">あなたの景色を、一杯のコーヒーに。</div><div class="rule"></div>
 <div class="lede">味覚、色、時間、記憶。<br>いくつかの感覚を重ねて、ひとつだけのブレンドへ。</div>
 <div class="hero"><div class="blendHero">
 <div id="packageHero" aria-label="パッケージと同じ切り絵モチーフのアニメーション"></div>
