@@ -1568,6 +1568,7 @@ footer{font-size:9px;letter-spacing:.16em}.subnote{font-size:10px;letter-spacing
 @media(max-width:620px){header{margin:0 -16px;padding:14px 16px}.questionCard{padding:22px 12px}.option{padding:14px}.option b{font-size:18px}.blendHero{height:auto}.hero{margin:20px auto}.blendStory{font-size:9px;bottom:8px}.qnav .primary,.qnav .secondary{font-size:12px}.qnav .primary{min-width:150px}.qnav .secondary{min-width:100px}}
 @media(prefers-reduced-motion:reduce){.paperMotion,.screen{animation:none}.progressFill{transition:none}}
 .createWordmark{width:min(100%,500px);margin:28px auto 0;line-height:0;color:#103e32}.createWordmark svg{display:block;width:100%;height:auto}
+.selectionHint{grid-column:1/-1;background:#e6eadb;border-left:4px solid #103e32;padding:13px 14px;margin:0 0 16px;font-size:15px;line-height:1.6;color:#103e32;text-align:left}.selectionHint strong{display:inline-block;margin-left:10px;font-size:13px}.selectionHint small{display:block;font-size:12px;margin-top:3px}.multiHint{grid-column:1/-1;font-size:12px}
 </style>
 </head>
 <body>
@@ -1629,7 +1630,7 @@ var beans=[
 ];
 
 var questions=[
-{id:'tasteGauge',type:'gauge',k:'TASTE BALANCE',title:'まずは、好みのバランスを教えてください',sub:'酸味・苦味・甘さ・ボディを、直感でスライドしてください。'},{id:'colorMood',type:'colorPalette',k:'BLEND COLOR',title:'このブレンドをイメージする色は？',sub:'この一杯にまとわせたい色を、直感でひとつ選んでください。'},
+{id:'tasteGauge',type:'gauge',k:'TASTE BALANCE',title:'まずは、好みのバランスを教えてください',sub:'酸味・苦味・甘さ・ボディを、直感でスライドしてください。'},{id:'colorMood',type:'colorPalette',k:'BLEND COLOR',title:'このブレンドをイメージする色は？',sub:'この一杯にまとわせたい色を、2つまで選んでください。'},
 
 {id:'fruit',multi:true,max:2,k:'ACIDITY CHARACTER',title:'どんな果実感に惹かれる？',sub:'コーヒーの酸味の質を4つの方向から、最大2つまで選んでください。',options:[
 {v:'berry',l:'BERRY',s:'いちご・赤スグリ・赤い果実',i:'●',fx:{fruity:5,sweet:2}},
@@ -1660,7 +1661,7 @@ var questions=[
 var st={
 screen:0,qi:0,
 gauges:{acidity:50,bitterness:50,sweetness:50,body:50},
-colorChoice:'blue',
+colorChoice:'blue',colorSelections:['blue'],
 structure:50,
 answers:{fruit:[]},
 scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},
@@ -1670,7 +1671,7 @@ blend:[],no:18,title:'ONE OF ONE'
 function show(n){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById('s'+n).classList.add('active');st.screen=n;window.scrollTo({top:0,behavior:'smooth'})}
 function startQuestions(){st.qi=0;renderQuestion();show(1)}
 function globalBack(){if(st.screen===1){questionBack();return}if(st.screen>0)show(st.screen-1)}
-function resetAll(){st={screen:0,qi:0,gauges:{acidity:50,bitterness:50,sweetness:50,body:50},colorChoice:'blue',structure:50,answers:{fruit:[]},scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},blend:[],no:18,title:'ONE OF ONE'};var i=document.getElementById('blendNameWord');if(i)i.value='';show(0)}
+function resetAll(){st={screen:0,qi:0,gauges:{acidity:50,bitterness:50,sweetness:50,body:50},colorChoice:'blue',colorSelections:['blue'],structure:50,answers:{fruit:[]},scores:{fruity:0,sweet:0,nutty:0,deep:0,clean:0,balanced:0},blend:[],no:18,title:'ONE OF ONE'};var i=document.getElementById('blendNameWord');if(i)i.value='';show(0)}
 function currentQuestion(){return questions[st.qi]}
 function qById(id){return questions.find(function(q){return q.id===id})}
 function ans(id){var q=qById(id);if(!q||q.type==='gauge'||q.type==='colorPalette'||q.type==='structureGauge'||q.multi)return null;var v=st.answers[id];return q.options.find(function(o){return o.v===v})||null}
@@ -1709,16 +1710,26 @@ var colorChoices=[
 {key:'brown',label:'EARTH',name:'土・香ばしさ',color:'#7a5a45',fx:{nutty:4,deep:2}},
 {key:'black',label:'NIGHT',name:'夜・深さ',color:'#202321',fx:{deep:4,nutty:2}}
 ];
+function selectedColors(){return (Array.isArray(st.colorSelections)?st.colorSelections:[st.colorChoice||'blue']).filter(function(key){return colorChoices.some(function(c){return c.key===key})}).slice(0,2)}
 function colorTheme(){
-return colorChoices.find(function(x){return x.key===st.colorChoice})||colorChoices[4]
+var keys=selectedColors(),items=keys.map(function(key){return colorChoices.find(function(c){return c.key===key})});
+if(!items.length)return {key:'blue',label:'未選択',name:'色を選んでください',color:'#587084',fx:{}};
+var fx={};items.forEach(function(c){Object.keys(c.fx).forEach(function(k){fx[k]=(fx[k]||0)+c.fx[k]/items.length})});
+return {key:items[0].key,label:items.map(function(c){return c.label}).join(' + '),name:items.map(function(c){return c.name}).join(' / '),color:items[0].color,fx:fx};
 }
 function renderColorPalette(){
-var t=colorTheme();
-return '<div class="colorPalettePanel"><div class="paletteGrid">'+colorChoices.map(function(o){
-return '<button type="button" aria-label="'+o.label+'" aria-pressed="'+(o.key===st.colorChoice)+'" class="paletteTile '+(o.key===st.colorChoice?'sel':'')+'" style="background:'+o.color+'" onclick="setColorChoice(\''+o.key+'\')"></button>'
+var t=colorTheme(),selected=selectedColors();
+return '<div class="colorPalettePanel"><div class="selectionHint" role="status">2つまで選択できます <strong>'+selected.length+' / 2 選択中</strong><small>1色でもOK。選んだ色をもう一度押すと解除できます。</small></div><div class="paletteGrid">'+colorChoices.map(function(o){
+var on=selected.indexOf(o.key)>-1;
+return '<button type="button" aria-label="'+o.label+' '+o.name+'" aria-pressed="'+on+'" class="paletteTile '+(on?'sel':'')+'" style="background:'+o.color+'" onclick="setColorChoice(\''+o.key+'\')"></button>'
 }).join('')+'</div><div class="paletteName">'+t.label+'</div><div class="paletteHint">'+t.name+'</div></div>'
 }
-function setColorChoice(key){st.colorChoice=key;var t=colorTheme();document.documentElement.style.setProperty('--userColor',t.color);renderQuestion()}
+function setColorChoice(key){
+if(!colorChoices.some(function(c){return c.key===key}))return;
+var keys=selectedColors(),i=keys.indexOf(key);
+if(i>=0)keys.splice(i,1);else{if(keys.length===2){toast('2つまで選べます。選択中の色を押して解除してください');return}keys.push(key)}
+st.colorSelections=keys;st.colorChoice=keys[0]||'blue';document.documentElement.style.setProperty('--userColor',colorTheme().color);renderQuestion();
+}
 function structureTheme(){
 var v=Number(st.structure);
 if(v<34)return {key:'simple',label:'SIMPLE',fx:{balanced:2}};
@@ -1745,7 +1756,7 @@ if(q.type==='colorPalette'){var qo=document.getElementById('qOptions');qo.style.
 if(q.type==='structureGauge'){var qo=document.getElementById('qOptions');qo.style.display='block';qo.style.width='100%';qo.innerHTML=renderStructureGauge();document.getElementById('qNext').textContent='NEXT →';return}
 var selected=st.answers[q.id];
 var normalOptions=document.getElementById('qOptions');normalOptions.style.display='grid';normalOptions.style.width='100%';
-normalOptions.innerHTML=q.options.map(function(o){
+normalOptions.innerHTML=(q.multi?'<div class="selectionHint" role="status">'+q.max+'つまで選択できます <strong>'+((selected||[]).length)+' / '+q.max+' 選択中</strong><small>選んだ項目をもう一度押すと解除できます。</small></div>':'')+q.options.map(function(o){
 var isSel=q.multi?(Array.isArray(selected)&&selected.indexOf(o.v)>-1):selected===o.v;
 var visual=o.c?'<div class="colorDot" style="background:'+o.c+'"></div>':'<div class="oi">'+(o.i||'○')+'</div>';
 return '<button type="button" aria-pressed="'+isSel+'" class="option '+(isSel?'sel':'')+'" onclick="pickAnswer(\''+o.v+'\')">'+visual+'<b>'+o.l+'</b><small>'+o.s+'</small></button>'
@@ -1766,6 +1777,7 @@ renderQuestion()
 function questionBack(){if(st.qi>0){st.qi--;renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}else show(0)}
 function questionNext(){
 var q=currentQuestion();
+if(q.type==='colorPalette'&&!selectedColors().length){toast('色を1つ以上選んでください');return}
 if(q.type!=='gauge'&&q.type!=='colorPalette'&&q.type!=='structureGauge'){
 if(q.multi){if(!Array.isArray(st.answers[q.id])||st.answers[q.id].length===0){toast('ひとつ以上選んでください');return}}
 else if(!st.answers[q.id]){toast('ひとつ選んでください');return}
@@ -1907,7 +1919,7 @@ if(st.screen===5)document.getElementById('paper').innerHTML=labelSvg();
 }
 function artPalette(){
 var inks={snow:'#eee5cf',mint:'#b8d2b1',forest:'#b6c18d',aqua:'#86c9c3',blue:'#a6bddd',navy:'#96a1c8',violet:'#c29adc',pink:'#e7a5b7',red:'#e56a70',orange:'#e5a16e',yellow:'#e3c572',brown:'#cba681',black:'#cbc7bc'};
-var strength=printStrength/100;return [mixInk('#103e32','#178f65',strength),mixInk(inks[colorTheme().key]||inks.blue,'#fffdf5',strength*.16),'#fffdf5'];
+var strength=printStrength/100,keys=selectedColors();return [mixInk('#103e32','#178f65',strength),mixInk(inks[keys[0]]||inks.blue,'#fffdf5',strength*.16),'#fffdf5',keys[1]?mixInk(inks[keys[1]],'#fffdf5',strength*.16):null];
 }
 function randomArtNumber(){
 if(window.crypto&&window.crypto.getRandomValues){var n=new Uint32Array(1);window.crypto.getRandomValues(n);return n[0]}
@@ -1966,6 +1978,16 @@ if(kind==='balance')return '<path d="M40 6C53 -1 63 16 62 39L93 39C89 56 80 67 6
 if(kind==='orbit')return '<path d="M54 3C84 3 99 23 94 49C90 75 70 98 44 96C17 93 1 70 5 44C9 17 26 2 54 3Z"/><path d="M64 22C76 28 78 49 67 61C58 72 37 78 30 62C24 49 38 46 44 39C49 34 47 15 64 22Z" fill="'+artPalette()[0]+'"/>';
 return '<path d="M2 82C17 77 25 47 48 48C70 51 74 15 98 18L98 96L2 96Z"/>';
 }
+function packedArtCells(seed,level){
+var r=artRandom((seed+937)>>>0),cells=[[10,12,380,396]],count=level<.34?4:level>.66?8:6,gap=4;
+while(cells.length<count){
+var index=0;for(var j=1;j<cells.length;j++)if(cells[j][2]*cells[j][3]>cells[index][2]*cells[index][3])index=j;
+var c=cells.splice(index,1)[0],vertical=c[2]/c[3]>1.15?true:c[2]/c[3]<.85?false:r()>.5,ratio=.43+r()*.14;
+if(vertical){var w=(c[2]-gap)*ratio;cells.push([c[0],c[1],w,c[3]],[c[0]+w+gap,c[1],c[2]-w-gap,c[3]])}
+else{var h=(c[3]-gap)*ratio;cells.push([c[0],c[1],c[2],h],[c[0],c[1]+h+gap,c[2],c[3]-h-gap])}
+}
+return cells;
+}
 function cutComposition(){
 var seed=artSeed(),r=artRandom(seed),p=artPalette(),level=st.structure/100;
 var library=['petal','spark','ribbon','wave','fold','arch','balance','orbit','land','crescent','fan','pebble','strata','leafcut','loop','crosscut'];
@@ -1973,21 +1995,7 @@ var fruit={berry:'petal',citrus:'spark',apple:'orbit',winey:'ribbon'};
 var memory={morning:'fan',night:'crescent',work:'strata',outdoor:'leafcut',snow:'spark',aftermeal:'pebble'};
 var fav=(st.answers.fruit||[]).map(function(f){return fruit[f]});fav.push(memory[st.answers.moment]||'fold');
 // Every new creation chooses a composition, with independently shuffled silhouettes.
-var layouts=[
-[[12,10,225,243],[265,7,123,127],[264,165,125,159],[10,280,131,130],[170,339,225,76]],
-[[6,5,121,119],[149,4,105,150],[279,12,117,123],[4,159,124,152],[158,187,236,223],[2,338,135,76]],
-[[5,5,164,398],[202,0,194,135],[202,174,82,91],[305,176,89,94],[205,312,185,102]],
-[[5,2,390,242],[8,285,106,123],[148,293,107,112],[293,281,103,135]],
-[[3,8,140,150],[168,60,225,224],[4,204,116,203],[159,318,235,97],[258,1,134,55]],
-[[1,0,189,186],[220,4,173,146],[12,229,165,175],[213,184,177,228]],
-[[3,7,98,123],[132,0,138,192],[307,7,86,149],[2,168,94,222],[133,231,260,180]],
-[[2,4,249,154],[281,1,115,185],[10,209,173,205],[211,229,181,181]]
-];
-var layoutIndex=(st.artVariant==null?seed:st.artVariant)%layouts.length;
-var layout=layouts[layoutIndex].map(function(a){return a.slice()});
-// SIMPLE leaves generous shapes intact; COMPLEX splits selected fields into a collage.
-if(level>.66){var candidates=layout.map(function(c,i){return c[2]>150&&c[3]>150?i:-1}).filter(function(i){return i>=0}),pos=candidates.length?candidates[Math.floor(r()*candidates.length)]:0,cell=layout.splice(pos,1)[0],w=(cell[2]-13)/2,h=(cell[3]-13)/2;layout.push([cell[0],cell[1],w,h],[cell[0]+w+13,cell[1],w,h],[cell[0],cell[1]+h+13,w,h],[cell[0]+w+13,cell[1]+h+13,w,h]);}
-if(level<.34&&layout.length>4){layout=layout.slice(0,4);}
+var layout=packedArtCells(st.artVariant==null?seed:st.artVariant,level);
 var pool=library.slice();for(var i=pool.length-1;i>0;i--){var j=Math.floor(r()*(i+1)),tmp=pool[i];pool[i]=pool[j];pool[j]=tmp;}
 // The selected taste contributes motifs without fixing their positions.
 var favSlot=Math.floor(r()*layout.length),secondarySlot=(favSlot+2)%layout.length;
@@ -1995,14 +2003,11 @@ var out='',used=[];
 layout.forEach(function(l,i){
 var k=i===favSlot?fav[0]:i===secondarySlot?fav[fav.length-1]:pool[i%pool.length];
 if(used.indexOf(k)>-1)k=pool[(i+7)%pool.length];used.push(k);
-var tilt=(r()-.5)*(st.gauges.acidity>65?24:14),scale=.91+r()*.07,flip=r()>.63;
-var ink=(level>.34&&i===secondarySlot)?p[2]:p[1];
-out+='<g transform="translate('+(l[0]+l[2]/2)+' '+(l[1]+l[3]/2)+') rotate('+tilt.toFixed(2)+') scale('+(l[2]/100*scale*(flip?-1:1)).toFixed(3)+' '+(l[3]/100*scale).toFixed(3)+') translate(-50 -50)" fill="'+ink+'" color="'+ink+'">'+cutShape(k,seed+i*97)+'</g>';
-// A second cut-paper fragment occasionally intersects the primary field.
-if(level>.55&&l[2]>150&&l[3]>150){
-var sub=pool[(i+9)%pool.length],size=46+r()*24,x=l[0]+l[2]*.70,y=l[1]+l[3]*.68;
-out+='<g transform="translate('+x.toFixed(1)+' '+y.toFixed(1)+') rotate('+(-28+r()*56).toFixed(1)+') scale('+(size/100).toFixed(3)+')" fill="'+p[2]+'" color="'+p[2]+'">'+cutShape(sub,seed+131+i)+'</g>';
-}
+var flip=r()>.5;
+var ink=p[3]?(i%2?p[3]:p[1]):((level>.34&&i===secondarySlot)?p[2]:p[1]);
+// Separate viewports keep every complete motif inside its own non-overlapping cell.
+out+='<svg x="'+l[0]+'" y="'+l[1]+'" width="'+l[2]+'" height="'+l[3]+'" viewBox="'+(k==='petal'?'-12 -12 124 124':'-4 -4 108 108')+'" preserveAspectRatio="none" overflow="hidden" data-art-cell="'+l.join(',')+'"><g transform="'+(flip?'translate(100 0) scale(-1 1)':'translate(0 0)')+'" fill="'+ink+'" color="'+ink+'">'+cutShape(k,seed+i*97)+'</g></svg>';
+
 });
 return '<svg width="400" height="420" viewBox="0 0 400 420" overflow="hidden" xmlns="http://www.w3.org/2000/svg">'+out+'</svg>';
 }
