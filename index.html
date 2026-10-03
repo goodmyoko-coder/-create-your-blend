@@ -1627,7 +1627,7 @@ var beans=[
 {id:'arichaD',name:'エチオピア Yirgacheffe Aricha',short:'ETHIOPIA ARICHA DARK',origin:'ETHIOPIA',process:'Natural',roast:'Dark',acid:2,bitter:5,note:'アロマティック・ストロベリーリキュール・ダークチョコレート',mood:'日の入・あでやか・イブニングブルーアワー',w:{fruity:3,sweet:4,nutty:1,deep:5,clean:2,balanced:3}},
 {id:'narinoD',name:'コロンビア Nariño Gran Joya SUP',short:'COLOMBIA NARINO',origin:'COLOMBIA',process:'Washed',roast:'Dark',acid:1,bitter:5,note:'黒ごま・赤りんご・焦キャラメル',mood:'森林浴・渓流・新月',w:{fruity:2,sweet:3,nutty:3,deep:5,clean:3,balanced:3}},
 {id:'bella',name:'ブラジル South Minas Bella Vistal',short:'BRAZIL BELLA VISTAL',origin:'BRAZIL',process:'Pulped Natural',roast:'Dark',acid:1,bitter:5,note:'ナッツ・ダークチョコレート・ドライオレンジ',mood:'焚き火・読書・一服',w:{fruity:1,sweet:4,nutty:5,deep:5,clean:1,balanced:3}},
-{id:'decaf',name:'エチオピア Shakiso TADE GG（デカフェ）',short:'ETHIOPIA SHAKISO DECAF',origin:'ETHIOPIA',process:'Natural MW Decaf',roast:'Medium',acid:4,bitter:3,note:'レモネード・ハーブ・ダージリンティー',mood:'窓辺・安寧・散歩',w:{fruity:3,sweet:2,nutty:1,deep:2,clean:4,balanced:4}}
+{id:'decaf',available:false,name:'エチオピア Shakiso TADE GG（デカフェ）',short:'ETHIOPIA SHAKISO DECAF',origin:'ETHIOPIA',process:'Natural MW Decaf',roast:'Medium',acid:4,bitter:3,note:'レモネード・ハーブ・ダージリンティー',mood:'窓辺・安寧・散歩',w:{fruity:3,sweet:2,nutty:1,deep:2,clean:4,balanced:4}}
 ];
 
 var questions=[
@@ -1851,7 +1851,7 @@ return x
 }
 function blendPlan(){var c=structureTheme().key;if(c==='simple')return {count:2,pct:[70,30],label:'2 BEANS / SIMPLE'};if(c==='complex')return {count:4,pct:[40,25,20,15],label:'4 BEANS / COMPLEX'};return {count:3,pct:[50,30,20],label:'3 BEANS / LAYERED'}}
 function buildBlend(){
-var scored=beans.map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});
+var scored=beans.filter(function(b){return b.available!==false}).map(function(b){var s=0;Object.keys(st.scores).forEach(function(k){s+=st.scores[k]*(b.w[k]||0)});s+=beanBonus(b);return {b:b,s:s}}).sort(function(a,b){return b.s-a.s});
 var plan=blendPlan(),top=scored.slice(0,plan.count);
 st.blend=top.map(function(x,i){return {bean:x.b,pct:plan.pct[i],score:x.s}});
 st.no=18+Math.floor(Date.now()/1000)%80;renderBlend();show(3)
